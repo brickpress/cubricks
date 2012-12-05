@@ -58,7 +58,8 @@ function cubricks_setup() {
 	
 	// Adds Jetpack's infinite scroll support.
 	add_theme_support( 'infinite-scroll', array(
-		'container'    => 'content',
+		'container' => 'content',
+		'footer'    => 'page'
 	) );
 	
 	// Add support for custom background color and image.

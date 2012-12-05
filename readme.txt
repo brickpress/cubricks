@@ -2,7 +2,7 @@
 
 Author: Raphael Villanea <support@brickpress.us>
 Requires at least: 3.1
-Tested up to: 3.5-RC2
+Tested up to: 3.5-RC3
 Version: 1.0.6
 
 == Licenses and Copyright Info ==
@@ -91,6 +91,6 @@ Check out live demos of the theme: http://brickpress.us/
  * added option to choose social icons
  * added option to hide footer widget area on slider homepage page template
  
-27 November 2012 - version 1.0.5
+27 November 2012 - version 1.0.6
  * Implemented theme options into Theme Customizer. Made a lot of changes including the removal of the theme options page and Setting API altogether.
  * Cubricks Theme is now based on TwentyTwelve Theme by WordPress.
