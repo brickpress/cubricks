@@ -1163,6 +1163,8 @@ function cubricks_theme_mods() {
 	    'page_layout'             => 'full-wide',
 		'page_top_margin'         => '48',
 		'site_logo'               => '',
+		// Featured Posts Slider
+		'slider_position'         => 'after_header',
 		'large_slider_width'      => '1024',
 		'large_slider_height'     => '520',
 		'slider_timer'            => '5',
