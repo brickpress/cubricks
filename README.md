@@ -1,4 +1,0 @@
-cubricks
-========
-
-Cubricks Theme
