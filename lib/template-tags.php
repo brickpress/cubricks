@@ -520,10 +520,14 @@ function cubricks_custom_header() {
 	
 	if( is_page_template('page-templates/showcase.php') || is_page_template('page-templates/homepage.php') )
 		return;
-	
-	$header_image = get_header_image();
-	if ( ! empty( $header_image ) ) : ?>
-		<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_url( $header_image ); ?>" class="header-image" width="<?php echo get_custom_header()->width; ?>" height="<?php echo get_custom_header()->height; ?>" alt="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" /></a>
+	?>
+	<div id="custom-header" class="wrapper">
+		<div class="inner"><?php
+		$header_image = get_header_image();
+		if ( ! empty( $header_image ) ) : ?>
+			<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_url( $header_image ); ?>" class="header-image" width="<?php echo get_custom_header()->width; ?>" height="<?php echo get_custom_header()->height; ?>" alt="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" /></a>
+        </div>
+    </div><!-- #custom-header .wrapper -->
 	<?php endif;
 }
 

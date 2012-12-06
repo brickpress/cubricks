@@ -30,10 +30,8 @@
 
 <body <?php body_class(); ?>>
 <div id="page" class="hfeed site">
-	<?php 
-	if( is_page_template('page-templates/showcase.php') && get_theme_mod('slider_position') == 'before_header' || is_page_template('page-templates/homepage.php') && get_theme_mod('slider_position') == 'before_header' )
-    		cubricks_showcase_slider(); ?>
-   
+<?php if( is_page_template('page-templates/showcase.php') && get_theme_mod('slider_position') == 'before_header' || is_page_template('page-templates/homepage.php') && get_theme_mod('slider_position') == 'before_header' )
+		cubricks_showcase_slider(); ?>
     <div id="header" class="wrapper">
         <header id="masthead" class="site-header inner" role="banner">
         	<?php if( '' != get_theme_mod('site_logo') ) : ?>
@@ -43,22 +41,14 @@
                 <h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
                 <h2 class="site-description"><?php bloginfo( 'description' ); ?></h2>
             </hgroup>
-            <?php // Calls the naigatin menu located at the header. 
-		 		  cubricks_header_nav(); ?>
-        
-			<?php // Displays our custom header. 
-				  cubricks_custom_header(); ?>
+            <?php cubricks_header_nav(); ?>
         </header><!-- #masthead .inner -->
     </div><!-- #header .wrapper -->
-
+	<?php cubricks_custom_header(); ?>
     <div id="sub-head" class="wrapper">
-    <?php // Call the theme's primary navigation.
-	cubricks_nav_menu(); ?>
+    <?php cubricks_nav_menu(); ?>
     </div><!-- #sub-head .inner -->
-
-    <?php 
-	if( is_page_template('page-templates/showcase.php') && get_theme_mod('slider_position') == 'after_header' || is_page_template('page-templates/homepage.php') && get_theme_mod('slider_position') == 'after_header' )
-          cubricks_showcase_slider();
-		  ?>
+    <?php if( is_page_template('page-templates/showcase.php') && get_theme_mod('slider_position') == 'after_header' || is_page_template('page-templates/homepage.php') && get_theme_mod('slider_position') == 'after_header' )
+          cubricks_showcase_slider(); ?>
     <div id="main-content" class="wrapper">
         <div id="main" class="inner">

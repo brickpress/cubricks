@@ -18,10 +18,9 @@
 	max-height: 365px;
 }
 #showcase-slider #slider-wrapper,
-#showcase-slider .nivoSlider,
-#showcase-slider .slider-overlay {
-	max-width: 1024px;
-	max-height: 520px;
+#showcase-slider .nivoSlider {
+	max-width: 1400px;
+	max-height: 518px;
 	margin: 0 auto;
 }
 #slider-wrapper {
