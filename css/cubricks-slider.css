@@ -12,13 +12,14 @@
 /* =Nivo Slider
 ------------------------------------------ */
 #content-slider #slider-wrapper,
-#content-slider .nivoSlider {
+#content-slider .nivoSlider,
+#content-slider .slider-overlay {
 	max-width: 680px;
 	max-height: 365px;
 }
 #showcase-slider #slider-wrapper,
 #showcase-slider .nivoSlider,
-.slider-overlay {
+#showcase-slider .slider-overlay {
 	max-width: 1024px;
 	max-height: 520px;
 	margin: 0 auto;
@@ -87,12 +88,15 @@
 	margin: 0 auto;
 	margin-top: -120px;
 }
-#showcase-slider .nivo-caption {
-	font-size: 24px;
+#content-slider .nivo-caption {
+	margin: 0 auto;
+	margin-top: -100px;
+}
+#content-slider .nivo-caption {
+	font-size: 17px;
 	background: none;
 }
 .nivo-caption {
-	background: #000;
 	color: #FFF;
 	width: 100%;
 	z-index: 9999;
@@ -105,8 +109,6 @@
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 	box-sizing: border-box;         /* Opera/IE 8+ */
-}
-#showcase-slider .nivo-caption {
 	position: absolute;
 }
 .nivo-caption p {
@@ -148,8 +150,8 @@
 	position: absolute;
 	z-index: 9;
 	cursor: pointer;
-	width: 23px;
-	height: 35px;
+	width: 50px;
+	height: 50px;
 	text-indent: -9999px;
 	opacity: 0.6;
     -webkit-transition: all 200ms ease-in-out;
@@ -182,15 +184,9 @@
     -o-transition: all 200ms ease-in-out;
     transition: all 200ms ease-in-out;
 }
-#showcase-slider .nivo-directionNav a {
-	width: 23px;
-	height: 35px;
-	top: -50px;
-}
+#showcase-slider .nivo-directionNav a,
 #content-slider .nivo-directionNav a {
-	width: 23px;
-	height: 35px;
-	top: -80px;
+	top: -50px;
 }
 #content-slider .nivo-directionNav a:hover,
 #showcase-slider .nivo-directionNav a:hover {
@@ -230,7 +226,6 @@
 .nivo-controlNav a.active {
 	font-weight: bold;
 }
-
 #showcase-slider .nivo-directionNav,
 #showcase-slider .nivo-caption,
 #showcase-slider .nivo-controlNav {

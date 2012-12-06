@@ -289,6 +289,13 @@ textarea {
 	border: 1px solid #ccc;
 	border-radius: 3px;
 }
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+textarea:focus {
+	border-color: #638EBC;
+}
 #supplementary .widget.widget_search input[type="submit"] {
 	display: none;
 }
@@ -1672,6 +1679,9 @@ img#wpstats {
 	#secondary .widget.widget_search input[type="submit"] {
 		visibility: hidden;
 	}
+	#showcase-slider .nivo-caption {
+		font-size: 17px;
+	}
 }
 
 /* Minimum width of 1024 pixels. */
@@ -1742,6 +1752,10 @@ img#wpstats {
 	#secondary .widget.widget_search input[type="text"] {
 		width: 60%;
 	}
+	#showcase-slider .nivo-caption {
+		font-size: 24px;
+	}
+	
 	/* Superfish Navigation */
 	nav-menu a.sf-with-ul {
 		min-width:		1px; /* trigger IE7 hasLayout so spans position accurately */

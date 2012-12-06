@@ -499,17 +499,17 @@ function cubricks_customize_register( $wp_customize ) {
 		'settings' => 'large_slider_height',	
 	) ) );
 	
-	$wp_customize->add_setting( 'large_slider_caption', array(
-		'default'           => get_default_theme_mod('large_slider_caption'),
+	$wp_customize->add_setting( 'slider_caption_color', array(
+		'default'           => get_default_theme_mod('slider_caption_color'),
 		'type'              => 'theme_mod',
 		'sanitize_callback' => 'sanitize_hex_color',
 		'capability'        => $capability,
 	) );
 	
-	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'large_slider_caption', array(
+	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'slider_caption_color', array(
 		'label'    => __('Large Slider Caption Color', 'cubricks'),
 		'section'  => 'slider_section',
-		'settings' => 'large_slider_caption',
+		'settings' => 'slider_caption_color',
 	) ) );
 	
 	/* Reset Section
@@ -683,8 +683,9 @@ function cubricks_text_color() {
 		.main-navigation li ul li a:hover {
 			background: <?php echo get_theme_mod('menu_hover_background'); ?>;
 		}
-		#showcase-slider .nivo-caption {
-			color: <?php echo get_theme_mod('large_slider_caption'); ?>;
+		#showcase-slider .nivo-caption,
+		#content-slider .nivo-caption {
+			color: <?php echo get_theme_mod('slider_caption_color'); ?>;
 		}
 	}
 	#secondary .widget h3,
@@ -1116,17 +1117,11 @@ function cubricks_large_slider_size() {
 				max-width: <?php echo $large_slider_width; ?>px;
 				max-width: <?php echo ($large_slider_width / $rembase) ; ?>rem;
 			}
-			<?php elseif( '1024' == $large_slider_width && '520' != $large_slider_height ) : ?>
+			<?php elseif( get_default_theme_mod('large_slider_width') == $large_slider_width && get_default_theme_mod('large_slider_height') != $large_slider_height ) : ?>
 			#showcase-slider #slider-wrapper,
 			#showcase-slider .nivoSlider {
 				max-height: <?php echo $large_slider_height; ?>px;
 				max-height: <?php echo ($large_slider_height / $rembase) ; ?>rem;
-			}
-			#showcase-slider .nivo-directionNav a {
-				top: -<?php echo ((520 - $large_slider_height) + 50); ?>px;
-			}
-			#showcase-slider .nivo-controlNav {
-				top: -<?php echo ((520 - $large_slider_height) + 20); ?>px;
 			}
 			<?php else : ?>
 			#showcase-slider #slider-wrapper,
@@ -1135,12 +1130,6 @@ function cubricks_large_slider_size() {
 				max-width: <?php echo ($large_slider_width / $rembase); ?>rem;
 				max-height: <?php echo $large_slider_height; ?>px;
 				max-height: <?php echo ($large_slider_height / $rembase); ?>rem;
-			}
-			#showcase-slider .nivo-directionNav a {
-				top: -<?php echo ((520 - $large_slider_height) + 50); ?>px;
-			}
-			#showcase-slider .nivo-controlNav {
-				top: -<?php echo ((520 - $large_slider_height) + 20); ?>px;
 			}
 		<?php endif; ?>
 		</style>
@@ -1160,6 +1149,7 @@ add_action( 'wp_head', 'cubricks_large_slider_size' );
 function cubricks_theme_mods() {
 	
 	$defaults = array(
+		'cubricks_page_width'	  => '1024',
 	    'page_layout'             => 'full-wide',
 		'page_top_margin'         => '48',
 		'site_logo'               => '',
@@ -1169,8 +1159,8 @@ function cubricks_theme_mods() {
 		'large_slider_height'     => '520',
 		'slider_timer'            => '5',
 		'slider_effects'          => 'fade',
-		'slider_items'            => '6',
-		'large_slider_caption'    => '#FFFFFF',
+		'slider_items'            => '10',
+		'slider_caption_color'    => '#FFFFFF',
 		// Text Colors
 		'header_textcolor'        => get_theme_support( 'custom-header', 'default-text-color' ),
 		'background_color'        => get_theme_support( 'custom-background', 'default-color' ),

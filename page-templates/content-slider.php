@@ -50,7 +50,7 @@ get_header(); ?>
 					global $more;
 					$more = 0;
 					    
-                get_template_part( 'content', 'posts' ); ?>
+                get_template_part( 'content' ); ?>
             
             	<?php endwhile; ?>
             

@@ -154,7 +154,8 @@ function cubricks_header_nav() {
 				  'theme_location' => 'header',
 				  'show_home' 	   => false,
 				  'menu_class' 	   => 'nav-menu',
-				  'depth'          => 1
+				  'depth'          => 1,
+				  'fallback_cb'    => false
 			  )); ?>
 	</nav><!-- #site-navigation .header-navigation -->
 <?php

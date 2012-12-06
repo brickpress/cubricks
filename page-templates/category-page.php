@@ -71,7 +71,7 @@ get_header(); ?>
 			
 				while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
             
-                <?php get_template_part( 'content', 'posts' ); ?>
+                <?php get_template_part( 'content' ); ?>
             
             	<?php endwhile; ?>
             

@@ -26,6 +26,8 @@
         // Get this slider
         var slider = $(element);
         slider.data('nivo:vars', vars).addClass('nivoSlider');
+		
+		var sliderOverlay = slider.siblings();
 
         // Find our slider children
         var kids = slider.children();
@@ -88,7 +90,8 @@
         });
 
         //Create caption
-        slider.siblings().append($('<div class="nivo-caption"></div>'));
+		vars.captionDiv = $('<div class="nivo-caption"></div>');
+        sliderOverlay.append(vars.captionDiv);
         
         // Process caption function
         var processCaption = function(settings){
@@ -121,7 +124,9 @@
         
         // Add Direction nav
         if(settings.directionNav){
-            slider.append('<div class="nivo-directionNav"><span><a class="nivo-prevNav"><span class="arrow">'+ settings.prevText +'</span></a></span><span><a class="nivo-nextNav"><span class="arrow">'+ settings.nextText +'</span></a></span></div>');
+			vars.sliderNav = $('<div class="nivo-directionNav"><span><a class="nivo-prevNav"><span class="arrow">'+ settings.prevText +'</span></a></span><span><a class="nivo-nextNav"><span class="arrow">'+ settings.nextText +'</span></a></span></div>');
+			slider.append(vars.sliderNav);
+            //slider.prepend('<div class="nivo-directionNav"><span><a class="nivo-prevNav"><span class="arrow">'+ settings.prevText +'</span></a></span><span><a class="nivo-nextNav"><span class="arrow">'+ settings.nextText +'</span></a></span></div>');
 
             $('a.nivo-prevNav', slider).live('click', function(){
                 if(vars.running) { return false; }

@@ -37,7 +37,7 @@ get_header(); ?>
 				// The first Recent post is displayed normally
 				if ( $recent->have_posts() ) : $recent->the_post();
 				
-					get_template_part( 'content', 'posts' );
+					get_template_part( 'content' );
 				
 				endif;
 
@@ -50,9 +50,23 @@ get_header(); ?>
 
                 <header class="entry-header">
                 <?php $post_format = strtolower( get_post_format() );
-                if( $post_format == '' || $post_format == 'gallery' || $post_format == 'audio' || $post_format == 'chat' || $post_format == 'status' )
+                if( $post_format == '' || $post_format == 'gallery' || $post_format == 'audio' || $post_format == 'chat' )
                     cubricks_post_title(); ?>
-                </header>
+                </header><!-- .entry-header -->
+
+                <?php if( $post_format == 'status' ) : ?>
+                <div class="entry-header">
+                    <header>
+                        <h1><?php the_author(); ?></h1>
+                        <h2><a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'cubricks' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php echo get_the_date(); ?></a></h2>
+                    </header>
+                    <?php echo get_avatar( get_the_author_meta( 'ID' ), apply_filters( 'cubricks_status_avatar', '70' ) ); ?>
+                </div><!-- .entry-header -->
+                <?php endif; ?>
+    
+                <?php if( $post_format == 'link' ) : ?>
+                    <header><span class="link-icon"><span><?php _e( 'Link', 'cubricks' ); ?></span></span></header><!-- .entry-header -->
+                <?php endif; ?>
                
                 <div class="clear"></div>
                 <div class="entry-content">
@@ -64,10 +78,14 @@ get_header(); ?>
                 </div><!-- .entry-content -->
                 
                 <footer class="entry-meta">
+                <?php if( has_post_format('link') || has_post_format('quote') | has_post_format('aside') ) : ?>
+                    <a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'cubricks' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php echo get_the_date(); ?></a>
+                <?php else : ?>
                     <?php cubricks_entry_meta(); ?>
-                    <?php cubricks_comments_link(); ?>
-                    <?php edit_post_link( '<span class="edit-icon"></span>'. __( 'Edit', 'cubricks' ), '<span class="edit-link">', '</span>' ); ?>
+                <?php endif; ?>
                 </footer>
+                    <?php cubricks_comments_link(); ?>
+                    <?php cubricks_edit_link(); ?>
                 <div class="clear"></div>
                 
                 <div class="left-post-shadow"></div>

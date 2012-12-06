@@ -59,7 +59,7 @@ function cubricks_setup() {
 	// Adds Jetpack's infinite scroll support.
 	add_theme_support( 'infinite-scroll', array(
 		'container' => 'content',
-		'footer'    => 'page'
+		'footer'    => 'main'
 	) );
 	
 	// Add support for custom background color and image.
@@ -88,8 +88,8 @@ function cubricks_setup() {
 	// Sets the height of the large featured slider. Default value is 550px.
 	$large_slider_height = get_theme_mod('large_slider_height');
 	
-	add_image_size( 'cubricks-large-slider', $large_slider_width, 9999 );         // 1024 pixels wide and unlimited height, soft crop
-	add_image_size( 'cubricks-medium-slider', $medium_slider_width, 9999 ); 	   //  680 pixels wide and unlimited height, soft crop
+	add_image_size( 'cubricks-large-slider', $large_slider_width, $large_slider_height, true ); 
+	add_image_size( 'cubricks-medium-slider', $medium_slider_width, $medium_slider_height, true );
 	
 	// This theme uses a custom image size for featured images, displayed on "standard" posts.
 	add_theme_support( 'post-thumbnails' );	
