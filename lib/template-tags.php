@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @package    Cubricks Theme
- * @author     Raphael Villanea <support@brickpress.us>
+ * @author     Raphael Villanea <raphael@cubrick.us>
  * @copyright  Copyright (c) 2012, Raphael Villanea
  * @license    http://www.gnu.org/licenses/gpl-2.0.html
  * @since      1.0.0
@@ -119,7 +119,6 @@ if( ! function_exists('cubricks_nav_menu') ) :
             <?php wp_nav_menu( array(
 					  'theme_location' => 'primary',
 					  'show_home' 	   => false,
-					  /*'items_wrap'     => '<ul id="%1$s" class="sf-menu">%3$s</ul>',*/
 					  'menu_class' 	   => 'nav-menu'
 				      ));
 			?>
@@ -144,20 +143,26 @@ add_action( 'cubricks_header_menu', 'cubricks_header_nav' );
  */
 if( ! function_exists('cubricks_header_nav') ) :
 function cubricks_header_nav() {
-
-	if ( !is_user_logged_in() ) { ?>
-		<div class="cubricks-login"><?php wp_loginout(); ?></div><?php
-	} ?>
-	<nav id="top-navigation" class="header-navigation" role="navigation">
-		<h3 class="menu-toggle"><?php _e( 'Menu', 'cubricks' ); ?></h3>
-		<?php wp_nav_menu( array(
-				  'theme_location' => 'header',
-				  'show_home' 	   => false,
-				  'menu_class' 	   => 'nav-menu',
-				  'depth'          => 1,
-				  'fallback_cb'    => false
-			  )); ?>
-	</nav><!-- #site-navigation .header-navigation -->
+	?>
+	<div id="header-nav-login"><?php
+	if ( is_user_logged_in() ) { ?>
+    	<div class="cubricks-login"><a rel="nofollow" href="<?php echo wp_logout_url( get_permalink() ); ?>" title="Logout">Logout</a></div><?php
+	} else { ?>
+		<div class="cubricks-login"><a rel="nofollow" href="<?php echo wp_login_url( get_permalink() ); ?>" title="Login">Login</a></div><?php
+	}
+    ?>
+        <nav id="<?php echo (true == get_theme_mod('header_nav_primary') ) ? 'site-navigation' : 'top-navigation'; ?>" class="header-navigation" role="navigation">
+            <h3 class="menu-toggle"><?php _e( 'Menu', 'cubricks' ); ?></h3>
+            <div class="skip-link assistive-text"><a href="#content" title="<?php esc_attr_e( 'Skip to content', 'cubricks' ); ?>"><?php _e( 'Skip to content', 'cubricks' ); ?></a></div>
+            <?php wp_nav_menu( array(
+                  'theme_location' => 'header',
+                  'show_home' 	   => false,
+                  'menu_class' 	   => 'nav-menu',
+                  'depth'          => 1,
+                  'fallback_cb'    => true == get_theme_mod('header_nav_primary') ? 'wp_page_menu' : false
+              )); ?>
+        </nav><!-- #top-navigation .header-navigation -->
+	</div>
 <?php
 }
 endif;
@@ -344,7 +349,7 @@ function cubricks_archive_header() {
         } elseif ( is_author() ) {
             printf( __( 'Author Archives: %s', 'cubricks' ) );
         } elseif ( has_post_format('aside') ) {
-            printf( __( 'Asides Archives', 'cubricks' ), ucwords( $format ) );
+            printf( __( 'Aside Archives', 'cubricks' ), ucwords( $format ) );
         } elseif ( has_post_format('audio') ) {
             printf( __( 'Audio Archives', 'cubricks' ), ucwords( $format ) );
         } elseif ( has_post_format('chat') ) {
@@ -372,10 +377,12 @@ function cubricks_archive_header() {
 }
 endif;
 
+
 /* 
  * Footer sidebar class.
  *
- * Count the number of footer sidebars to enable dynamic classes for the footer.
+ * Count the number of footer sidebars to enable dynamic classes
+ * for the footer sidebar.
  *
  * @param     void
  * @return    string $class
@@ -469,7 +476,7 @@ endif;
 
 
 /**
- * Cubricks pagination
+ * Cubricks pagination.
  *
  * @since   1.0.0
  */
@@ -487,7 +494,7 @@ function cubricks_link_pages_args() {
 
 
 /**
- * Returns comments link.
+ * Returns the comments link.
  *
  * @since 1.0.0
  */
@@ -504,30 +511,31 @@ endif;
 
 
 /**
- * Returns edit link.
+ * Returns the edit link.
  *
  * @since 1.0.0
  */
 function cubricks_edit_link() {
 	?>
-	<div class="edit-link"><?php
-	edit_post_link( __( 'Edit', 'cubricks' ), '', '' ); ?>
+	<div class="edit-link">
+		<?php edit_post_link( __( 'Edit', 'cubricks' ), '', '' ); ?>
     </div><!-- .edit-link --><?php
 }
 
 
+/**
+ * Returns the custom header if one is chosen.
+ *
+ * @since 1.0.0
+ */
 function cubricks_custom_header() {
 	
 	if( is_page_template('page-templates/showcase.php') || is_page_template('page-templates/homepage.php') )
 		return;
-	?>
-	<div id="custom-header" class="wrapper">
-		<div class="inner"><?php
-		$header_image = get_header_image();
-		if ( ! empty( $header_image ) ) : ?>
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_url( $header_image ); ?>" class="header-image" width="<?php echo get_custom_header()->width; ?>" height="<?php echo get_custom_header()->height; ?>" alt="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" /></a>
-        </div>
-    </div><!-- #custom-header .wrapper -->
+
+	$header_image = get_header_image();
+	if ( ! empty( $header_image ) ) : ?>
+		<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_url( $header_image ); ?>" class="header-image" width="<?php echo get_custom_header()->width; ?>" height="<?php echo get_custom_header()->height; ?>" alt="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" /></a>
 	<?php endif;
 }
 

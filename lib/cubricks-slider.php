@@ -58,7 +58,7 @@ function cubricks_featured_slider() {
 	<input type="hidden" id="slider_timer" class="slider_timer" name="slider_timer" value="<?php if( $slider_timer ) { echo $slider_timer; } else { echo '500'; } ?>"/>	
     <input type="hidden" id="slider_effects" class="slider_effects" name="slider_effects" value="<?php if( $slider_effects ) { echo $slider_effects; } else { echo 'fade'; } ?>"/>
     <input type="hidden" id="slider_items" class="slider_items" name="slider_items" value="<?php if( $slider_items ) { echo $slider_items; } else { echo '10'; } ?>"/>
-    <input type="hidden" id="large_slider_width" class="large_slider_width" name="large_slider_width" value="<?php if( $large_slider_width ) { echo $large_slider_width; } else { echo '1024'; } ?>"/>
+    <input type="hidden" id="large_slider_width" class="large_slider_width" name="large_slider_width" value="<?php if( $large_slider_width ) { echo $large_slider_width; } else { echo '1400'; } ?>"/>
     	<div id="slider-wrapper">
         	
             <div id="slider"><!-- nivoSlider -->

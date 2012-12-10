@@ -17,7 +17,7 @@
  * 
  * @package    Cubricks Theme
  * @subpackage Cubricks Theme Functions
- * @author     Raphael Villanea <support@brickpress.us>
+ * @author     Raphael Villanea <raphael@cubrick.us>
  * @copyright  Copyright (c) 2012, Raphael Villanea
  * @license    http://www.gnu.org/licenses/gpl-3.0.html
  * @since      1.0.0
@@ -158,32 +158,48 @@ endif;
  *
  * @since 1.0.0
  */
-function cubricks_no_posts() { ?>
-    <article id="post-0" class="post no-results not-found">
-
-    <?php if ( current_user_can( 'edit_posts' ) ) :
-        // Show a different message to a logged-in user who can add posts.
-    ?>
-        <header class="entry-header">
-            <h1 class="entry-title"><?php _e( 'No posts to display', 'cubricks' ); ?></h1>
-        </header>
-
-        <div class="entry-content">
-            <p><?php printf( __( 'Ready to publish your first post? <a href="%s">Get started here</a>.', 'cubricks' ), admin_url( 'post-new.php' ) ); ?></p>
-        </div><!-- .entry-content -->
-
-    <?php else :
-        // Show the default message to everyone else.
-    ?>
-        <header class="entry-header">
-            <h1 class="entry-title"><?php _e( 'Nothing Found', 'cubricks' ); ?></h1>
+function cubricks_no_posts() { 
+	?>
+    <article id="post-0" class="post no-results not-found <?php echo get_theme_mod('page_layout') == 'post-boxes' ? 'post-boxes' : ''; ?>">
+        <header class="search-header">
+            <h1 class="search-title"><span><?php _e( 'Nothing Found', 'cubricks' ); ?></span></h1>
         </header>
 
         <div class="entry-content">
             <p><?php _e( 'Apologies, but no results were found. Perhaps searching will help find a related post.', 'cubricks' ); ?></p>
-            <?php get_search_form(); ?>
+            
+			<?php get_search_form(); ?><br />
+            
+			<?php the_widget( 'WP_Widget_Recent_Posts', array( 'number' => 10 ), array( 'before_widget' => '<div class="search-header">', 'after_widget' => '</div>', 'before_title' => '<h2 class="search-title"><span>', 'after_title' => '</span></h2></div><div>' ) ); ?>
+         	<br />
+            
+            <div class="search-header">
+                <h2 class="search-title"><span><?php _e( 'Most Used Categories', 'cubricks' ); ?></span></h2>
+            </div>
+                <ul>
+                <?php wp_list_categories( array( 'orderby' => 'count', 'order' => 'DESC', 'show_count' => 1, 'title_li' => '', 'number' => 10 ) ); ?>
+                </ul>
+            <br />
+            
+            <?php
+            /* translators: %1$s: smilie */
+            $archive_content = '<p>' . sprintf( __( 'Try looking in the monthly archives. %1$s', 'cubricks' ), convert_smilies( ':)' ) ) . '</p>';
+            the_widget( 'WP_Widget_Archives', array('count' => 1 , 'dropdown' => 0 ), array( 'before_widget' => '<div class="search-header">', 'after_widget' => '</div>', 'before_title' => '<h2 class="search-title"><span>', 'after_title' => '</span></h2></div><div>'.$archive_content ) );
+            ?>
+            <br />
+            
+            <div class="search-header">
+                <h2 class="search-title"><span><?php _e( 'Tags', 'cubricks' ); ?></span></h2>
+            </div>
+            <?php wp_tag_cloud(); ?>
+            <br /><br />
         </div><!-- .entry-content -->
-    <?php endif; // end current_user_can() check ?>
+        <div class="clear"></div>
+    
+        <div class="post-shadow">
+            <div class="left-post-shadow"></div>
+            <div class="right-post-shadow"></div>
+        </div>
     </article><!-- #post-0 -->
     <?php
 }

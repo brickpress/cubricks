@@ -1,8 +1,8 @@
 ﻿== CUBRICKS THEME FOR WORDPRESS ==
 
-Author: Raphael Villanea <support@brickpress.us>
-Requires at least: 3.1
-Tested up to: 3.5-RC3
+Author: Raphael Villanea <raphael@cubrick.us>
+Requires at least: 3.3
+Tested up to: 3.5-RC6
 Version: 1.0.6
 
 == Licenses and Copyright Info ==
@@ -13,7 +13,7 @@ Cubricks Theme is distributed under the terms of the GNU GPL v2
 Bundled Resources
 
 * TwentyTwelve Theme, the WordPress team, GNU General Public License v2
-* nivoSlider, Copyright (c) 2010-2012 Dev7studios
+* jQuery Nivo Slider v3.1, Copyright (c) 2010-2012 Dev7studios, http://nivo.dev7studios.com
 * Superfish v1.4.8 - jQuery menu widget, Copyright (c) 2008 Joel Birch
 * jQuery Scroll to Top Control script- (c) Dynamic Drive DHTML code library: http://www.dynamicdrive.com, Copyright © 1998-2012 Dynamic Drive
 * HTML5 script, html5shiv MIT @rem remysharp.com/html5-enabling-script

@@ -22,7 +22,7 @@ get_header(); ?>
                 
             <header class="entry-header">
             <?php $post_format = strtolower( get_post_format() );
-			if( $post_format == '' || $post_format == 'gallery' || $post_format == 'audio' || $post_format == 'chat' || $post_format == 'status' )
+			if( $post_format == '' || $post_format == 'aside' || $post_format == 'gallery' || $post_format == 'audio' || $post_format == 'chat' || $post_format == 'status' )
 				cubricks_post_title(); ?>
 			</header>
             
@@ -36,8 +36,10 @@ get_header(); ?>
            		<?php cubricks_edit_link(); ?>
                 <div class="clear"></div>
     
-                <div class="left-post-shadow"></div>
-                <div class="right-post-shadow"></div>
+                <div class="post-shadow">
+                    <div class="left-post-shadow"></div>
+                    <div class="right-post-shadow"></div>
+                </div>
 			</article><!-- #post-<?php the_ID(); ?> -->
 			<?php endwhile; // end of the loop. ?>
 			

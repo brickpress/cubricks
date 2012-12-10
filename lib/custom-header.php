@@ -21,11 +21,11 @@
 function cubricks_custom_header_setup() {
 	$args = array(
 		// Text color and image (empty to use none).
-		'default-text-color'     => '#FFFFFF',
+		'default-text-color'     => 'FFFFFF',
 		'default-image'          => '',
 
 		// Set height and width, with a maximum value for the width.
-		'height'                 => 267,
+		'height'                 => 280,
 		'width'                  => 1024,
 		'max-width'              => 2000,
 
@@ -62,7 +62,7 @@ function cubricks_header_style() {
 
 	// If we get this far, we have custom styles.
 	?>
-	<style type="text/css">
+	<style id="custom-header-css" type="text/css">
 	<?php
 		// Has the text been hidden?
 		if ( ! display_header_text() ) :

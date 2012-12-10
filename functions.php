@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @package    Cubricks Theme
- * @author     Raphael Villanea <support@brickpress.us>
+ * @author     Raphael Villanea <raphael@cubrick.us>
  * @copyright  Copyright (c) 2012, Raphael Villanea
  * @license    http://www.gnu.org/licenses/gpl-2.0.html
  */
@@ -65,7 +65,9 @@ function cubricks_setup() {
 	// Add support for custom background color and image.
 	add_theme_support( 'custom-background', array(
 		// Background color default
-		'default-color' => '#F5F5F5'
+		'default-color'    => 'F5F5F5',
+		'default-image'    => get_template_directory_uri() . '/images/main-bg.png',
+		'wp-head-callback' => 'cubricks_custom_background_cb'
 	) );
 	
 	// Proposed removal in WordPress 3.5 Guidelines Revisions
@@ -85,10 +87,10 @@ function cubricks_setup() {
 	 */
 	$large_slider_width = get_theme_mod('large_slider_width');
 	
-	// Sets the height of the large featured slider. Default value is 550px.
-	$large_slider_height = get_theme_mod('large_slider_height');
+	// Sets the height of the large featured slider. Maintains an aspect ratio of 2.702:1.
+	$large_slider_height = round( $large_slider_width / 2.702 );
 	
-	add_image_size( 'cubricks-large-slider', $large_slider_width, $large_slider_height, true ); 
+	add_image_size( 'cubricks-large-slider', $large_slider_width, 9999 ); 
 	add_image_size( 'cubricks-medium-slider', $medium_slider_width, $medium_slider_height, true );
 	
 	// This theme uses a custom image size for featured images, displayed on "standard" posts.
@@ -241,11 +243,11 @@ add_action( 'widgets_init', 'cubricks_widgets_init' );
  * Extends the default WordPress body class to denote:
  * 1. Using a full-width layout, when no active widgets in the sidebar
  *    or full-width template.
- * 2. Front Page template: thumbnail in use and number of sidebars for
- *    widget areas.
+ * 2. Front Page template: thumbnail in use.
  * 3. White or empty background color to change the layout and spacing.
  * 4. Custom fonts enabled.
  * 5. Single or multiple authors.
+ * 6. Page Layout selected.
  *
  * @since Cubricks 1.0.6
  *
@@ -264,8 +266,6 @@ function cubricks_body_classes( $classes ) {
 		$classes[] = 'template-homepage';
 		if ( has_post_thumbnail() )
 			$classes[] = 'has-post-thumbnail';
-		if ( is_active_sidebar( 'sidebar-2' ) && is_active_sidebar( 'sidebar-3' ) )
-			$classes[] = 'two-sidebars';
 	}
 
 	if ( empty( $background_color ) )
@@ -294,6 +294,27 @@ function cubricks_body_classes( $classes ) {
 	return $classes;
 }
 add_filter( 'body_class', 'cubricks_body_classes' );
+
+
+/**
+ * Extends the default WordPress post class to denote:
+ * 1. If post boxes Page Layout is selected.
+ *
+ * @since Cubricks 1.0.6
+ *
+ * @param array Existing class values.
+ * @return array Filtered class values.
+ */
+function cubricks_post_classes( $classes ) {
+
+	$page_layout = get_theme_mod( 'page_layout' );
+
+	if( $page_layout == 'post-boxes' ) {
+		$classes[] = 'post-boxes';
+	}
+	return $classes;
+}
+add_filter( 'post_class', 'cubricks_post_classes' );
 
 
 /**
@@ -449,10 +470,10 @@ add_action( 'wp_enqueue_scripts', 'cubricks_scripts_styles' );
  * @since Cubricks 1.0.0
  */
 function cubricks_content_width() {
-	if ( is_page_template( 'page-templates/full-width.php' ) || is_page_template( 'page-templates/homepage.php' ) || is_attachment() || ! is_active_sidebar( 'sidebar-1' ) ) {
+	if ( is_page_template( 'page-templates/full-width.php' ) || is_page_template( 'page-templates/homepage.php' ) || is_attachment() || is_404() || ! is_active_sidebar( 'sidebar-1' ) ) {
 		
 		global $content_width;
-		$content_width = get_theme_mod( 'cubricks_page_width' );
+		$content_width = 1024;
 	}
 }
 add_action( 'template_redirect', 'cubricks_content_width' );

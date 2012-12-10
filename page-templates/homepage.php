@@ -20,21 +20,23 @@ get_header(); ?>
 			
 			<?php while ( have_posts() ) : the_post(); ?>
                
-                <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+            <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+            
+                <div class="entry-content">
+                    <?php cubricks_entry_content(); ?>
+                    <?php wp_link_pages( cubricks_link_pages_args() ); ?>
+                </div><!-- .entry-content -->        
+                <div class="clear"></div>
                 
-                    <div class="entry-content">
-						<?php cubricks_entry_content(); ?>
-                        <?php wp_link_pages( cubricks_link_pages_args() ); ?>
-                    </div><!-- .entry-content -->        
-                    <div class="clear"></div>
-                    
-                    <footer class="entry-meta">
-                        <?php edit_post_link( '<span class="edit-icon"></span>'. __( 'Edit', 'cubricks' ), '<span class="edit-link">', '</span>' ); ?>
-                    </footer>
-                    <div class="clear"></div>
+                <footer class="entry-meta">
+                    <?php edit_post_link( '<span class="edit-icon"></span>'. __( 'Edit', 'cubricks' ), '<span class="edit-link">', '</span>' ); ?>
+                </footer>
+                <div class="clear"></div>
 
-                <div class="left-post-shadow"></div>
-                <div class="right-post-shadow"></div>
+                <div class="post-shadow">
+                    <div class="left-post-shadow"></div>
+                    <div class="right-post-shadow"></div>
+                </div>
             </article><!-- #post-<?php the_ID(); ?> -->
 
 			<?php endwhile; // end of the loop. ?>

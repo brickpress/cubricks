@@ -657,7 +657,7 @@
 		keyboardNav: true,
 		pauseOnHover: true,
 		manualAdvance: false,
-		captionOpacity: 0.8,
+		captionOpacity: 1,
 		prevText: '&lArr;',
 		nextText: '&rArr;',
 		beforeChange: function(){},

@@ -21,7 +21,7 @@ if ( post_password_required() )
 	return;
 ?>
 
-<div id="comments" class="comments-area">
+<div id="comments" class="comments-area <?php echo get_theme_mod('page_layout') == 'post-boxes' ? 'post-boxes' : ''; ?>">
 
 	<?php // You can start editing here -- including this comment! ?>
 
@@ -52,5 +52,10 @@ if ( post_password_required() )
 	<?php endif; ?>
 
 	<?php comment_form(); ?>
-
+	
+    <div class="clear"></div>
+    <div class="post-shadow">
+        <div class="left-post-shadow"></div>
+        <div class="right-post-shadow"></div>
+    </div>
 </div><!-- #comments .comments-area -->

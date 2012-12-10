@@ -34,10 +34,9 @@ get_header(); ?>
 									get_the_title( $post->post_parent )
 								);
 							?>
-                            
-							<?php edit_post_link( __( 'Edit', 'cubricks' ), '<span class="edit-link">', '</span>' ); ?>
+                            <?php cubricks_edit_link(); ?>       
 						</footer><!-- .entry-meta -->
-
+                        
 						<nav id="image-navigation" class="navigation" role="navigation">
 							<span class="previous-image"><?php previous_image_link( false, __( '&larr; Previous', 'cubricks' ) ); ?></span>
 							<span class="next-image"><?php next_image_link( false, __( 'Next &rarr;', 'cubricks' ) ); ?></span>
@@ -94,7 +93,11 @@ endif;
 						</div><!-- .entry-description -->
 
 					</div><!-- .entry-content -->
-
+                    
+                    <div class="post-shadow">
+                        <div class="left-post-shadow"></div>
+                        <div class="right-post-shadow"></div>
+                    </div>
 				</article><!-- #post -->
 
 				<?php comments_template(); ?>
@@ -104,4 +107,5 @@ endif;
 		</div><!-- #content -->
 	</div><!-- #primary -->
 
+<?php get_sidebar(); ?>
 <?php get_footer(); ?>

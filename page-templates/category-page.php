@@ -12,15 +12,15 @@ get_header(); ?>
 
 		<div id="primary" class="site-content">
 			<div id="content" role="main">
-            
+            	
+            <?php cubricks_archive_header(); ?>
+                
             <?php if($post->post_content != '') : ?>
             
 				<?php while ( have_posts() ) : the_post(); ?>
                 
                 <article id="post-<?php the_ID(); ?>" <?php post_class('intro'); ?>>
                     
-                    <?php cubricks_archive_header(); ?>
-                   
                     <div class="entry-content">
 						<?php the_content(); ?> 
                         <?php wp_link_pages( cubricks_link_pages_args() ); ?>
@@ -32,8 +32,10 @@ get_header(); ?>
                     </footer>
                     <div class="clear"></div>
 
-                    <div class="left-post-shadow"></div>
-                    <div class="right-post-shadow"></div> 
+                    <div class="post-shadow">
+                        <div class="left-post-shadow"></div>
+                        <div class="right-post-shadow"></div>
+                    </div>
                 </article><!-- #post-<?php the_ID(); ?> -->
     
                 <?php endwhile; ?>

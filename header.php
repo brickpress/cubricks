@@ -35,18 +35,20 @@
     <div id="header" class="wrapper">
         <header id="masthead" class="site-header inner" role="banner">
         	<?php if( '' != get_theme_mod('site_logo') ) : ?>
-				<a class="site-logo" href="<?php echo esc_url( home_url() ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><img src="<?php echo get_theme_mod('site_logo'); ?>" alt="<?php __( 'Site Logo', 'cubricks' ); ?>" /></a>
+				<a class="site-logo" href="<?php echo esc_url( home_url() ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><img src="<?php echo get_theme_mod('site_logo'); ?>" alt="<?php esc_attr_e( 'Site Logo', 'cubricks' ); ?>" /></a>
             <?php endif; ?>
             <hgroup>
                 <h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
                 <h2 class="site-description"><?php bloginfo( 'description' ); ?></h2>
             </hgroup>
             <?php cubricks_header_nav(); ?>
+            <?php cubricks_custom_header(); ?>
         </header><!-- #masthead .inner -->
     </div><!-- #header .wrapper -->
-	<?php cubricks_custom_header(); ?>
+	<?php //cubricks_custom_header(); ?>
     <div id="sub-head" class="wrapper">
-    <?php cubricks_nav_menu(); ?>
+    <?php if( false == get_theme_mod('header_nav_primary') )
+    		cubricks_nav_menu(); ?>
     </div><!-- #sub-head .inner -->
     <?php if( is_page_template('page-templates/showcase.php') && get_theme_mod('slider_position') == 'after_header' || is_page_template('page-templates/homepage.php') && get_theme_mod('slider_position') == 'after_header' )
           cubricks_showcase_slider(); ?>

@@ -1,5 +1,5 @@
 /*
- * jQuery Nivo Slider v2.5.2
+ * jQuery Nivo Slider v3.1
  * http://nivo.dev7studios.com
  *
  * Copyright 2011, Gilbert Pellegrom
@@ -21,6 +21,10 @@
 #showcase-slider .nivoSlider {
 	max-width: 1400px;
 	max-height: 518px;
+	margin: 0 auto;
+}
+#showcase-slider .slider-overlay {
+	max-width: 1024px;
 	margin: 0 auto;
 }
 #slider-wrapper {
@@ -86,29 +90,37 @@
 #showcase-slider .nivo-caption {
 	margin: 0 auto;
 	margin-top: -120px;
+	margin-left: 12px;
 }
 #content-slider .nivo-caption {
 	margin: 0 auto;
 	margin-top: -100px;
+	margin-left: 12px;
 }
 #content-slider .nivo-caption {
 	font-size: 17px;
-	background: none;
 }
 .nivo-caption {
 	color: #FFF;
-	width: 100%;
-	z-index: 9999;
+	background: rgba(0,0,0,0.6);
+	z-index: 9;
 	padding: 10px;
 	padding: 0.714285714rem;
 	overflow: hidden;
 	display: none;
-	-moz-opacity: 0.8;
-	filter: alpha(opacity=8);
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 	box-sizing: border-box;         /* Opera/IE 8+ */
 	position: absolute;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-khtml-border-radius: 6px;
+	-webkit-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    transition: all 200ms ease-in-out;
+	width: auto;
 }
 .nivo-caption p {
 	padding: 5px;
@@ -163,12 +175,12 @@
 }
 #showcase-slider .nivo-prevNav,
 #content-slider .nivo-prevNav {
-	left: 10px;
+	left: 12px;
 	background :url(../images/nivoSlider/left_arrow.png) left no-repeat;
 }
 #showcase-slider .nivo-nextNav,
 #content-slider .nivo-nextNav {
-	right: 10px;
+	right: 12px;
 	background: url(../images/nivoSlider/right_arrow.png) right no-repeat;
 }
 #showcase-slider .nivo-directionNav a,
@@ -183,7 +195,9 @@
     -o-transition: all 200ms ease-in-out;
     transition: all 200ms ease-in-out;
 }
-#showcase-slider .nivo-directionNav a,
+#showcase-slider .nivo-directionNav a {
+	top: -70px;
+}
 #content-slider .nivo-directionNav a {
 	top: -50px;
 }
@@ -230,4 +244,14 @@
 #showcase-slider .nivo-controlNav {
 	max-width: 1024px;
 	max-width: 73.142857142rem;
+}
+
+/* Minimum width of 1024 pixels. */
+@media screen and (min-width: 1024px) {
+	#showcase-slider .nivo-prevNav {
+		left: 0;
+	}
+	#showcase-slider .nivo-nextNav {
+		right: 0;
+	}
 }
