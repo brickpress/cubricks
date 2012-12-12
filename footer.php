@@ -25,10 +25,12 @@
             
 	<div id="footer" class="wrapper">
         <footer id="colophon" class="inner" role="contentinfo">
+        	<?php if( get_theme_mod( 'copyright_notice' ) ) : ?>
         	<div class="footnote">
             	<p class="copyright-notice"><?php echo get_theme_mod( 'copyright_notice' ); ?></p>
             </div>
             <div class="clearfix"></div>
+            <?php endif; ?>
             <div class="site-info">
                 <a href="<?php echo esc_url( __( 'http://wordpress.org/', 'cubricks' ) ); ?>" title="<?php esc_attr_e( 'Semantic Personal Publishing Platform', 'cubricks' ); ?>" rel="generator"><?php printf( __( 'Proudly powered by %s', 'cubricks' ), 'WordPress' ); ?></a>
                 <?php cubricks_theme_link(); ?>

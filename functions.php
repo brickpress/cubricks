@@ -73,7 +73,14 @@ function cubricks_setup() {
 	// Proposed removal in WordPress 3.5 Guidelines Revisions
 	add_theme_support( 'automatic-feed-links' );
 	
+	/* Built-in nivo slider by Dev7 Studios. */
+	require( get_template_directory() . '/lib/cubricks-slider.php' );
+	
+	/* Implements theme options into the theme. */ 
+	require( get_template_directory() . '/lib/theme-customizer.php' );
+	
 	$page_width = get_theme_mod('cubricks_page_width');
+	
 	/* Sets the width of the medium featured slider to the theme's content width.
 	 * Default value is 680px.
 	 */
@@ -377,12 +384,6 @@ require( get_template_directory() . '/lib/template-tags.php' );
 
 /* Customizes the output of supported post formats. */
 require( get_template_directory() . '/lib/post-formats.php' );
-
-/* Built-in nivo slider by Dev7 Studios. */
-require( get_template_directory() . '/lib/cubricks-slider.php' );
-
-/* Implements theme options into the theme. */ 
-require( get_template_directory() . '/lib/theme-customizer.php' );
 
 /* Cubricks widgets */ 
 require( get_template_directory() . '/lib/cubricks-widgets.php' );
