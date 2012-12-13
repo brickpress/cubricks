@@ -29,7 +29,7 @@ get_header(); ?>
 			?>
 
 			<header class="archive-header">
-				<h1 class="archive-title"><?php printf( __( 'Author Archives: %s', 'cubricks' ), '<span class="vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( "ID" ) ) ) . '" title="' . esc_attr( get_the_author() ) . '" rel="me">' . get_the_author() . '</a></span>' ); ?></h1>
+				<h1 class="archive-title"><span><?php printf( __( 'Author Archives: %s', 'cubricks' ), '<span class="vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( "ID" ) ) ) . '" title="' . esc_attr( get_the_author() ) . '" rel="me">' . get_the_author() . '</a></span>' ); ?></span></h1>
 			</header><!-- .archive-header -->
 
 			<?php
@@ -38,16 +38,12 @@ get_header(); ?>
 				 * we can run the loop properly, in full.
 				 */
 				rewind_posts();
-			?>
 
-			<?php cubricks_content_nav( 'nav-above' ); ?>
-
-			<?php
 			// If a user has filled out their description, show a bio on their entries.
 			if ( get_the_author_meta( 'description' ) ) : ?>
 			<div class="author-info">
 				<div class="author-avatar">
-					<?php echo get_avatar( get_the_author_meta( 'user_email' ), apply_filters( 'cubricks_author_bio_avatar_size', 68 ) ); ?>
+					<?php echo get_avatar( get_the_author_meta( 'user_email' ), apply_filters( 'cubricks_author_bio_avatar_size', 70 ) ); ?>
 				</div><!-- .author-avatar -->
 				<div class="author-description">
 					<h2><?php printf( __( 'About %s', 'cubricks' ), get_the_author() ); ?></h2>

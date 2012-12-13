@@ -22,9 +22,9 @@ get_header(); ?>
 		<div id="primary" class="site-content">
 			<div id="content" role="main">
             
-			<?php cubricks_content_slider(); ?>
-            <header class="content-slider-header">
-            	<h1 class="showcase-heading"><span><?php _e( 'Recent Posts', 'cubricks' ); ?></span></h1>
+			<?php cubricks_featured_slider(); ?>
+            <header class="recent-posts-header">
+            	<h1 class="recent-posts-heading"><span><?php _e( 'Recent Posts', 'cubricks' ); ?></span></h1>
 			</header>
             <?php
             $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
@@ -58,7 +58,7 @@ get_header(); ?>
 					
             <?php endif; ?>
 
-			<?php $wp_query = $temp; 		//reset back to original query ?>
+			<?php $wp_query = $temp; //reset back to original query ?>
 
             </div><!-- #content -->
         </div><!-- #primary -->

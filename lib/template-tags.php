@@ -225,9 +225,11 @@ function cubricks_comment( $comment, $args, $depth ) {
 	?>
 	<li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
 		<article id="comment-<?php comment_ID(); ?>" class="comment">
+        	<div class="author-avatar">
+            	<?php echo get_avatar( $comment, 44 ); ?>
+            </div>
 			<header class="comment-meta comment-author vcard">
 				<?php
-					echo get_avatar( $comment, 70 );
 					printf( '<cite class="fn">%1$s %2$s</cite>',
 						get_comment_author_link(),
 						// If current post author is also comment author, make it known visually.
@@ -240,9 +242,6 @@ function cubricks_comment( $comment, $args, $depth ) {
 						sprintf( __( '%1$s at %2$s', 'cubricks' ), get_comment_date(), get_comment_time() )
 					);
 				?>
-                <div class="reply">
-                    <?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Reply <span>&darr;</span>', 'cubricks' ), 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
-                </div><!-- .reply -->
 			</header><!-- .comment-meta -->
 
 			<?php if ( '0' == $comment->comment_approved ) : ?>
@@ -252,7 +251,11 @@ function cubricks_comment( $comment, $args, $depth ) {
 			<section class="comment-content comment">
 				<?php comment_text(); ?>
 			</section><!-- .comment-content -->
-            <?php edit_comment_link( __( 'Edit', 'cubricks' ), '<p class="edit-comment-link">', '</p>' ); ?>
+            
+            <div class="reply">
+                <?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Reply <span>&darr;</span>', 'cubricks' ), 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
+                <?php edit_comment_link( __( 'Edit', 'cubricks' ), '<p class="edit-comment-link">', '</p>' ); ?>
+            </div><!-- .reply -->
 		</article><!-- #comment-## -->
 	<?php
 		break;
@@ -337,7 +340,7 @@ function cubricks_archive_header() {
         } elseif ( is_year() ) {
             printf( __( 'Yearly Archives: %s', 'cubricks' ), '<span>' . get_the_date( 'Y' ) . '</span>' );
         } elseif ( is_category() ) {
-            printf( __( 'Category Archives: %s', 'cubricks' ), single_cat_title( '', false ) );
+            printf( __( '%s', 'cubricks' ), single_cat_title( '', false ) );
 			if ( category_description() ) : // Show an optional category description ?>
 				</span></h1><div class="archive-meta"><?php echo category_description(); ?></div>
 			<?php endif;
@@ -349,25 +352,23 @@ function cubricks_archive_header() {
         } elseif ( is_author() ) {
             printf( __( 'Author Archives: %s', 'cubricks' ) );
         } elseif ( has_post_format('aside') ) {
-            printf( __( 'Aside Archives', 'cubricks' ), ucwords( $format ) );
+            printf( __( 'Aside Archives', 'cubricks' ) );
         } elseif ( has_post_format('audio') ) {
-            printf( __( 'Audio Archives', 'cubricks' ), ucwords( $format ) );
+            printf( __( 'Audio Archives', 'cubricks' ) );
         } elseif ( has_post_format('chat') ) {
-            printf( __( 'Chat Archives', 'cubricks' ), ucwords( $format ) );
+            printf( __( 'Chat Archives', 'cubricks' ) );
         } elseif ( has_post_format('gallery') ) {
-            printf( __( 'Gallery Archives', 'cubricks' ), ucwords( $format ) );
+            printf( __( 'Gallery Archives', 'cubricks' ) );
         } elseif ( has_post_format('image') ) {
-            printf( __( 'Image Archives', 'cubricks' ), ucwords( $format ) );
+            printf( __( 'Image Archives', 'cubricks' ) );
         } elseif ( has_post_format('link') ) {
-            printf( __( 'Link Archives', 'cubricks' ), ucwords( $format ) );
+            printf( __( 'Link Archives', 'cubricks' ) );
         } elseif ( has_post_format('quote') ) {
-            printf( __( 'Quote Archives', 'cubricks' ), ucwords( $format ) );
+            printf( __( 'Quote Archives', 'cubricks' ) );
         } elseif ( has_post_format('status') ) {
-            printf( __( 'Status Archives', 'cubricks' ), ucwords( $format ) );
+            printf( __( 'Status Archives', 'cubricks' ) );
         } elseif ( has_post_format('video') ) {
-            printf( __( 'Video Archives', 'cubricks' ), ucwords( $format ) );
-		} elseif( is_page_template('page-templates/category-page.php') ) {
-            printf( the_title() );
+            printf( __( 'Video Archives', 'cubricks' ) );
         } else {
             _e( 'Blog Archives', 'cubricks' );
         } ?>
@@ -500,12 +501,13 @@ function cubricks_link_pages_args() {
  */
 if( ! function_exists('cubricks_comment_link') ) :
 function cubricks_comments_link() {
-	?>
-	<div class="comments-link"><?php
+	
 	if( comments_open() && ! post_password_required() ) {
-		comments_popup_link( __( 'Leave a Comment', 'cubricks' ), _x( '1 Comment ', 'comments number', 'cubricks' ), _x( '% Comments ', 'comments number', 'cubricks' ) );
-	} ?>
-    </div><!-- .comments-link --><?php
+		?>
+        <div class="comments-link"><?php
+		comments_popup_link( __( 'Leave a Comment', 'cubricks' ), _x( '1 Comment ', 'comments number', 'cubricks' ), _x( '% Comments ', 'comments number', 'cubricks' ) ); ?>
+        </div><!-- .comments-link --><?php
+	}
 }
 endif;
 

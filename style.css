@@ -180,7 +180,8 @@ img {
 .widget-title,
 .entry-content th,
 .comment-content th,
-.showcase-heading {
+.recent-posts-heading,
+.featured-heading {
 	font-size: 11px;
 	font-size: 0.785714286rem;
 	font-weight: bold;
@@ -194,8 +195,8 @@ img {
 .archive-header .archive-title,
 .search-header .search-title,
 .entry-content .search-header .search-title,
-.showcase-header .showcase-heading,
-.content-slider-header .showcase-heading {
+.recent-posts-header .recent-posts-heading,
+.featured-header .featured-heading {
 	margin-bottom: 12px;
 	margin-bottom: 0.857142857rem;
 	background: #f5f5f5;
@@ -204,18 +205,18 @@ img {
 .archive-header .archive-title span,
 .search-header .search-title span,
 .entry-content .search-header .search-title span,
-.showcase-header .showcase-heading span,
-.content-slider-header .showcase-heading span {
+.recent-posts-header .recent-posts-heading span,
+.featured-header .featured-heading span {
 	padding: 0 8px 1px 0;
 	padding: 0 0.5714285714rem 0.0714285714rem 0;
 	background: #ffffff;
 }
 body.post-boxes .archive-header .archive-title,
-body.post-boxes .showcase-header .showcase-heading,
-body.post-boxes .content-slider-header .showcase-heading,
+body.post-boxes .recent-posts-header .recent-posts-heading,
+body.post-boxes .featured-header .featured-heading,
 body.post-boxes .archive-header .archive-title span,
-body.post-boxes .showcase-header .showcase-heading span,
-body.post-boxes .content-slider-header .showcase-heading span {
+body.post-boxes .recent-posts-header .recent-posts-heading span,
+body.post-boxes .featured-header .featured-heading span {
 	background: none;
 }
 
@@ -389,7 +390,8 @@ video {
 .comment-content img,
 .widget img,
 .author-avatar img,
-img.wp-post-image {
+img.wp-post-image,
+.comments-area article header img {
 	/* Add fancy borders to all WordPress-added images but not things like badges and icons and the like */
 	border-radius: 3px;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
@@ -474,8 +476,8 @@ img.wp-smiley,
 }
 .nav-single + .comments-area,
 #comment-nav-above {
-	margin: 48px 0;
-	margin: 3.428571429rem 0;
+	margin: 48px 0 24px 0;
+	margin: 3.428571429rem 0 1.714285714rem 0;
 }
 
 /* Author profiles */
@@ -485,17 +487,30 @@ img.wp-smiley,
 }
 .author-info {
 	border-top: 1px solid #ededed;
-	margin: 12px 0;
-	margin: 0.857142857rem 0;
+	margin: 24px 0 12px 0;
+	margin: 1.714285714rem 0 0.857142857rem 0;
 	padding-top: 12px;
 	padding-top: 0.857142857rem;
 	overflow: hidden;
+}
+.author-avatar {
+	float: left;
+	margin-right: -80px;
+}
+.author-description {
+	float: left;
+	margin-left: 90px;
+}
+.author-description h2 {
+	margin-bottom: 6px;
 }
 .author-description p {
 	color: #777;
 	font-size: 13px;
 	font-size: 0.928571429rem;
 	line-height: 1.846153846;
+	margin-bottom: 12px;
+	margin-bottom: 0.857142857rem;
 }
 .author.archive .author-info {
 	border-top: 0;
@@ -553,7 +568,8 @@ body.page-centered #sub-head,
 body.page-centered #main-content,
 body.page-centered #sidebar-footer,
 body.page-centered #sidebar-homepage,
-body.page-centered #footer {
+body.page-centered #footer,
+body.page-centered #showcase-slider #featured-posts-wrapper {
 	padding: 0 24px;
 	padding: 0 1.714285714rem;
 }
@@ -582,8 +598,7 @@ body.page-centered #showcase-slider .nivo-prevNav {
 body.page-centered #showcase-slider .nivo-nextNav {
 	right: 24px;
 }
-.site-content,
-.content-slider-header {
+.site-content {
 	margin: 24px 0 0;
 	margin: 1.714285714rem 0 0;
 }
@@ -822,12 +837,15 @@ footer[role="contentinfo"] {
 	line-height: 2;
 	max-width: 1024px;
 	max-width: 73.142857142rem;
-	margin-top: 12px;
-	margin-top: 0.857142857rem;
-	margin-left: auto;
-	margin-right: auto;
+	margin: 12px auto;
+	margin: 0.857142857rem auto;
+	/*
 	padding: 12px 0;
-	padding: 0.857142857rem 0;
+	padding: 0.857142857rem 0;*/
+}
+.footnote {
+	margin-bottom: 12px;
+	margin-bottom: 0.857142857rem;
 }
 .copyright-notice {
 	line-height: 1.5;
@@ -842,9 +860,6 @@ footer[role="contentinfo"] a:hover {
 }
 .site-info {
 	width: 100%;
-	float: left;
-	margin: 24px 0;
-	margin: 1.714285714rem 0;
 }
 .theme-url {
 	float: right;
@@ -883,17 +898,21 @@ footer[role="contentinfo"] a:hover {
 .comments-link {
 	margin-top: 12px;
 	margin-top: 0.857142857rem;
+	margin-right: 12px;
+	margin-right: 0.857142857rem;
 	float: left;
 }
 .edit-link {
-	margin-top: 12px;
-	margin-top: 0.857142857rem;
-	float: right;
+	margin-top: 14px;
+	margin-top: 1rem;
+	float: left;
 }
 .entry-meta a {
-	color: #777;
+	color: #21759b;
 }
-.entry-meta a:hover {
+.entry-meta a:hover,
+.edit-link a:hover,
+.edit-comment-link a:hover {
 	color: #21759b;
 	text-decoration: underline;
 }
@@ -970,6 +989,11 @@ article.sticky .featured-post {
 	margin: 0 0 0.857142857rem;
 	line-height: 1.714285714;
 }
+.entry-content a:hover,
+.entry-summary a:hover,
+.comment-content a:hover {
+	text-decoration: underline;
+}
 .entry-content ol,
 .comment-content ol,
 .entry-content ul,
@@ -1023,8 +1047,14 @@ article.format-standard .entry-content blockquote:before,
 	top: 6px;
 	color: rgba(53, 122, 232, 0.7);
 }
+article.format-standard .entry-content blockquote,
+.comment-content blockquote blockquote {
+	background: none;
+}
 article.format-standard .entry-content blockquote cite:before,
-.comment-content blockquote cite:before {
+.comment-content blockquote cite:before,
+article.format-standard .entry-content blockquote blockquote cite:before,
+.comment-content blockquote blockquote cite:before {
 	content: "\2014 \2009";
 }
 .entry-content blockquote p:last-child,
@@ -1219,10 +1249,12 @@ body.post-boxes .nav-single {
 .archive-header,
 .search-header,
 .page-header,
-.showcase-header,
-.content-slider-header {
+.recent-posts-header {
 	padding-bottom: 22px;
 	padding-bottom: 1.571428571rem;
+}
+#content-slider {
+	margin-bottom: 24px;
 }
 .archive-meta {
 	color: #777;
@@ -1371,12 +1403,15 @@ article.format-quote .entry-content blockquote:before {
 	color: #6a6a6a;
 }
 article.format-quote .entry-content cite {
-	color: #999999;
 	font-size: 14px;
 	font-size: 1rem;
 	display: block;
 	margin-top: 5px;
 	margin-top: 0.357142857rem;
+}
+article.format-quote .entry-content cite,
+article.format-quote .entry-content cite a {
+	color: #757575;
 }
 article.format-quote .entry-content cite:before {
 	content: "\2014 \2009";
@@ -1442,12 +1477,17 @@ article.format-quote .entry-content cite:before {
 	font-weight: normal;
 }
 .comments-area article {
-	margin: 12px 0;
-	margin: 0.857142857rem 0;
+	padding: 12px 0 3px 0;
+	padding: 0.857142857rem 0 0.214285714rem 0;
+	margin: 0;
+}
+.comments-area .author-avatar {
+	float: left;
+	margin-right: -50px;
 }
 .comments-area article header {
-	margin: 0 0 24px;
-	margin: 0 0 1.714285714rem;
+	margin: 0 0 12px;
+	margin: 0 0 0.857142857rem;
 	overflow: hidden;
 	position: relative;
 }
@@ -1456,37 +1496,43 @@ article.format-quote .entry-content cite:before {
 	padding: 0;
 	line-height: 0;
 }
+.comments-area .comment-meta,
+.comments-area .comment-content {
+	margin-left: 54px;
+	margin-left: 3.857142857rem;
+}
 .comments-area article header cite,
 .comments-area article header time {
 	display: block;
-	margin-left: 85px;
-	margin-left: 6.071428571rem;
-}
-.comments-area article header cite {
-	font-style: normal;
-	font-size: 15px;
-	font-size: 1.071428571rem;
-	line-height: 1.42857143;
-}
-.comments-area article header time {
 	line-height: 1.714285714;
 	text-decoration: none;
 	font-size: 12px;
 	font-size: 0.857142857rem;
-	color: #5e5e5e;
+	color: #757575;
+}
+.comments-area article header cite {
+	font-style: normal;
+	font-weight: bold;
+	float: left;
+}
+.comments-area article header time {
+	float: right;
 }
 .comments-area article header a {
 	text-decoration: none;
-	color: #5e5e5e;
+	color: #757575;
 }
 .comments-area article header a:hover {
 	color: #21759b;
 }
 .comments-area article header cite a {
-	color: #333;
+	color: #757575;
 }
 .comments-area article header cite a:hover {
 	text-decoration: underline;
+}
+.comments-area .reply {
+	margin-top: -12px;
 }
 .comments-area article header h4 {
 	position: absolute;
@@ -1517,15 +1563,16 @@ article.format-quote .entry-content cite:before {
 	font-size: 10px;
 	font-size: 0.714285714rem;
 }
-.comments-area .reply {
-	position: absolute;
-	top: 0px;
-	right: 0px;
+.comments-area .edit-comment-link {
+	float: right;
 }
-a.comment-reply-link {
+a.comment-reply-link,
+a.comment-edit-link {
 	font-size: 13px;
 	font-size: 0.928571429rem;
 	line-height: 1.846153846;
+}
+a.comment-reply-link {
 	color: #686868;
 }
 a.comment-reply-link:hover {
@@ -1543,8 +1590,10 @@ a.comment-reply-link:hover {
 
 /* Comment form */
 #respond {
-	margin-top: 48px;
-	margin-top: 3.428571429rem;
+	margin: 48px 0;
+	margin: 3.428571429rem 0;
+	padding: 12px;
+	background: #F5F5F5;
 }
 #respond h3#reply-title {
 	font-size: 16px;
@@ -1606,7 +1655,7 @@ label ~ span.required {
 /* =Homepage template
 -------------------------------------------------------------- */
 
-.template-homepage .entry-content {
+#primary #content .template-homepage .entry-content {
 	font-size: 18px;
 	font-size: 1.285714285rem;
 	font-weight: normal;
@@ -1717,7 +1766,7 @@ html div#topcontrol:hover {
 }
 #social-links-label h1 {
 	font-size: 18px;
-	color: #1E598E;
+	color: #636363;
 }
 #social-media-links {
 	display: block;
@@ -1794,6 +1843,7 @@ div.sharedaddy,
 	padding: 0 12px;
 	padding: 0 0.857142857rem;
 	background: #F5FCFE;
+	color: #357ae8;
 	border: 1px solid #D8E6EB;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
@@ -1801,8 +1851,13 @@ div.sharedaddy,
 	-o-border-radius: 3px;
 	border-radius: 3px;
 }
-#content div.sharedaddy div.sd-block {
-	border: none;
+div.sharedaddy div.sd-block {
+	border-top: none;
+}
+#content article div.sharedaddy div.sd-block,
+#content-slider div.sharedaddy div.sd-block,
+#showcase-slider div.sharedaddy div.sd-block {
+	border-top: none;
 }
 .entry-content .contact-form {
 	background: #E3EDF4;
@@ -1817,21 +1872,18 @@ div.sharedaddy,
 	-o-border-radius: 3px;
 	border-radius: 3px;
 }
+.widget-area .widget .widgets-list-layout .widgets-list-layout-blavatar {
+	max-width: 70px;
+}
+.widget-area .widget .widgets-list-layout-links {
+	margin-top: -5px;
+}
 
 /* =Media queries
 -------------------------------------------------------------- */
 
 /* Minimum width of 600 pixels. */
 @media screen and (min-width: 600px) {
-	.author-avatar {
-		float: left;
-		margin-top: 8px;
-		margin-top: 0.571428571rem;
-	}
-	.author-description {
-		float: right;
-		width: 80%;
-	}
 	body.full-wide .site,
 	body.post-boxes .site {
 		margin: 0 auto;
@@ -1854,7 +1906,8 @@ div.sharedaddy,
 	body.page-centered #main-content,
 	body.page-centered #sidebar-footer,
 	body.page-centered #sidebar-homepage,
-	body.page-centered #footer {
+	body.page-centered #footer,
+	body.page-centered #showcase-slider #featured-posts-wrapper {
 		padding: 0 24px;
 		padding: 0 1.714285714rem;
 	}
@@ -1994,7 +2047,7 @@ div.sharedaddy,
 	.template-homepage article {
 		overflow: hidden;
 	}
-	.template-homepage .entry-content {
+	.template-homepage #primary #content .entry-content {
 		font-size: 26px;
 		font-size: 1.857142857rem;
 	}
@@ -2092,7 +2145,8 @@ div.sharedaddy,
 	body.page-centered #main-content,
 	body.page-centered #sidebar-footer,
 	body.page-centered #sidebar-homepage,
-	body.page-centered #footer {
+	body.page-centered #footer,
+	body.page-centered #showcase-slider #featured-posts-wrapper {
 		padding: 0 40px;
 		padding: 0 2.857142857rem;
 	}

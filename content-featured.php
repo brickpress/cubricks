@@ -1,7 +1,8 @@
 <?php
 /**
- * This is the default template to display posts.
- * Used for single, index, archive and search.
+ * The template for displaying content featured in the content-slider.php
+ * page template if there's no more than one sticky post or if there's no
+ * more than one featured image even if there are two or more sticky posts.
  *
  * @package Cubricks Theme
  *
@@ -15,7 +16,7 @@
 				cubricks_post_title(); ?>
 			</header><!-- .entry-header -->
             
-			<?php if ( is_sticky() && is_home() && ! is_paged() ) : ?>
+            <?php if ( is_home() && ! is_paged() ) : ?>
                 <div class="featured-post">
                     <?php _e( 'Featured post', 'cubricks' ); ?>
                 </div>
@@ -36,7 +37,11 @@
             <?php endif; ?>
             	
             <div class="entry-content">
-                <?php cubricks_entry_content(); ?>
+                <?php if( $post_format == '' || $post_format == 'aside' || $post_format == 'chat' || $post_format == 'status' ) {	
+                    the_excerpt(); 
+				} else {
+					cubricks_entry_content();
+				} ?>
                 <?php wp_link_pages( cubricks_link_pages_args() ); ?>
             </div><!-- .entry-content -->        
 			<div class="clear"></div>
@@ -51,27 +56,4 @@
 			</footer><!-- .entry-meta -->
             	<?php cubricks_comments_link(); ?>
            		<?php cubricks_edit_link(); ?>
-			<div class="clear"></div>
-            
-            <?php if ( is_singular() && get_the_author_meta( 'description' ) && is_multi_author() ) : // If a user has filled out their description and this is a multi-author blog, show a bio on their entries. ?>
-				<div class="author-info">
-					<div class="author-avatar">
-						<?php echo get_avatar( get_the_author_meta( 'user_email' ), apply_filters( 'cubricks_author_bio_avatar_size', 70 ) ); ?>
-					</div><!-- .author-avatar -->
-					<div class="author-description">
-						<h2><?php printf( __( 'About %s', 'cubricks' ), get_the_author() ); ?></h2>
-						<p><?php the_author_meta( 'description' ); ?></p>
-						<div class="author-link">
-							<a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" rel="author">
-								<?php printf( __( 'View all posts by %s <span class="meta-nav">&rarr;</span>', 'cubricks' ), get_the_author() ); ?>
-							</a>
-						</div><!-- .author-link	-->
-					</div><!-- .author-description -->
-				</div><!-- .author-info -->
-			<?php endif; ?>
-
-            <div class="post-shadow">
-                <div class="left-post-shadow"></div>
-                <div class="right-post-shadow"></div>
-            </div>
 		</article><!-- #post-<?php the_ID(); ?> -->

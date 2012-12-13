@@ -73,14 +73,7 @@ function cubricks_setup() {
 	// Proposed removal in WordPress 3.5 Guidelines Revisions
 	add_theme_support( 'automatic-feed-links' );
 	
-	/* Built-in nivo slider by Dev7 Studios. */
-	require( get_template_directory() . '/lib/cubricks-slider.php' );
-	
-	/* Implements theme options into the theme. */ 
-	require( get_template_directory() . '/lib/theme-customizer.php' );
-	
 	$page_width = get_theme_mod('cubricks_page_width');
-	
 	/* Sets the width of the medium featured slider to the theme's content width.
 	 * Default value is 680px.
 	 */
@@ -97,14 +90,64 @@ function cubricks_setup() {
 	// Sets the height of the large featured slider. Maintains an aspect ratio of 2.702:1.
 	$large_slider_height = round( $large_slider_width / 2.702 );
 	
-	add_image_size( 'cubricks-large-slider', $large_slider_width, 9999 ); 
+	add_image_size( 'cubricks-large-slider', $large_slider_width, 9999 );  // Width is 1024px and unlimited height, soft crop
 	add_image_size( 'cubricks-medium-slider', $medium_slider_width, $medium_slider_height, true );
 	
 	// This theme uses a custom image size for featured images, displayed on "standard" posts.
 	add_theme_support( 'post-thumbnails' );	
-	set_post_thumbnail_size( $medium_slider_width, 9999 ); // Unlimited height, soft crop
+	set_post_thumbnail_size( $large_slider_width, 9999 ); // Unlimited height, soft crop
 }
 add_action( 'after_setup_theme', 'cubricks_setup' );
+
+
+/**
+ * Initializes theme mods.
+ *
+ * @uses get_theme_mod
+ *
+ * @since Cubricks 1.0.6
+ */
+function cubricks_initialize_theme_mods() {
+		
+	$cubricks_mods = cubricks_theme_mods();
+	if( !isset($cubricks_mods) ) {
+		foreach( $cubricks_mods as $mod_name => $default ) {
+			set_theme_mod( $mod_name, $default );
+		}
+	}
+}
+add_action( 'after_setup_theme', 'cubricks_initialize_theme_mods' );
+
+
+/* Adds support for a custom header image. */
+require( get_template_directory() . '/lib/custom-header.php' );
+
+/* Adds custom hooks used by custom template tags. */
+require( get_template_directory() . '/lib/cubricks-hooks.php' );
+
+/* Custom filters and actions which modify core functions. */
+require( get_template_directory() . '/lib/template-tags.php' );
+
+/* Customizes the output of supported post formats. */
+require( get_template_directory() . '/lib/post-formats.php' );
+
+/* Built-in nivo slider by Dev7 Studios. */
+require( get_template_directory() . '/lib/cubricks-slider.php' );
+
+/* Implements theme options into the theme. */ 
+require( get_template_directory() . '/lib/theme-customizer.php' );
+
+
+/**
+ * Add the Customize Theme link to the admin menu.
+ *
+ * @since Cubricks 1.0.6
+ */
+function cubricks_admin() {
+
+    add_theme_page( 'Customize Theme', 'Customize Theme', 'edit_theme_options', 'customize.php' );
+}
+add_action ('admin_menu', 'cubricks_admin');
 
 
 /**
@@ -144,8 +187,6 @@ function get_content_slider_height() {
  * @since Cubricks 1.0.0
  */
 function cubricks_widgets_init() {
-	
-	register_widget( 'Cubricks_Category_Posts_Widget' );
 			
 	register_sidebar( array(
 		'name' => __( 'Main Sidebar', 'cubricks' ),
@@ -304,8 +345,7 @@ add_filter( 'body_class', 'cubricks_body_classes' );
 
 
 /**
- * Extends the default WordPress post class to denote:
- * 1. If post boxes Page Layout is selected.
+ * Adds post-boxes post_class if Post Boxes layout is selected.
  *
  * @since Cubricks 1.0.6
  *
@@ -368,27 +408,10 @@ add_action( 'admin_init', 'remove_custom_background_submenu' );
  * @since Cubricks 1.0.0
  */
 function cubricks_customize_preview_js() {
-	wp_enqueue_script( 'cubricks-customizer', get_template_directory_uri() . '/js/theme-customizer.js', array( 'customize-preview' ), 'CUBRICKS_VERSION', true );
+	wp_enqueue_script( 'cubricks-customizer', get_template_directory_uri() . '/js/theme-customizer.js', array( 'customize-preview' ), CUBRICKS_VERSION, true );
 }
 add_action( 'customize_preview_init', 'cubricks_customize_preview_js' );
 
-
-/* Adds support for a custom header image. */
-require( get_template_directory() . '/lib/custom-header.php' );
-
-/* Adds custom hooks used by custom template tags. */
-require( get_template_directory() . '/lib/cubricks-hooks.php' );
-
-/* Custom filters and actions which modify core functions. */
-require( get_template_directory() . '/lib/template-tags.php' );
-
-/* Customizes the output of supported post formats. */
-require( get_template_directory() . '/lib/post-formats.php' );
-
-/* Cubricks widgets */ 
-require( get_template_directory() . '/lib/cubricks-widgets.php' );
-
-require( get_template_directory() . '/lib/page-category-field.php' );
 
 /**
  * Enqueues scripts and styles for front-end.
@@ -410,6 +433,7 @@ function cubricks_scripts_styles() {
 
 	if( is_page_template('page-templates/showcase.php') || is_page_template('page-templates/content-slider.php') || is_page_template('page-templates/homepage.php') ) {
 		wp_enqueue_script( 'nivo-slider', get_template_directory_uri() . '/js/jquery.nivo.slider.js', array( 'jquery' ), CUBRICKS_VERSION );
+		wp_enqueue_script( 'cubricks-showcase', get_template_directory_uri() . '/js/showcase.js', array( 'jquery' ), CUBRICKS_VERSION );
 		wp_enqueue_style( 'slider-style', get_template_directory_uri() . '/css/cubricks-slider.css' );
 	}
 

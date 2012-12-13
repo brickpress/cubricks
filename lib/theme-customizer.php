@@ -216,7 +216,7 @@ function cubricks_customize_register( $wp_customize ) {
 		'settings' => 'site_logo',
 	) ) );
 	
-		/* Featured Slider Section
+	/* Featured Slider Section
 	============================================================*/
 	$wp_customize->add_section( 'slider_section', array(
 		'title'          => __( 'Featured Slider', 'cubricks' ),
@@ -231,7 +231,7 @@ function cubricks_customize_register( $wp_customize ) {
 	$wp_customize->add_control( new Cubricks_Customize_Heading_Control( $wp_customize, 'featured_slider_heading', array(
 		'section'  => 'slider_section',
 		'settings' => 'featured_slider_heading',
-		'desc'     => __( 'Set all your featured images to 2.702 : 1 aspect ratio (e.g. 1400x518, 1024x379,
+		'desc'     => __( 'Set all your featured images to 2.702:1 W:H aspect ratio (e.g. 1400x518, 1024x379,
 		851x315).', 'cubricks' ),
 		'priority' => 10
 	) ) );
@@ -318,7 +318,7 @@ function cubricks_customize_register( $wp_customize ) {
 		'label'    => __('Featured Slider Width', 'cubricks'),
 		'section'  => 'slider_section',
 		'settings' => 'large_slider_width',	
-		'desc'     => __( 'Recommended width is <strong>1400px</strong>.', 'cubricks' ),
+		'desc'     => __( 'Recommended width is at least <strong>1024px</strong>.', 'cubricks' ),
 		'priority' => 11
 	) ) );
 
@@ -702,6 +702,31 @@ add_action( 'cubricks_after_content', 'cubricks_social_links' );
 
 
 /**
+ * Add style blocks to the theme.
+ *
+ * This function is attached to the wp_head action hook.
+ *
+ * @since 1.0.6
+ */
+function cubricks_print_styles() {
+	
+	cubricks_text_colors();
+	cubricks_text_shadows();
+	cubricks_page_wrapper();
+	cubricks_header_wrapper();
+	cubricks_nav_wrapper();
+	cubricks_content_wrapper();
+	cubricks_footer_sidebar_wrapper();
+	cubricks_footer_wrapper();
+	cubricks_slider_wrapper();
+	cubricks_page_layout();
+	cubricks_header_layout_fix();
+	cubricks_large_slider_size();
+}
+add_action( 'wp_head', 'cubricks_print_styles' );
+
+
+/**
  * Adds a style block to modify the theme's text color.
  * This function is attached to the wp_head action hook.
  *
@@ -710,100 +735,139 @@ add_action( 'cubricks_after_content', 'cubricks_social_links' );
  * @since 1.0.6
  */
 function cubricks_text_colors() {
+	
+	$primary_text_color = get_theme_mod('primary_text_color');
+	$secondary_text_color = get_theme_mod('secondary_text_color');
+	$link_color = get_theme_mod('link_color');
+	$post_entry_titles = get_theme_mod('post_entry_titles');
+	$post_entry_headers = get_theme_mod('post_entry_headers');
+	$slider_caption_bg = get_theme_mod('slider_caption_bg');
+	$slider_caption_color = get_theme_mod('slider_caption_color');
+	$sidebar_title_color = get_theme_mod('sidebar_title_color');
+	$sidebar_link_color = get_theme_mod('sidebar_link_color');
+	$footer_text_color = get_theme_mod('footer_text_color');
+	$footer_link_color = get_theme_mod('footer_link_color');
 	?>
 	<style id="text-colors-css" type="text/css">
-	body,
-	.comments-area article header cite a,
-	.main-navigation li ul li a:hover,
-	.template-homepage .entry-content .sd-title,
-	.entry-content .contact-form label {
-		color: <?php echo get_theme_mod('primary_text_color'); ?>;
-	}
-	.menu-toggle:active,
-	.menu-toggle.toggled-on,
-	input[type="submit"]:active,
-	article.post-password-required input[type=submit]:active,
-	input[type="submit"].toggled-on,
-	.wp-caption .wp-caption-text,
-	.gallery-caption,
-	.entry-caption,
-	.author-description p,
-	article.sticky .featured-post,
-	.entry-content table,
-	.comment-content table,
-	footer.entry-meta,
-	.archive-meta,
-	.format-status .entry-header header a,
-	#secondary .widget .textwidget,
-	article.format-quote .entry-content cite,
-	.entry-content .cubricks-chat .chat-even,
-	#secondary .widget .textwidget,
-	#secondary .widget p,
-	#secondary .widget #calendar_wrap table,
-	.entry-content .contact-form label span {
-		color: <?php echo get_theme_mod('secondary_text_color'); ?>;
-	}
-	a,
-	.entry-meta a,
-	.entry-meta a:hover,
-	.format-status .entry-header header a:hover,
-	.comments-area article header a:hover,
-	a.comment-reply-link:hover,
-	.template-homepage .widget-area .widget li a:hover,
-	.entry-header .entry-title a:hover {
-		color: <?php echo get_theme_mod('link_color'); ?>;
-	}
-	.entry-header .entry-title a,
-	article.format-quote .entry-content blockquote:before,
-	article.format-quote .entry-content blockquote,
-	#social-links-label h1  {
-		color: <?php echo get_theme_mod('post_entry_titles'); ?>;
-	}
-	.entry-content h1, .comment-content h1,
-	.entry-content h2, .comment-content h2,
-	.entry-content .cubricks-chat .chat-even strong {
-		color: <?php echo get_theme_mod('post_entry_headers'); ?>;
-	}
-	article.format-standard .entry-content blockquote,
-	.comment-content blockquote {
-		background: rgba(<?php echo hex_to_rgb( get_theme_mod('post_entry_headers') ); ?>,0.2);
-	}
-	article.format-standard .entry-content blockquote:before,
-	.comment-content blockquote:before {
-		color: rgba(<?php echo hex_to_rgb( get_theme_mod('post_entry_headers') ); ?>,0.7);
-	}
-	#showcase-slider .nivo-caption,
-	#content-slider .nivo-caption {
-		background: rgba( <?php echo hex_to_rgb(get_theme_mod('slider_caption_bg')) .','. get_theme_mod('slider_caption_opacity') / 10; ?>);
-		color: <?php echo get_theme_mod('slider_caption_color'); ?>;
+	<?php if( $primary_text_color != get_default_theme_mod('primary_text_color') ) : ?>
+		body,
+		.main-navigation li ul li a:hover,
+		.template-homepage .entry-content .sd-title,
+		.entry-content .contact-form label {
+			color: <?php echo $primary_text_color; ?>;
+		}
+	<?php endif; ?>
+	<?php if( $secondary_text_color != get_default_theme_mod('secondary_text_color') ) : ?>
+		.menu-toggle:active,
+		.menu-toggle.toggled-on,
+		input[type="submit"]:active,
+		article.post-password-required input[type=submit]:active,
+		input[type="submit"].toggled-on,
+		.wp-caption .wp-caption-text,
+		.gallery-caption,
+		.entry-caption,
+		.author-description p,
+		article.sticky .featured-post,
+		.comments-area article header cite a,
+		.entry-content table,
+		.comment-content table,
+		footer.entry-meta,
+		.archive-meta,
+		.format-status .entry-header header a,
+		#secondary .widget .textwidget,
+		article.format-quote .entry-content cite,
+		article.format-quote .entry-content cite a,
+		.entry-content .cubricks-chat .chat-even,
+		#secondary .widget .textwidget,
+		#secondary .widget p,
+		#secondary .widget #calendar_wrap table,
+		.entry-content .contact-form label span {
+			color: <?php echo $secondary_text_color; ?>;
+		}
+	<?php endif; ?>
+	<?php if( $link_color != get_default_theme_mod('link_color') ) : ?>
+		a,
+		.entry-meta a,
+		.entry-meta a:hover,
+		a.post-edit-link:hover,
+		.format-status .entry-header header a:hover,
+		.comments-area article header a:hover,
+		a.comment-reply-link:hover,
+		.template-homepage .widget-area .widget li a:hover,
+		.entry-header .entry-title a:hover {
+			color: <?php echo $link_color; ?>;
+		}
+	<?php endif; ?>
+	<?php if( $post_entry_titles != get_default_theme_mod('post_entry_titles') ) : ?>
+		.entry-header .entry-title a,
+		article.format-quote .entry-content blockquote:before,
+		article.format-quote .entry-content blockquote {
+			color: <?php echo $post_entry_titles; ?>;
+		}
+	<?php endif; ?>
+	<?php if( $post_entry_headers != get_default_theme_mod('post_entry_headers') ) : ?>
+		.entry-content h1, .comment-content h1,
+		.entry-content h2, .comment-content h2,
+		.entry-content .cubricks-chat .chat-even strong,
+		div.sharedaddy, #content div.sharedaddy, #main div.sharedaddy {
+			color: <?php echo $post_entry_headers; ?>;
+		}
+		article.format-standard .entry-content blockquote,
+		.comment-content blockquote {
+			background: rgba(<?php echo hex_to_rgb($post_entry_headers); ?>,0.2);
+		}
+		article.format-standard .entry-content blockquote:before,
+		.comment-content blockquote:before {
+			color: rgba(<?php echo hex_to_rgb($post_entry_headers); ?>,0.7);
+		}
+	<?php endif; ?>
+	<?php if( $sidebar_title_color != get_default_theme_mod('sidebar_title_color') ) : ?>
+		#secondary .widget-title,
+		#secondary .widget-title > span a,
+		.archive-header .archive-title span,
+		.search-header .search-title span,
+		.entry-content .search-header .search-title span,
+		.recent-posts-header .recent-posts-heading span,
+		.featured-header .featured-heading span,
+		#social-links-label h1 {
+			color: <?php echo $sidebar_title_color; ?>;
+		}
+		#secondary .widget h3,
+		.archive-header .archive-title,
+		.search-header .search-title,
+		.entry-content .search-header .search-title,
+		.recent-posts-header .recent-posts-heading,
+		.featured-header .featured-heading {
+			background: rgba(<?php echo hex_to_rgb($sidebar_title_color); ?>,0.3);
+		}
+	<?php endif; ?>
+	<?php if( $sidebar_link_color != get_default_theme_mod('sidebar_link_color') ) : ?>
+		#secondary .widget a,
+		#secondary .widget a:hover,
+		#secondary .widget .tagcloud {
+			color: <?php echo $sidebar_link_color; ?>;
+		}
+	<?php endif; ?>
+	<?php if( $footer_text_color != get_default_theme_mod('footer_text_color') ) : ?>
+		footer[role="contentinfo"],
+		footer[role="contentinfo"] p {
+			color: <?php echo $footer_text_color; ?>;
+		}
+	<?php endif; ?>
+	<?php if( $footer_link_color != get_default_theme_mod('footer_link_color') ) : ?>
+		footer[role="contentinfo"] a,
+		footer[role="contentinfo"] a:hover {
+			color: <?php echo $footer_link_color; ?>;
+		}
+	<?php endif; ?>
+	#showcase-slider .nivo-caption, #content-slider .nivo-caption {
+		background: rgba( <?php echo hex_to_rgb($slider_caption_bg) .','. get_theme_mod('slider_caption_opacity') / 10; ?>);
+		color: <?php echo $slider_caption_color; ?>;
 		padding-left: <?php echo 0 == get_theme_mod('slider_caption_opacity') ? '0' : '10px'; ?>;
-	}
-	#secondary .widget-title,
-	#secondary .widget-title > span a,
-	.archive-header .archive-title span,
-	.search-header .search-title span,
-	.entry-content .search-header .search-title span,
-	.showcase-header .showcase-heading span,
-	.content-slider-header .showcase-heading span {
-		color: <?php echo get_theme_mod('sidebar_title_color'); ?>;
-	}
-	#secondary .widget a,
-	#secondary .widget a:hover,
-	#secondary .widget .tagcloud {
-		color: <?php echo get_theme_mod('sidebar_link_color'); ?>;
-	}
-	footer[role="contentinfo"],
-	footer[role="contentinfo"] p {
-		color: <?php echo get_theme_mod('footer_text_color'); ?>;
-	}
-	footer[role="contentinfo"] a,
-	footer[role="contentinfo"] a:hover {
-		color: <?php echo get_theme_mod('footer_link_color'); ?>;
 	}
 	</style>
     <?php
 }
-add_action( 'wp_head', 'cubricks_text_colors' );
 
 
 /**
@@ -817,12 +881,6 @@ add_action( 'wp_head', 'cubricks_text_colors' );
 function cubricks_text_shadows() {
 	?>
 	<style id="text-shadows-css" type="text/css">
-	.header-navigation li a,
-	.header-navigation li a:hover,
-	.site-title,
-	.site-description {
-		text-shadow: 1px 1px 0 <?php echo get_theme_mod('header_text_shadow'); ?>;
-	}
 	.header-navigation li a:hover {
 		color: <?php echo get_theme_mod('header_menu_hover'); ?>;
 	}
@@ -834,22 +892,8 @@ function cubricks_text_shadows() {
 	.main-navigation .current-menu-ancestor > a  {
 		color: <?php echo get_theme_mod('menu_current_page'); ?>;
 	}
-	#secondary .widget h3,
-	.archive-header .archive-title,
-	.search-header .search-title,
-	.entry-content .search-header .search-title,
-	.showcase-header .showcase-heading,
-	.content-slider-header .showcase-heading {
+	#comments #respond {
 		background: <?php echo get_theme_mod('menu_hover_background'); ?>;
-	}
-	/* Minimum width of 600 pixels. */
-	@media screen and (min-width: 600px) {
-		.main-navigation li a {
-			text-shadow: 1px 1px 0 <?php echo get_theme_mod('menu_text_shadow'); ?>;
-		}
-		.main-navigation li ul li a:hover {
-			background: <?php echo get_theme_mod('menu_hover_background'); ?>;
-		}
 	}
 	#supplementary .widget .textwidget,
 	#supplementary .widget-title,
@@ -877,10 +921,24 @@ function cubricks_text_shadows() {
 		color: <?php echo get_theme_mod('homepage_sidebar_text'); ?>;
 		text-shadow: 1px 1px 0 <?php echo get_theme_mod('homepage_sidebar_shadow'); ?>;
 	}
+	/* Minimum width of 600 pixels. */
+	@media screen and (min-width: 600px) {
+		.main-navigation li a {
+			text-shadow: 1px 1px 0 <?php echo get_theme_mod('menu_text_shadow'); ?>;
+		}
+		.main-navigation li ul li a:hover {
+			background: <?php echo get_theme_mod('menu_hover_background'); ?>;
+		}
+		.header-navigation li a,
+		.header-navigation li a:hover,
+		.site-title,
+		.site-description {
+			text-shadow: 1px 1px 0 <?php echo get_theme_mod('header_text_shadow'); ?>;
+		}
+	}
     </style>
     <?php
 }
-add_action( 'wp_head', 'cubricks_text_shadows' );
 
 
 /**
@@ -925,7 +983,6 @@ function cubricks_page_wrapper() {
 		#page { <?php echo trim( $style ); ?> }
 	</style><?php
 }
-add_action( 'wp_head', 'cubricks_page_wrapper' ); 
 
 
 /*
@@ -969,7 +1026,6 @@ function cubricks_header_wrapper() {
 		#header { <?php echo trim( $style ); ?> }
 	</style><?php
 }
-add_action( 'wp_head', 'cubricks_header_wrapper' );
 
 
 /**
@@ -1020,7 +1076,6 @@ function cubricks_nav_wrapper() {
 		}
 	</style><?php
 }
-add_action( 'wp_head', 'cubricks_nav_wrapper' ); 
 
 
 /**
@@ -1049,7 +1104,6 @@ function cubricks_content_wrapper() {
 				$color   = 'background: rgba(' .hex_to_rgb($color);
 				$opacity = ',' .($opacity/10). ');';
 				$style = $color . $opacity;
-				$color_style = $color. ',1);';
 			}
 		} else {
 			$color = 'background: rgba(' .hex_to_rgb($color);
@@ -1059,8 +1113,7 @@ function cubricks_content_wrapper() {
 			$position_y = ' ' .get_theme_mod( 'content_wrapper_position_y' ). '%';
 			$repeat = ' ' .get_theme_mod( 'content_wrapper_repeat' );
 			$attachment = ' ' . get_theme_mod( 'content_wrapper_attachment' ). ';';
-			$style = $color . $opacity . $image . $position_x . $position_y . $repeat . $attachment;	
-			$color_style = $color. ',1);';
+			$style = $color . $opacity . $image . $position_x . $position_y . $repeat . $attachment;
 		}	
 	}
 	// If Page Layout is post boxes
@@ -1071,12 +1124,10 @@ function cubricks_content_wrapper() {
 	// If Page Layout is full-wide or page-centered
 	else : ?>
     <style type="text/css" id="content-wrapper-css">
-		#main-content { <?php echo trim( $style ); ?> }
-		#secondary .widget h3 span, .archive-header .archive-title span, .search-header .search-title span, .entry-content .search-header .search-title span, .showcase-header .showcase-heading span, .content-slider-header .showcase-heading span { <?php echo trim( $color_style ); ?> }
+		#main-content, #secondary .widget h3 span, .archive-header .archive-title span, .search-header .search-title span, .entry-content .search-header .search-title span, .recent-posts-header .recent-posts-heading span, .featured-header .featured-heading span { <?php echo trim( $style ); ?> }
 	</style><?php
 	endif;
 }
-add_action( 'wp_head', 'cubricks_content_wrapper' );
 
 
 /**
@@ -1121,7 +1172,6 @@ function cubricks_footer_sidebar_wrapper() {
 		#sidebar-footer, #sidebar-homepage { <?php echo trim( $style ); ?> }
 	</style><?php
 }
-add_action( 'wp_head', 'cubricks_footer_sidebar_wrapper' );
 
 
 /**
@@ -1166,7 +1216,6 @@ function cubricks_footer_wrapper() {
 		#footer { <?php echo trim( $style ); ?> }
 	</style><?php
 }
-add_action( 'wp_head', 'cubricks_footer_wrapper' );
 
 
 /**
@@ -1211,7 +1260,6 @@ function cubricks_slider_wrapper() {
 		#showcase-slider { <?php echo trim( $style ); ?> }
 	</style><?php
 }
-add_action( 'wp_head', 'cubricks_slider_wrapper' );
 
 
 /**
@@ -1238,7 +1286,6 @@ function cubricks_page_layout() {
 		<?php endif;
 	endif;
 }
-add_action( 'wp_head', 'cubricks_page_layout' );
 
 
 /**
@@ -1276,7 +1323,6 @@ function cubricks_header_layout_fix() {
 		<?php endif;		
 	endif;
 }
-add_action( 'wp_head', 'cubricks_header_layout_fix' );
 
 
 /**
@@ -1303,7 +1349,6 @@ function cubricks_large_slider_size() {
 		</style>
 	<?php endif;
 }
-add_action( 'wp_head', 'cubricks_large_slider_size' );
 
 
 /**
@@ -1316,7 +1361,7 @@ add_action( 'wp_head', 'cubricks_large_slider_size' );
  */
 function cubricks_theme_mods() {
 	
-	$defaults = array(
+	return array(
 		'cubricks_page_width'	  => '1024',
 	    'page_layout'             => 'full-wide',
 		'page_top_margin'         => '48',
@@ -1417,7 +1462,7 @@ function cubricks_theme_mods() {
 		// Featured Slider Wrapper
 		'slider_wrapper_color'	    => '#FFFFFF',
 		'slider_wrapper_opacity'    => '10',
-		'slider_wrapper_image'	    => '',
+		'slider_wrapper_image'	    => get_template_directory_uri() . '/images/content-bg.png',
 		'slider_wrapper_repeat'     => 'repeat',
 		'slider_wrapper_position_x' => '0',
 		'slider_wrapper_position_y' => '0',
@@ -1425,7 +1470,6 @@ function cubricks_theme_mods() {
 		// Reset Theme Mods
 		'reset_theme'		        => false
 	);
-	return $defaults;
 }
 
 

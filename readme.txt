@@ -2,7 +2,7 @@
 
 Author: Raphael Villanea <raphael@cubrick.us>
 Requires at least: 3.3
-Tested up to: 3.5-RC6
+Tested up to: 3.5
 Version: 1.0.6
 
 == Licenses and Copyright Info ==
@@ -94,3 +94,7 @@ Check out live demos of the theme: http://brickpress.us/
 27 November 2012 - version 1.0.6
  * Implemented theme options into Theme Customizer. Made a lot of changes including the removal of the theme options page and Setting API altogether.
  * Cubricks Theme is now based on TwentyTwelve Theme by WordPress.
+ 
+13 December 2012
+ * Removed Category Page Template and widget.
+ * Added a featured post slider as a fallback sticky post slider for the nivo Slider if the sticky post have only one post thumbnail, or none at all.
