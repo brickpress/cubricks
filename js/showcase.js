@@ -1,6 +1,6 @@
 (function($) {
 	$(document).ready( function() {
-	    $('.feature-slider a').click(function(e) {
+	    $('.feature-controller a').click(function(e) {
 	        $('.featured-posts section.featured-post').css({
 	            opacity: 0,
 	            visibility: 'hidden'
@@ -9,7 +9,7 @@
 	            opacity: 1,
 	            visibility: 'visible'
 	        });
-	        $('.feature-slider a').removeClass('active');
+	        $('.feature-controller a').removeClass('active');
 	        $(this).addClass('active');
 	        e.preventDefault();
 	    });

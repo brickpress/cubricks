@@ -92,7 +92,7 @@ function cubricks_featured_slider() {
 					$counter_slider++; 
 					if ( has_post_thumbnail() ) {
 						echo '<a href="' .esc_url( get_permalink() ). '" title="' .esc_attr( the_title_attribute('echo=0') ). '">';	
-						if( is_page_template('page-templates/showcase.php') || is_page_template('page-templates/homepage.php') ) {
+						if( is_page_template('page-templates/showcase.php') || is_page_template('page-templates/front-page.php') ) {
 							// Get the large size thumbnails for Showcase and Homepage page templates.
 							the_post_thumbnail( 'cubricks-large-slider' );
 						} else {
@@ -131,29 +131,30 @@ function cubricks_featured_slider() {
 				echo '<div id="showcase-slider" class="wrapper">';
 			}
 			?>
-            <div id="featured-posts-wrapper">
-                <div class="featured-posts">
-                    <div class="feature-slider">
-                        <ul>
-                        <?php // Reset the counter so that we end up with matching elements
-                        $counter_slider = 0;
-    
-                        // Begin from zero
-                        rewind_posts();
-                        
-                        while ( $featured->have_posts() ) : $featured->the_post();		
-                            // Increase the counter.
-                            $counter_slider++;
-                            if ( 1 == $counter_slider )
-                                $class = 'class="active"';
-                            else
-                                $class = '';
-                            ?>
-                            <li><a href="#featured-post-<?php echo $counter_slider; ?>" title="<?php echo esc_attr( sprintf( __( 'Featuring: %s', 'cubricks' ), the_title_attribute( 'echo=0' ) ) ); ?>" <?php echo $class; ?>></a></li>
-                        <?php endwhile;	?>
-                        </ul>
-                    </div><!-- .feature-slider" -->
-                                    
+            <div id="featured-posts-wrapper">       
+                <div class="feature-controller">
+                    <ul>
+                    <?php // Reset the counter so that we end up with matching elements
+                    $counter_slider = 0;
+
+                    // Begin from zero
+                    rewind_posts();
+                    
+                    while ( $featured->have_posts() ) : $featured->the_post();		
+                        // Increase the counter.
+                        $counter_slider++;
+                        if ( 1 == $counter_slider )
+                            $class = 'class="active"';
+                        else
+                            $class = '';
+                        ?>
+                        <li><a href="#featured-post-<?php echo $counter_slider; ?>" title="<?php echo esc_attr( sprintf( __( 'Featuring: %s', 'cubricks' ), the_title_attribute( 'echo=0' ) ) ); ?>" <?php echo $class; ?>></a></li>
+                    <?php endwhile;	?>
+                    </ul>
+                </div><!-- .feature-controller" -->
+                <div class="clear"></div>
+                
+                <div class="featured-posts">                    
                     <?php 
                     // Reset the counter so that we end up with matching elements
                     $counter_slider = 0;
@@ -166,7 +167,7 @@ function cubricks_featured_slider() {
                         $counter_slider++;
 	
 						$feature_class = 'feature-text';
-						if( is_page_template('page-templates/showcase.php') || is_page_template('page-templates/homepage.php') ) {
+						if( is_page_template('page-templates/showcase.php') || is_page_template('page-templates/front-page.php') ) {
 							$feature_class = 'cubricks-large-slider';
 						} elseif( is_page_template('page-templates/content-slider.php') ) {
 							$feature_class = 'cubricks-medium-slider';
@@ -176,7 +177,7 @@ function cubricks_featured_slider() {
                         <?php 
 						if ( has_post_thumbnail() ) {	
 							echo '<a href="' .esc_url( get_permalink() ). '" title="' .esc_attr( the_title_attribute('echo=0') ). '">';	
-							if( is_page_template('page-templates/showcase.php') || is_page_template('page-templates/homepage.php') ) {
+							if( is_page_template('page-templates/showcase.php') || is_page_template('page-templates/front-page.php') ) {
 								// Get the large size thumbnails for Showcase and Homepage page templates.
 								the_post_thumbnail( 'cubricks-large-slider' );							
 							} else {
@@ -189,8 +190,8 @@ function cubricks_featured_slider() {
 						?>
 						</section>
 					<?php endwhile; ?>
-                </div><!-- .featured-posts -->                          
-            </div><!-- #featured-posts-wrapper -->
+                    </div><!-- .featured-posts -->                          
+                </div><!-- #featured-posts-wrapper -->
             <?php echo is_page_template( 'page-templates/content-slider.php' ) ? '</div><!-- #content-slider -->' : '</div><!-- #showcase-slider -->';
 			endif; // End check for post count.
 		endif; // End check for published posts.

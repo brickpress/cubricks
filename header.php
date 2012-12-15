@@ -30,7 +30,7 @@
 
 <body <?php body_class(); ?>>
 <div id="page" class="hfeed site">
-<?php if( is_page_template('page-templates/showcase.php') && get_theme_mod('slider_position') == 'before_header' || is_page_template('page-templates/homepage.php') && get_theme_mod('slider_position') == 'before_header' )
+<?php if( is_page_template('page-templates/showcase.php') && get_theme_mod('slider_position') == 'before_header' || is_page_template('page-templates/front-page.php') && get_theme_mod('slider_position') == 'before_header' )
 		cubricks_featured_slider(); ?>
     <div id="header" class="wrapper">
         <header id="masthead" class="site-header inner" role="banner">
@@ -50,7 +50,7 @@
     <?php if( false == get_theme_mod('header_nav_primary') )
     		cubricks_nav_menu(); ?>
     </div><!-- #sub-head .inner -->
-    <?php if( is_page_template('page-templates/showcase.php') && get_theme_mod('slider_position') == 'after_header' || is_page_template('page-templates/homepage.php') && get_theme_mod('slider_position') == 'after_header' )
+    <?php if( is_page_template('page-templates/showcase.php') && get_theme_mod('slider_position') == 'after_header' || is_page_template('page-templates/front-page.php') && get_theme_mod('slider_position') == 'after_header' )
           cubricks_featured_slider(); ?>
     <div id="main-content" class="wrapper">
         <div id="main" class="inner">

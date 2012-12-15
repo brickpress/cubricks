@@ -16,8 +16,8 @@
 	<?php 
 	if (  ! is_404() ) {
 		// Get the sidebar for Homepage page template
-		if( is_page_template('page-templates/homepage.php') )
-			get_sidebar('homepage');
+		if( is_page_template('page-templates/front-page.php') )
+			get_sidebar('front-page');
 		else
 			get_sidebar('footer');
 	}

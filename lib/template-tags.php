@@ -438,16 +438,16 @@ endif;
 /* 
  * Homepage sidebar class.
  *
- * Count the number of homepage sidebars to enable dynamic classes
- * for the homepage sidebar.
+ * Count the number of front-page sidebars to enable dynamic classes
+ * for the front-page sidebar.
  *
  * @param     void
  * @return    string $class
  * 
  * @since     1.0.0
  */
-if( ! function_exists( 'cubricks_homepage_sidebar_class' ) ) :
-	function cubricks_homepage_sidebar_class() {
+if( ! function_exists( 'cubricks_front_page_sidebar_class' ) ) :
+	function cubricks_front_page_sidebar_class() {
 		
 		$count = 0;
 		if ( is_active_sidebar( 'sidebar-h1' ) )
@@ -532,7 +532,7 @@ function cubricks_edit_link() {
  */
 function cubricks_custom_header() {
 	
-	if( is_page_template('page-templates/showcase.php') || is_page_template('page-templates/homepage.php') )
+	if( is_page_template('page-templates/showcase.php') || is_page_template('page-templates/front-page.php') )
 		return;
 
 	$header_image = get_header_image();
@@ -598,7 +598,7 @@ add_filter( 'get_the_excerpt', 'cubricks_custom_excerpt_more' );
 
 
 /**
- * Returns a link leading to theme documentation homepage.
+ * Returns a link leading to theme documentation front-page.
  *
  * @since 1.0.0
  */

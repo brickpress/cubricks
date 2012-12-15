@@ -100,25 +100,6 @@ function cubricks_setup() {
 add_action( 'after_setup_theme', 'cubricks_setup' );
 
 
-/**
- * Initializes theme mods.
- *
- * @uses get_theme_mod
- *
- * @since Cubricks 1.0.6
- */
-function cubricks_initialize_theme_mods() {
-		
-	$cubricks_mods = cubricks_theme_mods();
-	if( !isset($cubricks_mods) ) {
-		foreach( $cubricks_mods as $mod_name => $default ) {
-			set_theme_mod( $mod_name, $default );
-		}
-	}
-}
-add_action( 'after_setup_theme', 'cubricks_initialize_theme_mods' );
-
-
 /* Adds support for a custom header image. */
 require( get_template_directory() . '/lib/custom-header.php' );
 
@@ -133,6 +114,9 @@ require( get_template_directory() . '/lib/post-formats.php' );
 
 /* Built-in nivo slider by Dev7 Studios. */
 require( get_template_directory() . '/lib/cubricks-slider.php' );
+
+/* Implements theme options into the theme. */ 
+require( get_template_directory() . '/lib/cubricks-theme-mods.php' );
 
 /* Implements theme options into the theme. */ 
 require( get_template_directory() . '/lib/theme-customizer.php' );
@@ -189,99 +173,103 @@ function get_content_slider_height() {
 function cubricks_widgets_init() {
 			
 	register_sidebar( array(
-		'name' => __( 'Main Sidebar', 'cubricks' ),
-		'id' => 'sidebar-1',
+		'name'          => __( 'Main Sidebar', 'cubricks' ),
+		'id'            => 'sidebar-1',
+		'description'   => __( 'Appears on posts and pages except on the optional Front Page template and Full-Width Template.', 'cubricks' ),
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => "</aside>",
-		'before_title' => '<h3 class="widget-title"><span>',
-		'after_title' => '</span></h3>',
+		'after_widget'  => "</aside>",
+		'before_title'  => '<h3 class="widget-title"><span>',
+		'after_title'   => '</span></h3>',
 	) );
 	
 	register_sidebar( array(
-		'name' => __( 'First Homepage Sidebar', 'cubricks' ),
-		'id' => 'sidebar-h1',
+		'name'          => __( 'First Front Page Sidebar', 'cubricks' ),
+		'id'            => 'sidebar-h1',
+		'description'   => __( 'First, Second and Third Front Page Sidebars appears when using the optional Front Page template with a page set as Static Front Page. Widgets are displayed full-width if only one sidebar is active.', 'cubricks' ),
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => "</aside>",
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
+		'after_widget'  => "</aside>",
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
 	) );
 	
 	register_sidebar( array(
-		'name' => __( 'Second Homepage Sidebar', 'cubricks' ),
-		'id' => 'sidebar-h2',
+		'name'          => __( 'Second Homepage Sidebar', 'cubricks' ),
+		'id'            => 'sidebar-h2',
+		'description'   => __( 'Shows a second column of sidebar widgets to your Front Page.', 'cubricks' ),
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => "</aside>",
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
+		'after_widget'  => "</aside>",
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
 	) );
 	
 	register_sidebar( array(
-		'name' => __( 'Third Homepage Sidebar', 'cubricks' ),
-		'id' => 'sidebar-h3',
+		'name'          => __( 'Third Homepage Sidebar', 'cubricks' ),
+		'id'            => 'sidebar-h3',
+		'description'   => __( 'Shows a third column of sidebar widgets to your Front Page.', 'cubricks' ),
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => "</aside>",
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
+		'after_widget'  => "</aside>",
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
 	) );
 
 	register_sidebar( array(
-		'name' => __( 'Footer Area One', 'cubricks' ),
-		'id' => 'sidebar-f1',
-		'description' => __( 'An optional widget area for your site footer', 'cubricks' ),
+		'name'          => __( 'Footer Area One', 'cubricks' ),
+		'id'            => 'sidebar-f1',
+		'description'   => __( 'The Footer Sidebars appear at the footer on posts and pages except on the optional Front Page template.', 'cubricks' ),
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => "</aside>",
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
+		'after_widget'  => "</aside>",
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
 	) );
 
 	register_sidebar( array(
-		'name' => __( 'Footer Area Two', 'cubricks' ),
-		'id' => 'sidebar-f2',
-		'description' => __( 'An optional widget area for your site footer', 'cubricks' ),
+		'name'          => __( 'Footer Area Two', 'cubricks' ),
+		'id'            => 'sidebar-f2',
+		'description'   => __( 'An optional widget area for your site footer.', 'cubricks' ),
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => "</aside>",
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
+		'after_widget'  => "</aside>",
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
 	) );
 
 	register_sidebar( array(
-		'name' => __( 'Footer Area Three', 'cubricks' ),
-		'id' => 'sidebar-f3',
-		'description' => __( 'An optional widget area for your site footer', 'cubricks' ),
+		'name'          => __( 'Footer Area Three', 'cubricks' ),
+		'id'            => 'sidebar-f3',
+		'description'   => __( 'An optional widget area for your site footer.', 'cubricks' ),
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => "</aside>",
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
+		'after_widget'  => "</aside>",
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
 	) );
 	
 	register_sidebar( array(
-		'name' => __( 'Footer Area Four', 'cubricks' ),
-		'id' => 'sidebar-f4',
-		'description' => __( 'An optional widget area for your site footer', 'cubricks' ),
+		'name'          => __( 'Footer Area Four', 'cubricks' ),
+		'id'            => 'sidebar-f4',
+		'description'   => __( 'An optional widget area for your site footer.', 'cubricks' ),
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => "</aside>",
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
+		'after_widget'  => "</aside>",
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
 	) );
 	
 	register_sidebar( array(
-		'name' => __( 'Footer Area Five', 'cubricks' ),
-		'id' => 'sidebar-f5',
-		'description' => __( 'An optional widget area for your site footer', 'cubricks' ),
+		'name'          => __( 'Footer Area Five', 'cubricks' ),
+		'id'            => 'sidebar-f5',
+		'description'   => __( 'An optional widget area for your site footer.', 'cubricks' ),
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => "</aside>",
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
+		'after_widget'  => "</aside>",
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
 	) );		
 	
 	register_sidebar( array(
-		'name' => __( 'Footer Area Six', 'cubricks' ),
-		'id' => 'sidebar-f6',
-		'description' => __( 'An optional widget area for your site footer', 'cubricks' ),
+		'name'          => __( 'Footer Area Six', 'cubricks' ),
+		'id'            => 'sidebar-f6',
+		'description'   => __( 'An optional widget area for your site footer.', 'cubricks' ),
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => "</aside>",
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
+		'after_widget'  => "</aside>",
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
 	) );	
 }
 add_action( 'widgets_init', 'cubricks_widgets_init' );
@@ -310,8 +298,8 @@ function cubricks_body_classes( $classes ) {
 	if ( ! is_active_sidebar( 'sidebar-1' ) || is_page_template( 'page-templates/full-width.php' ) )
 		$classes[] = 'full-width';
 
-	if ( is_page_template( 'page-templates/homepage.php' ) ) {
-		$classes[] = 'template-homepage';
+	if ( is_page_template( 'page-templates/front-page.php' ) ) {
+		$classes[] = 'template-front-page';
 		if ( has_post_thumbnail() )
 			$classes[] = 'has-post-thumbnail';
 	}
@@ -431,7 +419,7 @@ function cubricks_scripts_styles() {
 	wp_enqueue_script( 'scroll-to-top', get_template_directory_uri() . '/js/scrolltopcontrol.js', array( 'jquery' ), CUBRICKS_VERSION );
 	wp_enqueue_script( 'superfish', get_template_directory_uri() . '/js/superfish.js', array( 'jquery' ), CUBRICKS_VERSION );
 
-	if( is_page_template('page-templates/showcase.php') || is_page_template('page-templates/content-slider.php') || is_page_template('page-templates/homepage.php') ) {
+	if( is_page_template('page-templates/showcase.php') || is_page_template('page-templates/content-slider.php') || is_page_template('page-templates/front-page.php') ) {
 		wp_enqueue_script( 'nivo-slider', get_template_directory_uri() . '/js/jquery.nivo.slider.js', array( 'jquery' ), CUBRICKS_VERSION );
 		wp_enqueue_script( 'cubricks-showcase', get_template_directory_uri() . '/js/showcase.js', array( 'jquery' ), CUBRICKS_VERSION );
 		wp_enqueue_style( 'slider-style', get_template_directory_uri() . '/css/cubricks-slider.css' );
@@ -495,7 +483,7 @@ add_action( 'wp_enqueue_scripts', 'cubricks_scripts_styles' );
  * @since Cubricks 1.0.0
  */
 function cubricks_content_width() {
-	if ( is_page_template( 'page-templates/full-width.php' ) || is_page_template( 'page-templates/homepage.php' ) || is_attachment() || is_404() || ! is_active_sidebar( 'sidebar-1' ) ) {
+	if ( is_page_template( 'page-templates/full-width.php' ) || is_page_template( 'page-templates/front-page.php' ) || is_attachment() || is_404() || ! is_active_sidebar( 'sidebar-1' ) ) {
 		
 		global $content_width;
 		$content_width = 1024;

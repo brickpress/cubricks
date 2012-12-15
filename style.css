@@ -567,11 +567,14 @@ body.page-centered .site {
 body.page-centered #sub-head,
 body.page-centered #main-content,
 body.page-centered #sidebar-footer,
-body.page-centered #sidebar-homepage,
-body.page-centered #footer,
-body.page-centered #showcase-slider #featured-posts-wrapper {
+body.page-centered #sidebar-front-page,
+body.page-centered #footer {
 	padding: 0 24px;
 	padding: 0 1.714285714rem;
+}
+body.page-centered #showcase-slider #featured-posts-wrapper {
+	padding: 12px 24px;
+	padding: 0.857142857rem 1.714285714rem;
 }
 body.full-wide .inner,
 body.post-boxes .inner {
@@ -627,7 +630,7 @@ body.page-centered #showcase-slider .nivo-nextNav {
 	background: #FFFFFF;	
 }
 #sidebar-footer,
-#sidebar-homepage {
+#sidebar-front-page {
 	background: #E3EDF4;
 }
 #footer {
@@ -819,12 +822,12 @@ h3.widget-title a,
 #supplementary .widget-area .widget li {
 	text-shadow: 1px 1px #FFFFFF;
 }
-#sidebar-homepage #supplementary .widget-title {
+#sidebar-front-page #supplementary .widget-title {
 	font-size: 18px;
 	text-transform: none;
 	font-weight: bold; 
 }
-#sidebar-homepage #supplementary .widget-area .widget h3 {
+#sidebar-front-page #supplementary .widget-area .widget h3 {
 	margin-bottom: 24px;
 	margin-bottom: 1.714285714rem;
 }
@@ -1655,7 +1658,7 @@ label ~ span.required {
 /* =Homepage template
 -------------------------------------------------------------- */
 
-#primary #content .template-homepage .entry-content {
+#primary #content .template-front-page .entry-content {
 	font-size: 18px;
 	font-size: 1.285714285rem;
 	font-weight: normal;
@@ -1905,11 +1908,14 @@ div.sharedaddy div.sd-block {
 	body.page-centered #sub-head,
 	body.page-centered #main-content,
 	body.page-centered #sidebar-footer,
-	body.page-centered #sidebar-homepage,
-	body.page-centered #footer,
-	body.page-centered #showcase-slider #featured-posts-wrapper {
+	body.page-centered #sidebar-front-page,
+	body.page-centered #footer {
 		padding: 0 24px;
 		padding: 0 1.714285714rem;
+	}
+	body.page-centered #showcase-slider #featured-posts-wrapper {
+		padding: 12px 24px;
+		padding: 0.857142857rem 1.714285714rem;
 	}
 	body.page-centered #showcase-slider .nivo-directionNav,
 	body.page-centered #showcase-slider .nivo-caption,
@@ -1931,7 +1937,7 @@ div.sharedaddy div.sd-block {
 		float: left;
 		width: 66.40625%;
 	}
-	body.template-homepage .site-content,
+	body.template-front-page .site-content,
 	body.single-attachment .site-content,
 	body.error404 .site-content,
 	body.full-width .site-content {
@@ -2043,15 +2049,15 @@ div.sharedaddy div.sd-block {
 	#respond form textarea.blog-textarea {
 		width: 79.666666667%;
 	}
-	.template-homepage .site-content,
-	.template-homepage article {
+	.template-front-page .site-content,
+	.template-front-page article {
 		overflow: hidden;
 	}
-	.template-homepage #primary #content .entry-content {
+	.template-front-page #primary #content .entry-content {
 		font-size: 26px;
 		font-size: 1.857142857rem;
 	}
-	.template-homepage .entry-content img {
+	.template-front-page .entry-content img {
 		box-shadow: none;
 	}
 	#secondary .widget.widget_search input[type="text"] {
@@ -2144,11 +2150,14 @@ div.sharedaddy div.sd-block {
 	body.page-centered #sub-head,
 	body.page-centered #main-content,
 	body.page-centered #sidebar-footer,
-	body.page-centered #sidebar-homepage,
-	body.page-centered #footer,
-	body.page-centered #showcase-slider #featured-posts-wrapper {
+	body.page-centered #sidebar-front-page,
+	body.page-centered #footer {
 		padding: 0 40px;
 		padding: 0 2.857142857rem;
+	}
+	body.page-centered #showcase-slider #featured-posts-wrapper {
+		padding: 12px 40px;
+		padding: 0.857142857rem 2.857142857rem;
 	}
 	body.page-centered #showcase-slider .nivo-directionNav,
 	body.page-centered #showcase-slider .nivo-caption,

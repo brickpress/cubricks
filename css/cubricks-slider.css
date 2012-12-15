@@ -31,12 +31,16 @@
 #showcase-slider #featured-posts-wrapper,
 #showcase-slider .featured-posts section.featured-post {
 	max-width: 1024px;
-	max-height: 400px;
+	max-height: 518px;
 	margin: 0 auto;
 }
+#content-slider #featured-posts-wrapper {
+	position: relative;
+}
 #showcase-slider #featured-posts-wrapper {
-	margin-bottom: 24px;
-	margin-bottom: 1.714285714rem;
+	position: relative;
+	padding: 24px;
+	padding: 1.714285714rem;
 }
 #showcase-slider .slider-overlay {
 	max-width: 1024px;
@@ -270,7 +274,12 @@
 		right: 0;
 	}
 	#showcase-slider .featured-posts {
-		padding: 0 40px;
+		padding: 40px;
+		padding: 2.857142857rem;
+	}
+	#showcase-slider .feature-controller ul {
+		top: 12px;
+		right: 40px;
 	}
 }
 
@@ -282,15 +291,15 @@
 #showcase-slider .featured-posts section.featured-post,
 #content-slider .featured-posts section.featured-post {
 	height: 365px;
-	margin-top: 30px;
 }
 #showcase-slider .featured-posts section.featured-post {
 	padding: 12px;
 	margin-bottom: 12px;
 }
-.featured-posts section.featured-post img.wp-post-image {
-	margin-top: 30px;
-}	
+#showcase-slider .featured-posts section.featured-post {
+	padding: 12px;
+	margin-bottom: 12px;
+}
 .featured-posts section.featured-post article {
 	background: none;
 }
@@ -341,26 +350,36 @@
 }
 
 /* Nav controller */
-#showcase-slider .feature-slider,
-#content-slider .feature-slider {
+.feature-controller {
+	position: relative;
+}
+#content-slider .feature-controller {
+	padding-bottom: 24px;
+	padding-bottom: 1.714285714rem;
+}
+#showcase-slider .feature-controller ul,
+#content-slider .feature-controller ul { 
 	overflow: visible;
 	z-index: 99;
 	position: absolute;
+}
+#content-slider .feature-controller ul {
 	top: 0px;
 	right: 0px;
 }
-#showcase-slider .feature-slider {
+#showcase-slider .feature-controller ul {
 	top: 12px;
+	right: 24px;
 }
-.feature-slider ul {
+.feature-controller ul {
 	list-style-type: none;
 	margin: 0;
 }
-.feature-slider li {
+.feature-controller li {
 	float: left;
 	margin: 0 6px;
 }
-.feature-slider a {
+.feature-controller a {
 	background: #3c3c3c;
 	background: rgba(60,60,60,0.9);
 	-moz-border-radius: 12px;
@@ -372,7 +391,7 @@
 	width: 12px;
 	height: 12px;
 }
-.feature-slider a.active {
+.feature-controller a.active {
 	background: #1982d1;
 	-webkit-box-shadow: inset 1px 1px 5px rgba(0,0,0,0.4), inset 0 0 2px rgba(255,255,255,0.8);
 	-moz-box-shadow: inset 1px 1px 5px rgba(0,0,0,0.4), inset 0 0 2px rgba(255,255,255,0.8);

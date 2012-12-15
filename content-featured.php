@@ -37,10 +37,10 @@
             <?php endif; ?>
             	
             <div class="entry-content">
-                <?php if( $post_format == '' || $post_format == 'aside' || $post_format == 'chat' || $post_format == 'status' ) {	
-                    the_excerpt(); 
+                <?php if( $post_format == 'link' || $post_format == 'chat' || $post_format == 'quote' ) {	
+                    cubricks_entry_content();
 				} else {
-					cubricks_entry_content();
+					the_excerpt();
 				} ?>
                 <?php wp_link_pages( cubricks_link_pages_args() ); ?>
             </div><!-- .entry-content -->        

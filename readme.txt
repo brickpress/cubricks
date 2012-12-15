@@ -34,7 +34,7 @@ Give your website that elegant look you commonly find on premium themes with tex
 * Wrappers Section
 Put your creativity to the test with Cubricks theme section wrappers. Each section wrapper can be styled independently using a combination of colors, opacity, background images and background positioning. You can transform your website into almost anything you can imagine using this feature.
 * Featured Slider Section
-Changes the location, background and dimensions of your featured posts slider when using the showcase and homepage page templates.
+Changes the location, background and dimensions of your featured posts slider when using the showcase and front-page page templates.
 * Reset Section
 Resets theme settings to defaults. This does not reset text entries such as copyright notice and social links.
 
@@ -89,7 +89,7 @@ Check out live demos of the theme: http://brickpress.us/
 26 October 2012 - version 1.0.5
  * removed webmaster tools
  * added option to choose social icons
- * added option to hide footer widget area on slider homepage page template
+ * added option to hide footer widget area on slider front-page page template
  
 27 November 2012 - version 1.0.6
  * Implemented theme options into Theme Customizer. Made a lot of changes including the removal of the theme options page and Setting API altogether.

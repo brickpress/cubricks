@@ -82,8 +82,8 @@ function cubricks_header_style() {
 	?>
 		.site-title a,
 		.site-description,
-		.template-homepage h1.site-title,
-		.template-homepage h2.site-description {
+		.template-front-page h1.site-title,
+		.template-front-page h2.site-description {
 			color: #<?php echo $text_color; ?> !important;
 		}
 		.header-navigation li a {

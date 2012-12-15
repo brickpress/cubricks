@@ -69,7 +69,7 @@
 	} );
 	wp.customize( 'footer_sidebar_text', 'footer_sidebar_shadow',  function( value ) {
 		value.bind( function( to ) {
-			$( '#sidebar-homepage #supplementary .widget .textwidget', '#sidebar-homepage #supplementary .widget-title', '#sidebar-homepage #supplementary .widget p' ).css( 'color', to );
+			$( '#sidebar-front-page #supplementary .widget .textwidget', '#sidebar-front-page #supplementary .widget-title', '#sidebar-front-page #supplementary .widget p' ).css( 'color', to );
 		} );
 	} );
 	wp.customize( 'footer_sidebar_link', 'footer_sidebar_shadow', function( value ) {
@@ -77,19 +77,19 @@
 			$( '#supplementary .widget a, #supplementary .widget a:hover, .template-front-page #supplementary .widget li a, .template-front-page #supplementary .widget li a:hover, #supplementary .widget .tagcloud' ).css( 'color', to );
 		} );
 	} );
-	wp.customize( 'homepage_sidebar_text', 'homepage_sidebar_shadow', function( value ) {
+	wp.customize( 'front-page_sidebar_text', 'front-page_sidebar_shadow', function( value ) {
 		value.bind( function( to ) {
-			$( '#sidebar-homepage #supplementary .widget .textwidget', '#sidebar-homepage #supplementary .widget-title', '#sidebar-homepage #supplementary .widget p' ).css( 'color', to );
+			$( '#sidebar-front-page #supplementary .widget .textwidget', '#sidebar-front-page #supplementary .widget-title', '#sidebar-front-page #supplementary .widget p' ).css( 'color', to );
 		} );
 	} );
-	wp.customize( 'homepage_content_text', 'homepage_content_shadow', function( value ) {
+	wp.customize( 'front-page_content_text', 'front-page_content_shadow', function( value ) {
 		value.bind( function( to ) {
-			$( '.template-homepage .entry-content' ).css( 'color', to );
+			$( '.template-front-page .entry-content' ).css( 'color', to );
 		} );
 	} );
 	wp.customize( 'primary_text_color', function( value ) {
 		value.bind( function( to ) {
-			$( '.comments-area article header cite a, .main-navigation li ul li a:hover, .template-homepage .entry-content .sd-title' ).css( 'color', to );
+			$( '.comments-area article header cite a, .main-navigation li ul li a:hover, .template-front-page .entry-content .sd-title' ).css( 'color', to );
 		} );
 	} );
 	wp.customize( 'secondary_text_color', function( value ) {
@@ -99,7 +99,7 @@
 	} );
 	wp.customize( 'link_color', function( value ) {
 		value.bind( function( to ) {
-			$( 'a, .entry-meta a, .entry-meta a:hover, .format-status .entry-header header a:hover, .comments-area article header a:hover, a.comment-reply-link:hover, .template-homepage .widget-area .widget li a:hover, .entry-header .entry-title a:hover' ).css( 'color', to );
+			$( 'a, .entry-meta a, .entry-meta a:hover, .format-status .entry-header header a:hover, .comments-area article header a:hover, a.comment-reply-link:hover, .template-front-page .widget-area .widget li a:hover, .entry-header .entry-title a:hover' ).css( 'color', to );
 		} );
 	} );
 	wp.customize( 'post_entry_titles', function( value ) {
@@ -149,7 +149,7 @@
 	// Footer Sidebar wrapper
 	wp.customize( 'footer_sidebar_wrapper_color', 'footer_sidebar_wrapper_opacity', 'footer_sidebar_wrapper_image', 'footer_sidebar_wrapper_position_x', 'footer_sidebar_wrapper_position_y', 'footer_sidebar_wrapper_repeat', 'footer_sidebar_wrapper_attachment', function( value ) {
 		value.bind( function( to ) {
-			$( '#sidebar-footer, #sidebar-homepage' ).css( 'background', to );
+			$( '#sidebar-footer, #sidebar-front-page' ).css( 'background', to );
 		} );
 	} );
 	
