@@ -1,25 +1,7 @@
 <?php
 /**
- * Cubricks Theme Customizer implements theme options into Theme Customizer.
+ * Cubricks Theme deault theme mods.
  *
- * Credits where credits are due. Cubricks theme customizer is based on
- * and inspired by the tutorial written by Otto on his website:
- * http://otto42.com/bg. Please visit http://ottopress.com for sources
- * of inspiration and WordPress tips not found elsewhere.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
  * @package     Cubricks Theme
  * @subpackage  Cubricks Theme Customizer
  * @author      Raphael Villanea <raphael@cubrick.us>
@@ -40,8 +22,8 @@ function cubricks_initialize_theme_mods() {
 		
 	$theme_mods = cubricks_theme_mods();
 	
-	foreach( $theme_mods as $theme_mod => $default ) {
-		if( ! isset($cubricks_mods) ) {
+	if( ! isset($theme_mods) ) {
+		foreach( $theme_mods as $theme_mod => $default ) {
 			set_theme_mod( $theme_mod, $default );
 		}
 	}
@@ -75,31 +57,23 @@ function cubricks_theme_mods() {
 		'slider_caption_color'    => '#FFFFFF',
 		'slider_caption_bg'       => '#000000',
 		'slider_caption_opacity'  => '6',
-		// Text Colors
+		// Site and Tagline
 		'header_textcolor'        => get_theme_support( 'custom-header', 'default-text-color' ),
+		'header_text_shadow'      => '#6F94BC',
+		// Text Colors
 		'primary_text_color'      => '#444444',
 		'secondary_text_color'    => '#757575',
 		'link_color'		      => '#21759B',
+		'link_hover'		      => '#F1831E',
 		'post_entry_titles'       => '#1E598E',
 		'post_entry_headers'      => '#357AE8',
-		'main_menu_link'          => '#1E598E',
-		'menu_current_page'       => '#333333',
-		'menu_hover_background'   => '#F5F5F5',
-		'header_menu_hover'       => '#DD4B39',
 		'sidebar_title_color'     => '#757575',
 		'sidebar_link_color'      => '#336699',
 		'footer_sidebar_text'     => '#474747',
-		'footer_sidebar_link'     => '#1E598E', 
+		'footer_sidebar_link'     => '#1E598E',
+		'footer_sidebar_shadow'   => '#FFFFFF',
 		'footer_text_color'       => '#F5F5F5',
 		'footer_link_color'       => '#F7F7F7',
-		'front-page_content_text'   => '#757575',
-		'front-page_sidebar_text'   => '#0B3C63',
-		// Text Shadows
-		'header_text_shadow'      => '#6F94BC',
-		'menu_text_shadow'        => '#FFFFFF',
-		'footer_sidebar_shadow'   => '#FFFFFF',
-		'front-page_sidebar_shadow' => '#FFFFFF',
-		'front-page_content_shadow' => '#FFFFFF',
 		// Section Wrappers
 		// Custom Background
 		'background_color'      => get_theme_support( 'custom-background', 'default-color' ),
@@ -165,6 +139,17 @@ function cubricks_theme_mods() {
 		'slider_wrapper_position_x' => '0',
 		'slider_wrapper_position_y' => '0',
 		'slider_wrapper_attachment' => 'scroll',
+		// Navigation
+		'main_menu_text'          => '#1E598E',
+		'menu_current_page'       => '#333333',
+		'menu_hover_background'   => '#F5F5F5',
+		'menu_text_shadow'        => '#FFFFFF',
+		'header_menu_hover'       => '#DD4B39',
+		// Front Page
+		'front_page_content_text'   => '#757575',
+		'front_page_content_shadow' => '#FFFFFF',
+		'front_page_sidebar_text'   => '#0B3C63',
+		'front_page_sidebar_shadow' => '#FFFFFF',
 		// Reset Theme Mods
 		'reset_theme'		        => false
 	);

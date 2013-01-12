@@ -45,28 +45,6 @@ endif;
 
 
 /**
- * Display an icon representing the current post's format.
- *
- * @since 1.0.0
- */
-if( ! function_exists('cubricks_post_format_icon') ) :
-function cubricks_post_format_icon() {
-	
-	$post_format = strtolower( get_post_format() );
-	
-	if ( is_sticky() ) {
-		$post_format = __( 'featured', 'cubricks' );
-	} elseif ( $post_format == '' ) {
-		$post_format = __( 'standard', 'cubricks' );
-	}
-	$format = apply_filters( 'cubricks_post_format_icon', '<span class="entry-format-' .$post_format. '"></span>' );
-
-	echo $format;	
-}
-endif;
-
-
-/**
  * Convert a chat post into a definition list based on "Name: What they said" content
  *
  * @since 1.0.0
@@ -80,33 +58,45 @@ function cubricks_chat_content() {
 	$lines = preg_split( "/(\r*?\n)+/", $post->post_content );
 	
 	$i = 0;
-	foreach ( $lines as $line ) :
-		
-		$i++;
-		
+	foreach ( $lines as $line ) :	
+		$i++;	
 		if ( strpos( $line, ':' ) !== false ) {
-			
 			$line_pieces = explode( ':', $line, 2 );
 			$name = strip_tags( trim( $line_pieces[0] ) );
-			$text = force_balance_tags( strip_tags( trim( $line_pieces[1] ), '<strong><em><a><img><del><ins><span>' ) );
-			
-			$rowclass = ( $i % 2 == 0 ? ' class="chat-even"' : ' class="chat-odd"' );
-			
-			$output .= '<li' .$rowclass. '><strong>' .$name. ': </strong>' .$text. '</li>';
-			
-		}
-		else {
+			$text = force_balance_tags( strip_tags( trim( $line_pieces[1] ), '<strong><em><a><img><del><ins><span>' ) );		
+			$rowclass = ( $i % 2 == 0 ? ' class="chat-even"' : ' class="chat-odd"' );	
+			$output .= '<li' .$rowclass. '><strong>' .$name. ': </strong>' .$text. '</li>';	
+		} else {
 			$output .= '</ul>' . $line . '<ul class="cubricks-chat">';
-		}
-		
+		}	
 	endforeach;
-	
 	$output .= '</ul>';
-	
 	// Remove any empty definition lists
 	$output = str_replace( '<ul class="cubricks-chat"></ul>', '', $output );
 	
 	return apply_filters( 'the_content', $output );
+}
+
+
+/**
+ * Convert a chat post into a definition list based on "Name: What they said" content
+ *
+ * @since 1.0.0
+ */
+function cubricks_link_content() {
+	
+	global $post;
+
+	$pattern = '|<a.*?(title=[\'"](.*?)[\'"])*? href=[\'"](.*?)[\'"].*?(target=[\'"].*?[\'"])*?>(.*?)</a>|i';
+	preg_match_all( $pattern, $post->post_content, $matches, PREG_SET_ORDER );
+	foreach ( $matches as $link ) { 
+		$url = esc_url_raw( $link[3] ); ?>	
+        <div class="link-content">
+        	<a <?php echo $link[1] ? 'title="' .$link[2]. '"' : 'title="' .$link[5]. '"'; ?> href="<?php echo $url; ?>" <?php echo $link[4] ? $link[4] : ''; ?>><?php echo $link[5]; ?></a>
+        	<div class="link-icon"><?php esc_attr_e( 'Link', 'cubricks' ); ?></div>
+        </div>
+        <?php
+	}
 }
 
 	
@@ -118,12 +108,11 @@ function cubricks_chat_content() {
 function cubricks_quote_content() {
 
 	global $post;
-	
 	if ( strpos( $post->post_content, '<blockquote' ) === false )
 		echo '<blockquote>';
-	
+		
 	the_content();
-
+	
 	if ( strpos( $post->post_content, '</blockquote' ) === false )
 		echo '</blockquote>';
 }
@@ -151,6 +140,191 @@ function cubricks_status_content() {
 	the_content();
 }
 endif;
+
+
+/**
+ * Audio post excerpt.
+ *
+ * @since 1.0.8
+ */
+function cubricks_audio_excerpt() {
+	
+	global $post;
+
+	if( preg_match( '|\[audio(.*?)\]|i', $post->post_content ) ) {
+		$pattern = '|\[audio(.*?)\]|i';
+		preg_match_all( $pattern, $post->post_content, $matches, PREG_SET_ORDER );	
+		if( $matches ) {
+			$audio_shortcode = $matches[0][0];
+			if( isset($audio_shortcode) ) {
+				echo do_shortcode( $audio_shortcode );
+				the_excerpt();
+			}
+		}
+	} else {
+		$pattern = '|<a\s[^>]*?href=[\'"](.*?)[\'"]|i';
+		preg_match_all( $pattern, $post->post_content, $matches, PREG_SET_ORDER );
+		if( $matches ) {
+			$audio_url = $matches[0][1];
+			if( isset($audio_url) ) {
+				$audio = '[audio ' . $audio_url . '|w=640]';
+				echo do_shortcode( $audio );
+			}
+			the_excerpt();
+		}
+	}
+}
+				
+
+/**
+ * Returns the first image found and the post excerpt if one is set.
+ *
+ * @since 1.0.8
+ */
+function cubricks_image_excerpt() {
+	
+	global $post;
+	
+	$pattern = '|<a\s[^>]*?href=[\'"](.*?)[\'"]|i';
+	preg_match_all( $pattern, $post->post_content, $matches, PREG_SET_ORDER );
+	if( $matches )
+		$url = $matches[0][1];
+	
+	$pattern1 = '|<img\s+(.*?)\s?/>|i';
+	preg_match_all( $pattern1, $post->post_content, $matches, PREG_SET_ORDER );
+	if( $matches )
+		$image = $matches[0][1];
+		
+	$pattern2 = '|\[caption id=[\'"](.*?)[\'"] align=[\'"](.*?)[\'"] width=[\'"](.*?)[\'"]\](.*?)\[/caption]|i';
+	preg_match_all( $pattern2, $post->post_content, $matches, PREG_SET_ORDER );
+	if( $matches )
+		$caption = $matches[0][0];
+	
+	if( isset($caption) )
+		echo do_shortcode( $caption );
+	elseif( isset($url) && isset($image) )
+		echo '<div class="wp-caption aligncenter" style="width: auto"><a href="' . $url . '" rel="attachment"><img ' . $image . ' /></a></div>';
+	elseif( isset($image) )
+		echo '<div class="wp-caption aligncenter" style="width: auto"><img ' . $image . ' /></div>';	
+	the_excerpt();
+}
+
+			
+/**
+ * Video post excerpt.
+ *
+ * @since 1.0.8
+ */
+function cubricks_video_excerpt() {
+	
+	global $post;
+
+	preg_match_all( '|\[youtube=http://youtu\.be/([a-zA-Z0-9]*?)([\?hd\=1]*?)[&w=](.*?)\]|i', $post->post_content, $matches, PREG_SET_ORDER );	
+	if( $matches )
+		$youtube = $matches[0][0];
+
+	preg_match_all( '|\[vimeo (.*?)\]|i', $post->post_content, $matches, PREG_SET_ORDER );
+	if( $matches )
+		$vimeo = $matches[0][0];
+
+	if( isset($youtube) ) {
+		echo do_shortcode($youtube);
+		the_excerpt();
+	} elseif( isset($vimeo) ) {
+		echo do_shortcode($vimeo);
+			the_excerpt();
+	} else {
+		the_content();
+	}
+}
+
+
+/**
+ * Gallery post excerpt.
+ *
+ * @since 1.0.8
+ */
+function cubricks_gallery_excerpt() {
+	
+	global $post;
+	static $instance = 0;
+	$instance++;
+	
+	$pattern = '|\[gallery.*?(columns=[\'"](.*?)[\'"])*? ids=[\'"](.*?)[\'"].*?(orderby=[\'"](.*?)[\'"])*?\]|i';
+	preg_match_all( $pattern, $post->post_content, $matches, PREG_SET_ORDER );
+	
+	if( $matches ) {
+		foreach ( $matches as $val ) { 
+			$columns = isset($val[2]) ? intval($val[2]) : '3';
+			$orderby = isset($val[4]) ? $val[4] : '';
+			$itemwidth = $columns > 0 ? floor(100/$columns) : 100;
+			$float = is_rtl() ? 'right' : 'left';
+			$selector = "gallery-{$instance}";
+			
+			if( isset( $val[3] ) ) {
+				$image_array = $val[3];
+				$images = explode( ',', $image_array );
+				$img_count = count( $images );
+			
+				if( $columns <= '3' ) {
+					echo "
+					<style type='text/css'>
+						#{$selector} {
+							margin: auto;
+						}
+						#{$selector} .gallery-item {
+							float: {$float};
+							margin-top: 10px;
+							text-align: center;
+							width: 33%;
+						}
+						#{$selector} img {
+							border: 1px solid #cfcfcf;
+						}
+						#{$selector} .gallery-caption {
+							margin-left: 0;
+						}
+					</style>";
+					echo '<div id=' .$selector. ' class="gallery gallery-columns-3 gallery-size-thumbnail">';
+					for( $i=0; $i<3; $i++  ) {
+					    $image_attr = wp_get_attachment_image_src( $images[$i] );
+						echo '<dl class="gallery-item"><dt class="gallery-icon">';
+						echo '<a href="' . get_attachment_link( $images[$i] ) . '" title="' . trim(strip_tags( get_post_meta( $images[$i], '_wp_attachment_image_alt', true) )) . '"><img width="150" height="150" src="' . $image_attr[0] . '" /></a></dt></dl>';
+					}
+					echo '<br style="clear:both;" />';
+					echo '</div>';	     
+				} else {
+					echo "
+					<style type='text/css'>
+						#{$selector} {
+							margin: auto;
+						}
+						#{$selector} .gallery-item {
+							float: {$float};
+							margin-top: 10px;
+							text-align: center;
+							width: {$itemwidth}%;
+						}
+						#{$selector} img {
+							border: 1px solid #cfcfcf;
+						}
+						#{$selector} .gallery-caption {
+							margin-left: 0;
+						}
+					</style>";
+					echo '<div id=' .$selector. ' class="gallery gallery-columns-' . $columns . ' gallery-size-thumbnail">';
+					for( $i=0; $i<$columns; $i++  ) {
+						$image_attr = wp_get_attachment_image_src( $images[$i] );
+						echo '<dl class="gallery-item"><dt class="gallery-icon">';
+						echo '<a href="' . get_attachment_link( $images[$i] ) . '" title="' . trim(strip_tags( get_post_meta( $images[$i], '_wp_attachment_image_alt', true) )) . '"><img width="150" height="150" src="' . $image_attr[0] . '" /></a></dt></dl>';
+					}
+					echo '<br style="clear:both;" />';
+					echo '</div>';
+				}
+			}
+		}
+	}
+}
 
 
 /**

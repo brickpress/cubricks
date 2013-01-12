@@ -35,7 +35,7 @@
     <div id="header" class="wrapper">
         <header id="masthead" class="site-header inner" role="banner">
         	<?php if( '' != get_theme_mod('site_logo') ) : ?>
-				<a class="site-logo" href="<?php echo esc_url( home_url() ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><img src="<?php echo get_theme_mod('site_logo'); ?>" alt="<?php esc_attr_e( 'Site Logo', 'cubricks' ); ?>" /></a>
+				<a class="site-logo" href="<?php echo esc_url( home_url('/') ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><img src="<?php echo get_theme_mod('site_logo'); ?>" alt="<?php esc_attr_e( 'Site Logo', 'cubricks' ); ?>" /></a>
             <?php endif; ?>
             <hgroup>
                 <h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>

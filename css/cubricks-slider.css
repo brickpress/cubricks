@@ -302,6 +302,7 @@
 }
 .featured-posts section.featured-post article {
 	background: none;
+	overflow: visible;
 }
 .featured-posts {
 	display: block;
@@ -364,8 +365,8 @@
 	position: absolute;
 }
 #content-slider .feature-controller ul {
-	top: 0px;
-	right: 0px;
+	top: 10px;
+	right: 10px;
 }
 #showcase-slider .feature-controller ul {
 	top: 12px;

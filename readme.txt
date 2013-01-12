@@ -3,7 +3,7 @@
 Author: Raphael Villanea <raphael@cubrick.us>
 Requires at least: 3.3
 Tested up to: 3.5
-Version: 1.0.6
+Version: 1.0.7
 
 == Licenses and Copyright Info ==
 
@@ -65,36 +65,36 @@ Check out live demos of the theme: http://brickpress.us/
  * First release!
  
 30 August 2012 - version 1.0.1
- * added Slider Homepage Template - a page with a featured slider, headlines and sidebar. This can optionally be set as Front Page.
+ * Enhancement: added Slider Front Page Template - a page with a featured slider, headlines and sidebar. This can optionally be set as Front Page.
 
 13 September 2012 - version 1.0.2
- * changed Author URI and Theme URI
+ * Blunder: changed Author URI and Theme URI
  
 4 October 2012 - version 1.0.3
- * added option to exclude theme author credits link
- * added copyright and license information for any bundled resources
- * fixed editor-resized image
- * fixed post comment background styling overlap
- * fixed gallery alignment, removed cleaner-gallery.php
- * fixed header call to stylesheet URI path
- * fixed wp_footer()
- * fixed theme options page Save button style
+ * Enhancement: added option to exclude theme author credits link
+ * Required: added copyright and license information for any bundled resources
+ * Blunder: fixed editor-resized image
+ * Blunder: fixed post comment background styling overlap
+ * Blunder: fixed gallery alignment, removed cleaner-gallery.php
+ * Blunder: fixed header call to stylesheet URI path
+ * Blunder: fixed wp_footer()
+ * Blunder: fixed theme options page Save button style
  
 16 October 2012 - version 1.0.4
- * changed "cubricks" to "cubricks" as textdomain for translation
- * fixed footer widgets width issue
- * changed credit link in footer to theme URI
- * main stylesheet enqueued in class.cubricks-theme-setup.php, hard coded stylesheet link removed from header.php
+ * Blunder: changed credit link in footer to theme URI
+ * Blunder: main stylesheet enqueued in class.cubricks-theme-setup.php, hard coded stylesheet link removed from header.php
+ * Bug Fix: fixed footer widgets width issue
  
 26 October 2012 - version 1.0.5
- * removed webmaster tools
- * added option to choose social icons
- * added option to hide footer widget area on slider front-page page template
+ * Blunder: removed webmaster tools
+ * Enhancement: added option to choose social icons
+ * Enhancement: added option to hide footer widget area on slider front-page page template
  
 27 November 2012 - version 1.0.6
- * Implemented theme options into Theme Customizer. Made a lot of changes including the removal of the theme options page and Setting API altogether.
- * Cubricks Theme is now based on TwentyTwelve Theme by WordPress.
+ * Enhancement: Implemented theme options into Theme Customizer. Made a lot of changes including the removal of the theme options page and Settings API altogether.
+ * Enhancement: Cubricks Theme is now based on TwentyTwelve Theme by WordPress.
  
-13 December 2012
- * Removed Category Page Template and widget.
- * Added a featured post slider as a fallback sticky post slider for the nivo Slider if the sticky post have only one post thumbnail, or none at all.
+13 December 2012 - version 1.0.7
+ * Enhancement: Removed Category Page Template and widget.
+ * Enhancement: Added a featured post slider as a fallback sticky post slider for the nivo Slider if the sticky post have only one post thumbnail, or none at all.
+ * Bug Fix: theme mods not properly initialized.

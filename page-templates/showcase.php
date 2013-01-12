@@ -63,28 +63,16 @@ get_header(); ?>
                     <?php echo get_avatar( get_the_author_meta( 'ID' ), apply_filters( 'cubricks_status_avatar', '70' ) ); ?>
                 </div><!-- .entry-header -->
                 <?php endif; ?>
-    
-                <?php if( $post_format == 'link' ) : ?>
-                    <header><span class="link-icon"><span><?php _e( 'Link', 'cubricks' ); ?></span></span></header><!-- .entry-header -->
-                <?php endif; ?>
                
                 <div class="clear"></div>
                 <div class="entry-content">
-                <?php if( $post_format == '' || $post_format == 'aside' || $post_format == 'chat' || $post_format == 'status' ) {	
-                    the_excerpt(); 
-				} else {
-					cubricks_entry_content();
-				} ?>
+                	<?php cubricks_excerpt(); ?>
                 </div><!-- .entry-content -->
                 
                 <footer class="entry-meta">
-                <?php if( has_post_format('link') || has_post_format('quote') | has_post_format('aside') ) : ?>
-                    <a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'cubricks' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php echo get_the_date(); ?></a>
-                <?php else : ?>
+       				<?php cubricks_comments_link(); ?>
                     <?php cubricks_entry_meta(); ?>
-                <?php endif; ?>
                 </footer>
-                    <?php cubricks_comments_link(); ?>
                     <?php cubricks_edit_link(); ?>
                 <div class="clear"></div>
                 

@@ -49,7 +49,7 @@ add_action( 'after_setup_theme', 'cubricks_custom_header_setup' );
 /**
  * Styles the header text displayed on the blog.
  *
- * get_header_textcolor() options: 444 is default, hide text (returns 'blank'), or any hex value.
+ * get_header_textcolor() options: FFFFFF is default, hide text (returns 'blank'), or any hex value.
  *
  * @since Cubricks 1.0.6
  */

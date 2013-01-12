@@ -12,8 +12,7 @@ article.post-password-required input[type=submit],
 #comment-nav-above .nav-previous a,
 #comment-nav-above .nav-next a,
 #respond input[type="submit"],
-.cubricks-login a,
-.comments-link a {
+.cubricks-login a {
 	border-width: 1px;
 	border-style: solid;
 	outline: 0;
@@ -28,8 +27,7 @@ article.post-password-required input[type=submit],
 	-khtml-border-radius: 3px;
 	border-radius: 3px;
 }
-.cubricks-login a,
-.comments-link a {
+.cubricks-login a {
 	padding: 0 10px 2px 10px;
 	font-weight: normal;
 }
@@ -60,8 +58,7 @@ article.post-password-required input[type=submit],
 #comment-nav-above .nav-previous a,
 #comment-nav-above .nav-next a,
 #respond input[type="submit"],
-.cubricks-login a,
-.comments-link a {
+.cubricks-login a {
 	background-color: #4D90FE;
 	background-image: -webkit-linear-gradient(top,#4D90FE,#4787ED);
 	background-image: -moz-linear-gradient(top,#4D90FE,#4787ED);
@@ -83,8 +80,7 @@ article.post-password-required input[type=submit]:active,
 #comment-nav-above .nav-previous a:hover,
 #comment-nav-above .nav-next a:hover,
 #respond input[type="submit"]:hover,
-.cubricks-login a:hover,
-.comments-link a:hover {
+.cubricks-login a:hover {
 	background-color: #357AE8;
 	background-image: -webkit-linear-gradient(top,#4D90FE,#357AE8);
 	background-image: -moz-linear-gradient(top,#4D90FE,#357AE8);

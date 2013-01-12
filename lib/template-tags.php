@@ -29,13 +29,19 @@
  */
 if( ! function_exists('cubricks_post_title') ) :
 function cubricks_post_title() {
-	?>
+	
+	$author = sprintf( '<h4 class="author-url"><a href="%1$s" title="%2$s" rel="author">%3$s</a></h4>',
+		esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+		esc_attr( sprintf( __( 'View all posts by %s', 'cubricks' ), get_the_author() ) ),
+		get_the_author()
+	); ?>
 	<?php if( is_single() ) { ?>
 		<h1 class="entry-title"><?php the_title(); ?></h1>
     <?php } elseif( is_sticky() ) { ?>
 		<h1 class="entry-title">
 		<a class="slider-caption" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><?php the_title(); ?></a>
         </h1>
+        <?php if( is_multi_author() ) : ?><?php echo $author; ?><?php endif; ?>
     <?php } elseif( is_author() ) { ?>     
         <h1 class="entry-title"><?php the_author(); ?></h1>
         <h2><a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'cubricks' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php echo get_the_date(); ?></a>
@@ -43,7 +49,39 @@ function cubricks_post_title() {
 	<?php } else { ?>
 		<h1 class="entry-title">
 		<a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'cubricks' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
-        </h1><?php
+        </h1>
+		<?php if( is_multi_author() ) : ?><?php echo $author; ?><?php endif;
+	}
+}
+endif;
+
+
+/**
+ * Displays the current post's excerpt according to post formats.
+ *
+ * @since 1.0.8
+ */
+if( ! function_exists('cubricks_excerpt') ) :
+function cubricks_excerpt() {
+	
+	global $post;
+	$post_format = strtolower( get_post_format() );
+	
+	if( $post_format == 'audio' ) {
+		cubricks_audio_excerpt();
+	} elseif( $post_format == 'chat' ) {
+		cubricks_chat_content();
+	} elseif( $post_format == 'gallery' ) {
+		cubricks_gallery_excerpt();
+	} elseif( $post_format == 'link' ) {
+		cubricks_link_content();
+	} elseif( $post_format == 'quote' ) {
+		cubricks_quote_content();
+	} elseif( $post_format == 'video' ) {
+		cubricks_video_excerpt();
+		//echo $post->post_content;
+	} else {
+		cubricks_image_excerpt();
 	}
 }
 endif;
@@ -57,14 +95,17 @@ endif;
 if( ! function_exists('cubricks_entry_content') ) :
 function cubricks_entry_content() {
 	
+	global $post;
 	$post_format = strtolower( get_post_format() );
 	
 	if( $post_format == 'chat' ) {
 		echo cubricks_chat_content();
+	} elseif(  $post_format == 'link' ) {
+		echo cubricks_link_content();
 	} elseif(  $post_format == 'quote' ) {
 		echo cubricks_quote_content();
 	} else {
-		the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>' ) );
+		the_content();
 	}
 }
 endif;
@@ -273,6 +314,51 @@ if ( ! function_exists( 'cubricks_entry_meta' ) ) :
  * @since Cubricks 1.0.0
  */
 function cubricks_entry_meta() {
+		
+	$time = sprintf( '<a href="%1$s" title="%2$s" rel="bookmark">%3$s</a>',
+		esc_url( get_permalink() ),
+		esc_attr( the_title_attribute('echo=0') ),
+		cubricks_friendly_time()
+	);
+		
+	// Translators: used between list items, there is a space after the comma.
+	$categories_list = get_the_category_list( __( ', ', 'cubricks' ) );
+
+	// Translators: used between list items, there is a space after the comma.
+	$tag_list = get_the_tag_list( '', __( ', ', 'cubricks' ) );
+	
+	// Translators: 1 is the post permalink, 2 is post title, 3 is date published, 4 is the category and 5 is tags.
+	if( $tag_list ) {
+		$utility_text = __( '<p class="friendly-date"><a href="%1$s" title="%2$s">%3$s</a></p><p class="post-topics">Topics # %4$s, %5$s', 'cubricks' );
+	} elseif( $categories_list ) {
+		$utility_text = __( '<p class="friendly-date"><a href="%1$s" title="%2$s">%3$s</a></p><p class="post-topics">Topics # %4$s</p>', 'cubricks' );
+	} else {
+		$utility_text = __( '<p class="friendly-date"><a href="%1$s" title="%2$s">%3$s</a></p>', 'cubricks' );
+	}	
+
+	printf(
+		$utility_text,									
+		esc_url( get_permalink() ),					// 1
+		esc_attr( the_title_attribute('echo=0') ),  // 2				
+		$time,										// 3
+		$categories_list,							// 4
+		$tag_list									// 5
+	
+	);
+}
+endif;
+//add_filter( 'the_excerpt', 'cubricks_entry_meta' );
+
+
+if ( ! function_exists( 'cubricks_single_entry_meta' ) ) :
+/**
+ * Prints HTML with meta information for current post: categories, tags, permalink, author, and date.
+ *
+ * Create your own cubricks_entry_meta() to override in a child theme.
+ *
+ * @since Cubricks 1.0.0
+ */
+function cubricks_single_entry_meta() {
 	
 	$format = get_post_format();
 	if( '' == $format )
@@ -504,9 +590,9 @@ function cubricks_comments_link() {
 	
 	if( comments_open() && ! post_password_required() ) {
 		?>
-        <div class="comments-link"><?php
+        <p class="comments-link"><?php
 		comments_popup_link( __( 'Leave a Comment', 'cubricks' ), _x( '1 Comment ', 'comments number', 'cubricks' ), _x( '% Comments ', 'comments number', 'cubricks' ) ); ?>
-        </div><!-- .comments-link --><?php
+        </p><!-- .comments-link --><?php
 	}
 }
 endif;
@@ -518,10 +604,7 @@ endif;
  * @since 1.0.0
  */
 function cubricks_edit_link() {
-	?>
-	<div class="edit-link">
-		<?php edit_post_link( __( 'Edit', 'cubricks' ), '', '' ); ?>
-    </div><!-- .edit-link --><?php
+	edit_post_link( __( 'Edit', 'cubricks' ), '', '' );
 }
 
 
@@ -543,6 +626,22 @@ function cubricks_custom_header() {
 
 
 /**
+ * Returns the number of words in a post.
+ *
+ * @since 1.0.7
+ */
+function cubricks_word_count() {
+	
+	global $post;
+	$text = strip_tags( $post->post_content );  
+	$text = strip_shortcodes( $post->post_content );
+	$text = trim( preg_replace( "/\s+/", " ", $post->post_content ) );
+	$word_array = explode( " ", $text );
+	return count( $word_array );
+}
+
+
+/**
  * Sets the post excerpt length to 40 words.
  *
  * To override this length in a child theme, remove the filter and add your own
@@ -557,12 +656,27 @@ add_filter( 'excerpt_length', 'cubricks_excerpt_length' );
 
 
 /**
- * Returns a "Continue Reading" link for excerpts
+ * Returns a "Read More" link and number of words left for excerpts.
  *
  * @since 1.0.0
  */
 function cubricks_continue_reading_link() {
-	return ' <a href="'. esc_url( get_permalink() ) . '">' . __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'cubricks' ) . '</a>';
+	
+	global $post;
+	
+	$excerpt_length = cubricks_excerpt_length() + 1;
+	$word_count = cubricks_word_count();
+	$words_left = $word_count - $excerpt_length;
+	
+	$read_more = __( '<p><a class="read-more" href="%1$s" title="%2$s"><span>Read more... </span>  %3$d words left</a></p>', 'cubricks' );
+		
+	$cubricks_more = sprintf(
+		$read_more,									
+		esc_url( get_permalink() ),					// 1
+		esc_attr( the_title_attribute('echo=0') ),  // 2
+		$words_left									// 3							
+	);
+	return $cubricks_more;
 }
 
 
@@ -605,4 +719,77 @@ add_filter( 'get_the_excerpt', 'cubricks_custom_excerpt_more' );
 function cubricks_theme_link() {
 	?>
 	<a class="theme-url" href="<?php echo esc_url( __( 'http://cubrickstheme.brickpress.us/', 'cubricks' ) ); ?>" title="<?php esc_attr_e( 'Cubricks Theme Website', 'cubricks' ); ?>"><?php printf( __( '%s', 'cubricks' ), 'Cubricks Theme' ); ?></a><?php
+}
+
+
+/**
+ * Human readable date
+ * 
+ * From wpcandy: http://wpcandy.com/teaches/how-to-display-human-readable-post-dates
+ *
+ * @since 1.07
+ */
+function cubricks_friendly_time( $date, $type = null ) {
+		
+	if( get_option( 'timezone_string' ) != '' )
+		date_default_timezone_set( get_option( 'timezone_string' ) );
+	
+	$post_time = get_the_time('U');
+	$current_time = current_time('timestamp');
+	$time_difference = $current_time - $post_time;
+	
+	$minute = 60;
+	$hour = 3600;
+	$day = 86400;
+	$week = $day * 7;
+	$month = $day * 31;
+	$year = $day * 366;
+	
+	// if over 3 years
+	if ( $time_difference > $year * 3 ) {
+		$friendly_date = __( 'a long while ago', 'cubricks' );
+	// if over 2 years
+	} elseif ( $time_difference > $year * 2 ) {
+		$friendly_date =__( 'over 2 years ago', 'cubricks' );
+	// if over 1 year
+	} elseif ( $time_difference > $year ) {
+		$friendly_date = __( 'over a year ago', 'cubricks' );
+	// if over 11 months
+	} elseif ( $time_difference >= $month * 11 ) {
+		$friendly_date = __( 'about a year ago', 'cubricks' );
+	// if over 2 months
+	} elseif ( $time_difference >= $month * 2 ) {
+		$months = (int) $time_difference / $month;
+		$friendly_date = sprintf( __( 'about %d months ago', 'cubricks' ), $months );
+	// if over 4 weeks ago
+	} elseif ( $time_difference > $week * 4 ) {
+		$friendly_date = __( 'about a month ago', 'cubricks' );
+	// if over 3 weeks ago
+	} elseif ( $time_difference > $week * 3 ) {
+		$friendly_date = __( '3 weeks ago', 'cubricks' );
+	// if over 2 weeks ago
+	} elseif ( $time_difference > $week * 2 ) {
+		$friendly_date = __( '2 weeks ago', 'cubricks' );
+	// if equal to or more than a week ago
+	} elseif ( $time_difference >= $day * 7 ) {
+		$friendly_date = __( 'about a week ago', 'cubricks' );
+	// if equal to or more than 2 days ago
+	} else if ( $time_difference >= $day * 2 ) {
+		$days = (int) $time_difference / $day;
+		$friendly_date = sprintf( __( 'about %d days ago', 'cubricks' ), $days );
+	// if equal to or more than 1 day ago
+	} else if ( $time_difference >= $day ) {
+		$friendly_date = __( 'yesterday', 'cubricks' );
+	// 1 or more hours ago
+	} else if ( $time_difference >= $hour ) {
+		$hours = (int) $time_difference / $hour;
+		$friendly_date = sprintf( __( 'about %d hours ago', 'cubricks' ), $hours );
+	// 1 or more minutes ago
+	} else if ( $time_difference >= $minute * 2 ) {
+		$minutes = (int) $time_difference / $minute;
+		$friendly_date = sprintf( __( '%d minutes ago', 'cubricks' ), $minutes );
+	} else {
+		$friendly_date = __( 'just now', 'cubricks' );
+	}
+	return '<time datetime="' . $post_time . '" pubdate>' . ucfirst( $friendly_date ) . '</time>';
 }

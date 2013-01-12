@@ -22,7 +22,7 @@ if ( ! is_active_sidebar( 'sidebar-h1' ) && ! is_active_sidebar( 'sidebar-h2' ) 
 // If we get this far, we have widgets. Let do this.
 ?>
 <div id="sidebar-front-page" class="wrapper">
-	<div id="supplementary" <?php cubricks_front-page_sidebar_class(); ?>>
+	<div id="supplementary" <?php cubricks_front_page_sidebar_class(); ?>>
 	
 	<?php if ( is_active_sidebar( 'sidebar-h1' ) ) : ?>	    
 		<div id="first" class="widget-area" role="complementary">

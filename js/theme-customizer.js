@@ -22,9 +22,28 @@
 			$( '.copyright-notice' ).html( to );
 		} );
 	} );
+	wp.customize( 'footer_sidebar_heading', function( value ) {
+		value.bind( function( to ) {
+			$( '.footer-sidebar-heading' ).html( to );
+		} );
+	} );
+	wp.customize( 'frontpage_sidebar_heading', function( value ) {
+		value.bind( function( to ) {
+			$( '.front-sidebar-heading' ).html( to );
+		} );
+	} );
 	wp.customize( 'full-wide', function( value ) {
 		value.bind( function( to ) {
-			$( 'body' ).html( to );
+			if ( 'full-wide' == to ) {
+				$( 'body' ).removeClass( 'post-boxes page-centered' );
+				$( 'body' ).addClass( 'full-wide' );
+			} else if ( 'page-centered' == to ) {
+				$( 'body' ).removeClass( 'post-boxes full-wide' );
+				$( 'body' ).addClass( 'page-centered' );
+			} else if ( 'post-boxes' == to ) {
+				$( 'body' ).removeClass( 'full-wide page-centered' );
+				$( 'body' ).addClass( 'post-boxes' );
+			}
 		} );
 	} );
 	wp.customize( 'header_text_shadow', function( value ) {
@@ -32,7 +51,7 @@
 			$( '.site-title a', '.site-description a','.header-navigation li a', '.header-navigation li a:hover' ).css( 'color', to );
 		} );
 	} );
-	wp.customize( 'main_menu_link', function( value ) {
+	wp.customize( 'main_menu_text', function( value ) {
 		value.bind( function( to ) {
 			$( '.main-navigation li a' ).css( 'color', to );
 		} );
@@ -77,12 +96,12 @@
 			$( '#supplementary .widget a, #supplementary .widget a:hover, .template-front-page #supplementary .widget li a, .template-front-page #supplementary .widget li a:hover, #supplementary .widget .tagcloud' ).css( 'color', to );
 		} );
 	} );
-	wp.customize( 'front-page_sidebar_text', 'front-page_sidebar_shadow', function( value ) {
+	wp.customize( 'front_page_sidebar_text', 'front_page_sidebar_shadow', function( value ) {
 		value.bind( function( to ) {
 			$( '#sidebar-front-page #supplementary .widget .textwidget', '#sidebar-front-page #supplementary .widget-title', '#sidebar-front-page #supplementary .widget p' ).css( 'color', to );
 		} );
 	} );
-	wp.customize( 'front-page_content_text', 'front-page_content_shadow', function( value ) {
+	wp.customize( 'front_page_content_text', 'front_page_content_shadow', function( value ) {
 		value.bind( function( to ) {
 			$( '.template-front-page .entry-content' ).css( 'color', to );
 		} );
