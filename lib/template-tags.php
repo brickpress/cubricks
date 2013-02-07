@@ -637,7 +637,7 @@ function cubricks_word_count() {
  *
  * @since 1.0.0
  */
-function cubricks_excerpt_length( $length ) {
+function cubricks_excerpt_length() {
 	return 40;
 }
 add_filter( 'excerpt_length', 'cubricks_excerpt_length' );
