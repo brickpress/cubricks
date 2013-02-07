@@ -1,14 +1,14 @@
-# Copyright (C) 2012 Raphael Villanea
+# Copyright (C) 2013 Raphael Villanea
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Cubricks 1.0.6\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tags/cubricks-cubricks\n"
-"POT-Creation-Date: 2012-12-10 17:04:47+00:00\n"
+"Project-Id-Version: Cubricks 1.0.8\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tags/cubricks-master\n"
+"POT-Creation-Date: 2013-02-07 20:01:48+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2012-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2013-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -22,17 +22,17 @@ msgid ""
 "searching can help."
 msgstr ""
 
-#: author.php:32 lib/template-tags.php:350
+#: author.php:32 lib/template-tags.php:427
 msgid "Author Archives: %s"
 msgstr ""
 
-#: author.php:53 content.php:61
+#: author.php:49 content.php:63 single.php:58
 msgid "About %s"
 msgstr ""
 
 #: comments.php:31
-msgid "One thought on &ldquo;%2$s&rdquo;"
-msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgid "One comment on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s comments on &ldquo;%2$s&rdquo;"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -52,97 +52,119 @@ msgstr ""
 msgid "Comments are closed."
 msgstr ""
 
-#: content.php:19
+#: content-featured.php:22 content.php:22 single.php:26
 msgid "Featured post"
 msgstr ""
 
-#: content.php:27 content.php:45 lib/template-tags.php:41
-#: lib/template-tags.php:45 page-templates/showcase.php:61
-#: page-templates/showcase.php:82
+#: content-featured.php:30 content.php:30 lib/template-tags.php:47
+#: lib/template-tags.php:51 page-templates/showcase.php:61 single.php:34
 msgid "Permalink to %s"
 msgstr ""
 
-#: content.php:34 page-templates/showcase.php:68
-msgid "Link"
-msgstr ""
-
-#: content.php:65
+#: content.php:67 single.php:62
 msgid "View all posts by %s <span class=\"meta-nav\">&rarr;</span>"
 msgstr ""
 
-#: footer.php:33
+#: footer.php:35
 msgid "http://wordpress.org/"
 msgstr ""
 
-#: footer.php:33
+#: footer.php:35
 msgid "Semantic Personal Publishing Platform"
 msgstr ""
 
-#: footer.php:33
+#: footer.php:35
 msgid "Proudly powered by %s"
 msgstr ""
 
-#: functions.php:56
+#: functions.php:61
 msgid "Primary Menu"
 msgstr ""
 
-#: functions.php:57
+#: functions.php:62
 msgid "Header Menu"
 msgstr ""
 
-#: functions.php:144
+#: functions.php:153
 msgid "Main Sidebar"
 msgstr ""
 
-#: functions.php:153
-msgid "First Homepage Sidebar"
+#: functions.php:155
+msgid ""
+"Appears on posts and pages except on the optional Front Page template and "
+"Full-Width Template."
 msgstr ""
 
-#: functions.php:162
+#: functions.php:163
+msgid "First Front Page Sidebar"
+msgstr ""
+
+#: functions.php:165
+msgid ""
+"First, Second and Third Front Page Sidebars appears when using the optional "
+"Front Page template with a page set as Static Front Page. Widgets are "
+"displayed full-width if only one sidebar is active."
+msgstr ""
+
+#: functions.php:173
 msgid "Second Homepage Sidebar"
 msgstr ""
 
-#: functions.php:171
+#: functions.php:175
+msgid "Shows a second column of sidebar widgets to your Front Page."
+msgstr ""
+
+#: functions.php:183
 msgid "Third Homepage Sidebar"
 msgstr ""
 
-#: functions.php:180
+#: functions.php:185
+msgid "Shows a third column of sidebar widgets to your Front Page."
+msgstr ""
+
+#: functions.php:193
 msgid "Footer Area One"
 msgstr ""
 
-#: functions.php:182 functions.php:192 functions.php:202 functions.php:212
-#: functions.php:222 functions.php:232
-msgid "An optional widget area for your site footer"
+#: functions.php:195
+msgid ""
+"The Footer Sidebars appear at the footer on posts and pages except on the "
+"optional Front Page template."
 msgstr ""
 
-#: functions.php:190
+#: functions.php:203
 msgid "Footer Area Two"
 msgstr ""
 
-#: functions.php:200
+#: functions.php:205 functions.php:215 functions.php:225 functions.php:235
+#: functions.php:245
+msgid "An optional widget area for your site footer."
+msgstr ""
+
+#: functions.php:213
 msgid "Footer Area Three"
 msgstr ""
 
-#: functions.php:210
+#: functions.php:223
 msgid "Footer Area Four"
 msgstr ""
 
-#: functions.php:220
+#: functions.php:233
 msgid "Footer Area Five"
 msgstr ""
 
-#: functions.php:230
+#: functions.php:243
 msgid "Footer Area Six"
 msgstr ""
 
-#: functions.php:337
+#: functions.php:349
 msgid "Cubricks Theme"
 msgstr ""
 
 #. translators: If there are characters in your language that are not supported
 #. 	   by Open Sans, translate this to 'off'. Do not translate into your own
 #. language.
-#: functions.php:430
+#: functions.php:419
 msgctxt "Open Sans font: on or off"
 msgid "on"
 msgstr ""
@@ -151,12 +173,12 @@ msgstr ""
 #. your language, translate
 #. 		   this to 'greek', 'cyrillic' or 'vietnamese'. Do not translate into your
 #. own language.
-#: functions.php:435
+#: functions.php:424
 msgctxt "Open Sans font: add new subset (greek, cyrillic, vietnamese)"
 msgid "no-subset"
 msgstr ""
 
-#: header.php:38 lib/theme-customizer.php:214 lib/theme-customizer1.php:215
+#: header.php:38 lib/cubricks-theme-customizer.php:201
 msgid "Site Logo"
 msgstr ""
 
@@ -177,7 +199,7 @@ msgstr ""
 msgid "Next &rarr;"
 msgstr ""
 
-#: image.php:92 lib/template-tags.php:486
+#: image.php:92 lib/template-tags.php:561
 msgid "Pages:"
 msgstr ""
 
@@ -189,513 +211,600 @@ msgstr ""
 msgid "Ready to publish your first post? <a href=\"%s\">Get started here</a>."
 msgstr ""
 
-#: lib/cubricks-widgets.php:10
-msgid "Show posts in a category."
+#: lib/cubricks-slider.php:74 lib/cubricks-slider.php:128
+msgid "Featured Posts"
 msgstr ""
 
-#: lib/cubricks-widgets.php:13
-msgid "Cubricks Category Posts"
+#: lib/cubricks-slider.php:151
+msgid "Featuring: %s"
 msgstr ""
 
-#: lib/cubricks-widgets.php:40
-msgid "Category Posts"
-msgstr ""
-
-#: lib/cubricks-widgets.php:99
-msgid "Title:"
-msgstr ""
-
-#: lib/cubricks-widgets.php:104
-msgid "Number of posts to show:"
-msgstr ""
-
-#: lib/cubricks-widgets.php:109
-msgid "Category: "
-msgstr ""
-
-#: lib/cubricks-widgets.php:112
-msgid "Current category of post"
-msgstr ""
-
-#: lib/page-category-field.php:119
-msgid "Category"
-msgstr ""
-
-#: lib/post-formats.php:36
-msgid "Featured"
-msgstr ""
-
-#: lib/post-formats.php:38
-msgid "Article"
-msgstr ""
-
-#: lib/post-formats.php:58
-msgid "featured"
-msgstr ""
-
-#: lib/post-formats.php:60
-msgid "standard"
-msgstr ""
-
-#: lib/post-formats.php:165
-msgid "Nothing Found"
-msgstr ""
-
-#: lib/post-formats.php:169
-msgid ""
-"Apologies, but no results were found. Perhaps searching will help find a "
-"related post."
-msgstr ""
-
-#: lib/post-formats.php:177
-msgid "Most Used Categories"
-msgstr ""
-
-#. translators: %1$s: smilie
-#: lib/post-formats.php:186
-msgid "Try looking in the monthly archives. %1$s"
-msgstr ""
-
-#: lib/post-formats.php:192
-msgid "Tags"
-msgstr ""
-
-#: lib/template-tags.php:67 lib/template-tags.php:563
-msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
-msgstr ""
-
-#: lib/template-tags.php:99
-msgid "Page %s"
-msgstr ""
-
-#: lib/template-tags.php:117 lib/template-tags.php:155
-msgid "Menu"
-msgstr ""
-
-#: lib/template-tags.php:118 lib/template-tags.php:156
-msgid "Skip to content"
-msgstr ""
-
-#: lib/template-tags.php:219
-msgid "Pingback:"
-msgstr ""
-
-#: lib/template-tags.php:234
-msgid "Post author"
-msgstr ""
-
-#. translators: 1: date, 2: time
-#: lib/template-tags.php:240
-msgid "%1$s at %2$s"
-msgstr ""
-
-#: lib/template-tags.php:244
-msgid "Reply <span>&darr;</span>"
-msgstr ""
-
-#: lib/template-tags.php:249
-msgid "Your comment is awaiting moderation."
-msgstr ""
-
-#: lib/template-tags.php:255 lib/template-tags.php:521
-#: page-templates/category-page.php:31 page-templates/homepage.php:32
-msgid "Edit"
-msgstr ""
-
-#: lib/template-tags.php:284
-msgid "View all posts by %s"
-msgstr ""
-
-#: lib/template-tags.php:296 lib/template-tags.php:299
-msgid ", "
-msgstr ""
-
-#: lib/template-tags.php:303
-msgid ""
-"%1$s posted <span class=\"by-author\"> by %2$s</span> on %3$s in %4$s and "
-"tagged %5$s."
-msgstr ""
-
-#: lib/template-tags.php:305
-msgid "%1$s posted <span class=\"by-author\"> by %2$s</span> on %3$s in %4$s."
-msgstr ""
-
-#: lib/template-tags.php:307
-msgid "%1$s posted <span class=\"by-author\"> by %2$s</span> on %3$s."
-msgstr ""
-
-#: lib/template-tags.php:334
-msgid "Daily Archives: %s"
-msgstr ""
-
-#: lib/template-tags.php:336
-msgid "Monthly Archives: %s"
-msgstr ""
-
-#: lib/template-tags.php:338
-msgid "Yearly Archives: %s"
-msgstr ""
-
-#: lib/template-tags.php:340
-msgid "Category Archives: %s"
-msgstr ""
-
-#: lib/template-tags.php:345
-msgid "Tag Archives: %s"
-msgstr ""
-
-#: lib/template-tags.php:352
-msgid "Aside Archives"
-msgstr ""
-
-#: lib/template-tags.php:354
-msgid "Audio Archives"
-msgstr ""
-
-#: lib/template-tags.php:356
-msgid "Chat Archives"
-msgstr ""
-
-#: lib/template-tags.php:358
-msgid "Gallery Archives"
-msgstr ""
-
-#: lib/template-tags.php:360
-msgid "Image Archives"
-msgstr ""
-
-#: lib/template-tags.php:362
-msgid "Link Archives"
-msgstr ""
-
-#: lib/template-tags.php:364
-msgid "Quote Archives"
-msgstr ""
-
-#: lib/template-tags.php:366
-msgid "Status Archives"
-msgstr ""
-
-#: lib/template-tags.php:368
-msgid "Video Archives"
-msgstr ""
-
-#: lib/template-tags.php:372
-msgid "Blog Archives"
-msgstr ""
-
-#: lib/template-tags.php:506
-msgid "Leave a Comment"
-msgstr ""
-
-#: lib/template-tags.php:506
-msgctxt "comments number"
-msgid "1 Comment "
-msgstr ""
-
-#: lib/template-tags.php:506
-msgctxt "comments number"
-msgid "% Comments "
-msgstr ""
-
-#. #-#-#-#-#  cubricks-cubricks.pot (Cubricks 1.0.6)  #-#-#-#-#
-#. Theme URI of the plugin/theme
-#: lib/template-tags.php:605
-msgid "http://cubrickstheme.brickpress.us/"
-msgstr ""
-
-#: lib/template-tags.php:605
-msgid "Cubricks Theme Website"
-msgstr ""
-
-#: lib/template-tags.php:605
-msgid "%s"
-msgstr ""
-
-#: lib/theme-customizer.php:156 lib/theme-customizer1.php:157
+#: lib/cubricks-theme-customizer.php:156
 msgid "Theme Layout"
 msgstr ""
 
-#: lib/theme-customizer.php:166 lib/theme-customizer1.php:167
+#: lib/cubricks-theme-customizer.php:166
 msgid "Page Layout"
 msgstr ""
 
-#: lib/theme-customizer.php:172 lib/theme-customizer1.php:173
+#: lib/cubricks-theme-customizer.php:172
 msgid "Full Width"
 msgstr ""
 
-#: lib/theme-customizer.php:173 lib/theme-customizer1.php:174
+#: lib/cubricks-theme-customizer.php:173
 msgid "Page Container Centered"
 msgstr ""
 
-#: lib/theme-customizer.php:174 lib/theme-customizer1.php:175
+#: lib/cubricks-theme-customizer.php:174
 msgid "Post Boxes"
 msgstr ""
 
-#: lib/theme-customizer.php:184 lib/theme-customizer1.php:185
+#: lib/cubricks-theme-customizer.php:184
 msgid "Page Top Margin"
 msgstr ""
 
-#: lib/theme-customizer.php:188 lib/theme-customizer1.php:189
+#: lib/cubricks-theme-customizer.php:188
 msgid "Top margin if Page Layout is Page Container Centered."
 msgstr ""
 
-#: lib/theme-customizer.php:198 lib/theme-customizer1.php:199
-msgid "Make Header Nav Primary Menu"
+#: lib/cubricks-theme-customizer.php:214
+msgid "Header Text Shadow"
 msgstr ""
 
-#: lib/theme-customizer.php:201 lib/theme-customizer1.php:202
-msgid ""
-"Disables the primary nav menu and makes the header navigation your primary "
-"menu. Use this if you only have a few items to put on menu."
-msgstr ""
-
-#: lib/theme-customizer.php:222 lib/theme-customizer1.php:223
+#: lib/cubricks-theme-customizer.php:223
 msgid "Featured Slider"
 msgstr ""
 
-#: lib/theme-customizer.php:234 lib/theme-customizer1.php:235
+#: lib/cubricks-theme-customizer.php:235
 msgid ""
-"Set all your featured images to 2.702 : 1 aspect ratio (e.g. 1400x518, "
+"Set all your featured images to 2.702:1 W:H aspect ratio (e.g. 1400x518, "
 "1024x379,\n"
 "\t\t851x315)."
 msgstr ""
 
-#: lib/theme-customizer.php:245 lib/theme-customizer1.php:246
+#: lib/cubricks-theme-customizer.php:246
 msgid "Slider Position"
 msgstr ""
 
-#: lib/theme-customizer.php:251 lib/theme-customizer1.php:252
+#: lib/cubricks-theme-customizer.php:252
 msgid "Before site header"
 msgstr ""
 
-#: lib/theme-customizer.php:252 lib/theme-customizer1.php:253
+#: lib/cubricks-theme-customizer.php:253
 msgid "After site header"
 msgstr ""
 
-#: lib/theme-customizer.php:263 lib/theme-customizer1.php:264
+#: lib/cubricks-theme-customizer.php:264
 msgid "Slider Timer"
 msgstr ""
 
-#: lib/theme-customizer.php:266 lib/theme-customizer1.php:267
+#: lib/cubricks-theme-customizer.php:267
 msgid "Time interval (in seconds) between slides"
 msgstr ""
 
-#: lib/theme-customizer.php:276 lib/theme-customizer1.php:277
+#: lib/cubricks-theme-customizer.php:277
 msgid "Slider Items"
 msgstr ""
 
-#: lib/theme-customizer.php:279 lib/theme-customizer1.php:280
+#: lib/cubricks-theme-customizer.php:280
 msgid "Number of featured posts."
 msgstr ""
 
-#: lib/theme-customizer.php:289 lib/theme-customizer1.php:290
+#: lib/cubricks-theme-customizer.php:290
 msgid "Slider Effects"
 msgstr ""
 
-#: lib/theme-customizer.php:318 lib/theme-customizer1.php:319
+#: lib/cubricks-theme-customizer.php:319
 msgid "Featured Slider Width"
 msgstr ""
 
-#: lib/theme-customizer.php:321 lib/theme-customizer1.php:322
-msgid "Recommended width is <strong>1400px</strong>."
+#: lib/cubricks-theme-customizer.php:322
+msgid "Recommended width is at least <strong>1024px</strong>."
 msgstr ""
 
-#: lib/theme-customizer.php:333 lib/theme-customizer1.php:334
+#: lib/cubricks-theme-customizer.php:334
 msgid "Slider Caption Color"
 msgstr ""
 
-#: lib/theme-customizer.php:347 lib/theme-customizer1.php:348
+#: lib/cubricks-theme-customizer.php:348
 msgid "Caption Background Color"
 msgstr ""
 
-#: lib/theme-customizer.php:359 lib/theme-customizer1.php:360
+#: lib/cubricks-theme-customizer.php:360
 msgid "Caption Background Opacity"
 msgstr ""
 
-#: lib/theme-customizer.php:362
+#: lib/cubricks-theme-customizer.php:363
 msgid "Set to <strong>0</strong> to hide caption background."
 msgstr ""
 
-#: lib/theme-customizer.php:394 lib/theme-customizer1.php:395
-msgid "Text Shadows"
-msgstr ""
-
-#: lib/theme-customizer.php:430
+#: lib/cubricks-theme-customizer.php:405
 msgid ""
 "Enter values between 0 and 10; where 0 = transparent (no color) | 5 = "
 "translucent | 1 = opaque"
 msgstr ""
 
-#: lib/theme-customizer.php:446 lib/theme-customizer1.php:447
+#: lib/cubricks-theme-customizer.php:421
 msgid "Background Color"
 msgstr ""
 
-#: lib/theme-customizer.php:458 lib/theme-customizer1.php:459
+#: lib/cubricks-theme-customizer.php:433
 msgid "Background Opacity"
 msgstr ""
 
-#: lib/theme-customizer.php:471 lib/theme-customizer1.php:472
+#: lib/cubricks-theme-customizer.php:446
 msgid " Image"
 msgstr ""
 
-#: lib/theme-customizer.php:483 lib/theme-customizer1.php:484
+#: lib/cubricks-theme-customizer.php:458
 msgid "Background Repeat"
 msgstr ""
 
-#: lib/theme-customizer.php:490 lib/theme-customizer1.php:491
+#: lib/cubricks-theme-customizer.php:465
 msgid "No Repeat"
 msgstr ""
 
-#: lib/theme-customizer.php:491 lib/theme-customizer1.php:492
+#: lib/cubricks-theme-customizer.php:466
 msgid "Tile"
 msgstr ""
 
-#: lib/theme-customizer.php:492 lib/theme-customizer1.php:493
+#: lib/cubricks-theme-customizer.php:467
 msgid "Tile Horizontally"
 msgstr ""
 
-#: lib/theme-customizer.php:493 lib/theme-customizer1.php:494
+#: lib/cubricks-theme-customizer.php:468
 msgid "Tile Vertically"
 msgstr ""
 
-#: lib/theme-customizer.php:503 lib/theme-customizer1.php:504
+#: lib/cubricks-theme-customizer.php:478
 msgid "Background Horizontal Position"
 msgstr ""
 
-#: lib/theme-customizer.php:510 lib/theme-customizer1.php:511
+#: lib/cubricks-theme-customizer.php:485
 msgid "Left"
 msgstr ""
 
-#: lib/theme-customizer.php:511 lib/theme-customizer1.php:512
+#: lib/cubricks-theme-customizer.php:486
 msgid "Center"
 msgstr ""
 
-#: lib/theme-customizer.php:512 lib/theme-customizer1.php:513
+#: lib/cubricks-theme-customizer.php:487
 msgid "Right"
 msgstr ""
 
-#: lib/theme-customizer.php:522 lib/theme-customizer1.php:523
+#: lib/cubricks-theme-customizer.php:497
 msgid "Background Vertical Position"
 msgstr ""
 
-#: lib/theme-customizer.php:529 lib/theme-customizer1.php:530
+#: lib/cubricks-theme-customizer.php:504
 msgid "Top"
 msgstr ""
 
-#: lib/theme-customizer.php:530 lib/theme-customizer1.php:531
+#: lib/cubricks-theme-customizer.php:505
 msgid "Middle"
 msgstr ""
 
-#: lib/theme-customizer.php:531 lib/theme-customizer1.php:532
+#: lib/cubricks-theme-customizer.php:506
 msgid "Bottom"
 msgstr ""
 
-#: lib/theme-customizer.php:541 lib/theme-customizer1.php:542
+#: lib/cubricks-theme-customizer.php:516
 msgid "Background Attachment"
 msgstr ""
 
-#: lib/theme-customizer.php:548 lib/theme-customizer1.php:549
+#: lib/cubricks-theme-customizer.php:523
 msgid "Fixed"
 msgstr ""
 
-#: lib/theme-customizer.php:549 lib/theme-customizer1.php:550
+#: lib/cubricks-theme-customizer.php:524
 msgid "Scroll"
 msgstr ""
 
-#: lib/theme-customizer.php:558 lib/theme-customizer1.php:559
+#: lib/cubricks-theme-customizer.php:533
 msgid "Footer Settings"
 msgstr ""
 
-#: lib/theme-customizer.php:568 lib/theme-customizer1.php:569
+#: lib/cubricks-theme-customizer.php:543
 msgid "Copyright Notice"
 msgstr ""
 
-#: lib/theme-customizer.php:578 lib/theme-customizer1.php:579
+#: lib/cubricks-theme-customizer.php:555
+msgid "Footer Sidebar Heading"
+msgstr ""
+
+#: lib/cubricks-theme-customizer.php:556
+msgid "Add a heading to your footer sidebar."
+msgstr ""
+
+#: lib/cubricks-theme-customizer.php:565
 msgid "Social Links"
 msgstr ""
 
-#: lib/theme-customizer.php:583 lib/theme-customizer1.php:584
+#: lib/cubricks-theme-customizer.php:570
 msgid "Follow me on"
 msgstr ""
 
-#: lib/theme-customizer.php:588 lib/theme-customizer1.php:589
+#: lib/cubricks-theme-customizer.php:575
 msgid "Social Links Label"
 msgstr ""
 
-#: lib/theme-customizer.php:595 lib/theme-customizer1.php:596
+#: lib/cubricks-theme-customizer.php:582
 msgid ""
 "Username for your Facebook Page. You may use your Facebook profile if you "
 "don't have a page."
 msgstr ""
 
-#: lib/theme-customizer.php:596 lib/theme-customizer1.php:597
+#: lib/cubricks-theme-customizer.php:583
 msgid "<strong>Username</strong>.twitter.com"
 msgstr ""
 
-#: lib/theme-customizer.php:597 lib/theme-customizer1.php:598
+#: lib/cubricks-theme-customizer.php:584
 msgid "https://plus.google.com/<strong>012345678901234567890</strong>/"
 msgstr ""
 
-#: lib/theme-customizer.php:598 lib/theme-customizer1.php:599
+#: lib/cubricks-theme-customizer.php:585
 msgid "<strong>Username</strong>.tumblr.com"
 msgstr ""
 
-#: lib/theme-customizer.php:599 lib/theme-customizer1.php:600
+#: lib/cubricks-theme-customizer.php:586
 msgid "http://www.flickr.com/photos/<strong>Username</strong>"
 msgstr ""
 
-#: lib/theme-customizer.php:600 lib/theme-customizer1.php:601
+#: lib/cubricks-theme-customizer.php:587
 msgid "http://www.youtube.com/user/<strong>Username</strong>"
 msgstr ""
 
-#: lib/theme-customizer.php:624 lib/theme-customizer1.php:625
+#: lib/cubricks-theme-customizer.php:617
+msgid "Make Header Nav Primary Menu"
+msgstr ""
+
+#: lib/cubricks-theme-customizer.php:621
+msgid ""
+"Disables the primary nav menu and makes the header navigation your primary "
+"menu. Use this if you only have a few items to put on menu."
+msgstr ""
+
+#: lib/cubricks-theme-customizer.php:656
+msgid "Front Page Featured Slider"
+msgstr ""
+
+#: lib/cubricks-theme-customizer.php:660
+msgid "Enable featured slider on front page."
+msgstr ""
+
+#: lib/cubricks-theme-customizer.php:669
+msgid "Front Page Text Size"
+msgstr ""
+
+#: lib/cubricks-theme-customizer.php:675
+msgid "Regular"
+msgstr ""
+
+#: lib/cubricks-theme-customizer.php:676
+msgid "Medium"
+msgstr ""
+
+#: lib/cubricks-theme-customizer.php:677
+msgid "Large"
+msgstr ""
+
+#: lib/cubricks-theme-customizer.php:710
+msgid "Front Page Sidebar Heading"
+msgstr ""
+
+#: lib/cubricks-theme-customizer.php:711
+msgid "Add a heading to your front page sidebar."
+msgstr ""
+
+#: lib/cubricks-theme-customizer.php:720
 msgid "Reset Theme"
 msgstr ""
 
-#: lib/theme-customizer.php:625 lib/theme-customizer.php:638
-#: lib/theme-customizer1.php:626 lib/theme-customizer1.php:639
+#: lib/cubricks-theme-customizer.php:721 lib/cubricks-theme-customizer.php:734
 msgid ""
 "Resets theme settings to defaults. This does not reset text entries such as "
 "copyright notice and social links."
 msgstr ""
 
-#: lib/theme-customizer.php:635 lib/theme-customizer1.php:636
+#: lib/cubricks-theme-customizer.php:731
 msgid "Reset Theme Mods"
 msgstr ""
 
-#: lib/theme-customizer.php:673 lib/theme-customizer1.php:674
+#: lib/cubricks-theme-render.php:782
 msgid "Follow me on Facebook"
 msgstr ""
 
-#: lib/theme-customizer.php:677 lib/theme-customizer1.php:678
+#: lib/cubricks-theme-render.php:786
 msgid "Follow me on Twitter"
 msgstr ""
 
-#: lib/theme-customizer.php:681 lib/theme-customizer1.php:682
+#: lib/cubricks-theme-render.php:790
 msgid "Add me to your circles"
 msgstr ""
 
-#: lib/theme-customizer.php:685 lib/theme-customizer1.php:686
+#: lib/cubricks-theme-render.php:794
 msgid "Follow me on Tumblr"
 msgstr ""
 
-#: lib/theme-customizer.php:689 lib/theme-customizer1.php:690
+#: lib/cubricks-theme-render.php:798
 msgid "Check out my Flickr photostream"
 msgstr ""
 
-#: lib/theme-customizer.php:693 lib/theme-customizer1.php:694
+#: lib/cubricks-theme-render.php:802
 msgid "Subscribe to my channel on Youtube"
 msgstr ""
 
-#: lib/theme-customizer1.php:363
-msgid "Set to 0 to hide caption background."
+#: lib/post-formats.php:73
+msgid "Link"
 msgstr ""
 
-#: lib/theme-customizer1.php:431
+#: lib/post-formats.php:187
 msgid ""
-"Enter values between 0 and 1 (e.g. 0.5, 0.6) 0 = transparent | 1 = opaque"
+"<p class=\"read-more\"><a href=\"%2$s\" title=\"%3$s\"><span>View more... </"
+"span>  %1$d more image</a></p>"
+msgid_plural ""
+"<p class=\"read-more\"><a href=\"%2$s\" title=\"%3$s\"><span>View more... </"
+"span>  %1$d more images</a></p>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/post-formats.php:311
+msgid "Nothing Found"
 msgstr ""
+
+#: lib/post-formats.php:315
+msgid ""
+"Apologies, but no results were found. Perhaps searching will help find a "
+"related post."
+msgstr ""
+
+#: lib/post-formats.php:323
+msgid "Most Used Categories"
+msgstr ""
+
+#. translators: %1$s: smilie
+#: lib/post-formats.php:332
+msgid "Try looking in the monthly archives. %1$s"
+msgstr ""
+
+#: lib/post-formats.php:338
+msgid "Tags"
+msgstr ""
+
+#: lib/template-tags.php:35 lib/template-tags.php:361
+msgid "View all posts by %s"
+msgstr ""
+
+#: lib/template-tags.php:141
+msgid "Page %s"
+msgstr ""
+
+#: lib/template-tags.php:159 lib/template-tags.php:197
+msgid "Menu"
+msgstr ""
+
+#: lib/template-tags.php:160 lib/template-tags.php:198
+msgid "Skip to content"
+msgstr ""
+
+#: lib/template-tags.php:261
+msgid "Pingback:"
+msgstr ""
+
+#: lib/template-tags.php:278
+msgid "Post author"
+msgstr ""
+
+#. translators: 1: date, 2: time
+#: lib/template-tags.php:284
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: lib/template-tags.php:290
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: lib/template-tags.php:298
+msgid "Reply <span>&darr;</span>"
+msgstr ""
+
+#: lib/template-tags.php:299 lib/template-tags.php:595
+#: page-templates/front-page.php:32
+msgid "Edit"
+msgstr ""
+
+#: lib/template-tags.php:320 lib/template-tags.php:323
+#: lib/template-tags.php:373 lib/template-tags.php:376
+msgid ", "
+msgstr ""
+
+#: lib/template-tags.php:327
+msgid "<p class=\"post-topics\">Topics # %1$s, %2$s"
+msgstr ""
+
+#: lib/template-tags.php:329
+msgid "<p class=\"post-topics\">Topics # %1$s</p>"
+msgstr ""
+
+#: lib/template-tags.php:380
+msgid ""
+"%1$s posted <span class=\"by-author\"> by %2$s</span> on %3$s in %4$s and "
+"tagged %5$s."
+msgstr ""
+
+#: lib/template-tags.php:382
+msgid "%1$s posted <span class=\"by-author\"> by %2$s</span> on %3$s in %4$s."
+msgstr ""
+
+#: lib/template-tags.php:384
+msgid "%1$s posted <span class=\"by-author\"> by %2$s</span> on %3$s."
+msgstr ""
+
+#: lib/template-tags.php:411
+msgid "Daily Archives: %s"
+msgstr ""
+
+#: lib/template-tags.php:413
+msgid "Monthly Archives: %s"
+msgstr ""
+
+#: lib/template-tags.php:415
+msgid "Yearly Archives: %s"
+msgstr ""
+
+#: lib/template-tags.php:417 lib/template-tags.php:710
+msgid "%s"
+msgstr ""
+
+#: lib/template-tags.php:422
+msgid "Tag Archives: %s"
+msgstr ""
+
+#: lib/template-tags.php:429
+msgid "Aside Archives"
+msgstr ""
+
+#: lib/template-tags.php:431
+msgid "Audio Archives"
+msgstr ""
+
+#: lib/template-tags.php:433
+msgid "Chat Archives"
+msgstr ""
+
+#: lib/template-tags.php:435
+msgid "Gallery Archives"
+msgstr ""
+
+#: lib/template-tags.php:437
+msgid "Image Archives"
+msgstr ""
+
+#: lib/template-tags.php:439
+msgid "Link Archives"
+msgstr ""
+
+#: lib/template-tags.php:441
+msgid "Quote Archives"
+msgstr ""
+
+#: lib/template-tags.php:443
+msgid "Status Archives"
+msgstr ""
+
+#: lib/template-tags.php:445
+msgid "Video Archives"
+msgstr ""
+
+#: lib/template-tags.php:447
+msgid "Blog Archives"
+msgstr ""
+
+#: lib/template-tags.php:582
+msgid "Leave a Comment"
+msgstr ""
+
+#: lib/template-tags.php:582
+msgctxt "comments number"
+msgid "1 Comment "
+msgstr ""
+
+#: lib/template-tags.php:582
+msgctxt "comments number"
+msgid "% Comments "
+msgstr ""
+
+#: lib/template-tags.php:660
+msgid ""
+"<p class=\"read-more\"><a href=\"%1$s\" title=\"%2$s\"><span>Read more... </"
+"span>  %3$d more words</a></p>"
+msgstr ""
+
+#. #-#-#-#-#  cubricks-master.pot (Cubricks 1.0.8)  #-#-#-#-#
+#. Theme URI of the plugin/theme
+#: lib/template-tags.php:710
+msgid "http://cubrickstheme.brickpress.us/"
+msgstr ""
+
+#: lib/template-tags.php:710
+msgid "Cubricks Theme Website"
+msgstr ""
+
+#: lib/template-tags.php:737
+msgid "Less than a minute ago"
+msgstr ""
+
+#: lib/template-tags.php:739
+msgid "%d minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/template-tags.php:752
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/template-tags.php:756
+msgid ", %d minute"
+msgid_plural ", %d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/template-tags.php:758 lib/template-tags.php:775
+#: lib/template-tags.php:792 lib/template-tags.php:809
+#: lib/template-tags.php:826
+msgid " ago"
+msgstr ""
+
+#: lib/template-tags.php:769
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/template-tags.php:773
+msgid ", %d hour"
+msgid_plural ", %d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/template-tags.php:786
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/template-tags.php:790
+msgid ", %d day"
+msgid_plural ", %d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/template-tags.php:803
+msgid "%d month"
+msgid_plural "%d months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/template-tags.php:807
+msgid ", %d week"
+msgid_plural ", %d weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/template-tags.php:820
+msgid "%d year"
+msgid_plural "%d years"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/template-tags.php:824
+msgid ", %d month"
+msgid_plural ", %d months"
+msgstr[0] ""
+msgstr[1] ""
 
 #: page-templates/content-slider.php:27 page-templates/showcase.php:20
 msgid "Recent Posts"
@@ -705,16 +814,20 @@ msgstr ""
 msgid "Search Results for: %s"
 msgstr ""
 
-#: single.php:20
+#: sidebar.php:17
+msgid "Meta"
+msgstr ""
+
+#: single.php:76
 msgid "Post navigation"
 msgstr ""
 
-#: single.php:21
+#: single.php:77
 msgctxt "Previous post link"
 msgid "&larr;"
 msgstr ""
 
-#: single.php:22
+#: single.php:78
 msgctxt "Next post link"
 msgid "&rarr;"
 msgstr ""
@@ -725,7 +838,7 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"Cubricks theme is a fully responsive theme based on and inspired by "
+"Cubricks Theme is a fully responsive theme based on and inspired by "
 "TwentyTwelve Theme. Featuring the new theme customizer, you can transform "
 "your website into anything you can imagine. It includes a featured post "
 "slider, ten widget areas, five page-templates and supports post formats, "
@@ -741,27 +854,15 @@ msgid "http://cubrick.brickpress.us/"
 msgstr ""
 
 #. Template Name of the plugin/theme
-msgid "Category Page Template"
-msgstr ""
-
-#. Template Name of the plugin/theme
 msgid "Content Slider Template"
 msgstr ""
 
 #. Template Name of the plugin/theme
+msgid "Front Page Template"
+msgstr ""
+
+#. Template Name of the plugin/theme
 msgid "Full-width Page Template, No Sidebar"
-msgstr ""
-
-#. Template Name of the plugin/theme
-msgid "Homepage with Slider Template"
-msgstr ""
-
-#. Template Name of the plugin/theme
-msgid "Homepage Template"
-msgstr ""
-
-#. Template Name of the plugin/theme
-msgid "Output, for Developer"
 msgstr ""
 
 #. Template Name of the plugin/theme

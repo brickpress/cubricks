@@ -4,7 +4,7 @@ Theme URI: http://cubrickstheme.brickpress.us/
 Author: Raphael Villanea
 Author URI: http://cubrick.brickpress.us/
 Description: Cubricks Theme is a fully responsive theme based on and inspired by TwentyTwelve Theme. Featuring the new theme customizer, you can transform your website into anything you can imagine. It includes a featured post slider, ten widget areas, five page-templates and supports post formats, custom header and custom background.
-Version: 1.0.7
+Version: 1.0.8
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: light, blue, gray, white, one-column, two-columns, right-sidebar, flexible-width, custom-background, custom-header, custom-menu, editor-style, featured-images, full-width-template, microformats, post-formats, rtl-language-support, sticky-post, theme-options, translation-ready
@@ -396,7 +396,7 @@ img.wp-post-image,
 .comments-area article header img {
 	/* Add fancy borders to all WordPress-added images but not things like badges and icons and the like */
 	border-radius: 3px;
-	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+	/*box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);*/
 }
 .wp-caption {
 	max-width: 100%; /* Keep wide captions from overflowing their container. */
@@ -625,8 +625,7 @@ body.page-centered #showcase-slider .nivo-nextNav {
 #header {
 	background: #638EBC;
 }
-#sub-head,
-.main-navigation li ul li a {
+#sub-head {
 	background: #E3EDF4;
 }
 #showcase-slider,
@@ -1049,7 +1048,7 @@ article.format-standard .entry-content blockquote,
 	margin-bottom: 0.857142857rem;
 	padding: 12px 12px 12px 48px;
 	padding: 0.857142857rem 0.857142857rem 0.857142857rem 3.428571428rem;
-	font-style: italic;
+	font-style: normal;
 }
 article.format-standard .entry-content blockquote:before,
 .comment-content blockquote:before {
@@ -1060,10 +1059,15 @@ article.format-standard .entry-content blockquote:before,
 	font-size: 5.714285714rem;
 	position: absolute;
 	left: 6px;
-	top: 6px;
 	color: rgba(53, 122, 232, 0.7);
 }
-article.format-standard .entry-content blockquote,
+article.format-standard .entry-content blockquote:before {
+	top: -26px;
+}
+.comment-content blockquote:before {
+	top: 6px;
+}
+article.format-standard .entry-content blockquote blockquote,
 .comment-content blockquote blockquote {
 	background: none;
 }
@@ -1187,23 +1191,27 @@ img.aligncenter {
 	clear: both;
 	line-height: 1.714285714;
 }
+.entry-content .read-more {
+	margin: 12px 0 6px;
+	margin: 0.857142857rem 0 0.428571429rem;
+}
 .read-more {
 	font-size: 13px;
 	font-size: 0.928571429rem;
 }
-.read-more span {
+.read-more a span {
 	color: #21759B;
 }
-.read-more:hover span {
+.read-more a:hover span {
 	color: #F1831E;
 }
-.read-more,
-.read-more:hover {
+.read-more a,
+.read-more a:hover {
 	color: #757575;
 }
 footer.entry-meta,
 .comments-link,
-.friendly-date,
+.friendly-time,
 .post-topics {
 	font-size: 13px;
 	font-size: 0.928571429rem;
@@ -1216,7 +1224,7 @@ footer.entry-meta,
 	width: 35%;
 	white-space: nowrap
 }
-.friendly-date {
+.friendly-time {
 	float: right;
 	text-align: right;
 	clear: none;
@@ -1244,7 +1252,7 @@ footer.entry-meta,
 	color: #757575;
 }
 .comments-link a:hover,
-.friendly-date a:hover,
+.friendly-time a:hover,
 .post-topics a:hover {
 	color: #F1831E;
 }
@@ -2082,6 +2090,7 @@ div.sharedaddy div.sd-block {
 		display: block;
 	}
 	.main-navigation li ul li a {
+		background: #ECEEF5;
 		display: block;
 		font-size: 14px;
 		font-size: 1rem;

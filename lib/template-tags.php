@@ -50,7 +50,7 @@ function cubricks_post_title() {
 		<h1 class="entry-title">
 		<a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'cubricks' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
         </h1>
-		<?php if( is_multi_author() ) : ?><?php echo $author; ?><?php endif;
+		<?php if( is_multi_author() && ! is_page() ) : ?><?php echo $author; ?><?php endif;
 	}
 }
 endif;
@@ -66,22 +66,23 @@ function cubricks_excerpt() {
 	
 	global $post;
 	$post_format = strtolower( get_post_format() );
-	
-	if( $post_format == 'audio' ) {
-		cubricks_audio_excerpt();
-	} elseif( $post_format == 'chat' ) {
-		cubricks_chat_content();
-	} elseif( $post_format == 'gallery' ) {
-		cubricks_gallery_excerpt();
+	if( $post_format == 'chat' ) {
+		echo cubricks_chat_content();
 	} elseif( $post_format == 'link' ) {
 		cubricks_link_content();
 	} elseif( $post_format == 'quote' ) {
 		cubricks_quote_content();
-	} elseif( $post_format == 'video' ) {
-		cubricks_video_excerpt();
-		//echo $post->post_content;
 	} else {
-		cubricks_image_excerpt();
+		if( $post_format == 'audio' ) {
+			cubricks_get_audio_embed();
+		} elseif( $post_format == 'gallery' ) {
+			cubricks_get_gallery_embed();
+		} elseif( $post_format == 'video' ) {
+			cubricks_get_video_embed();
+		} else {
+			cubricks_get_image_embed();
+		}
+		the_excerpt();
 	}
 }
 endif;
@@ -314,13 +315,7 @@ if ( ! function_exists( 'cubricks_entry_meta' ) ) :
  * @since Cubricks 1.0.0
  */
 function cubricks_entry_meta() {
-		
-	$time = sprintf( '<a href="%1$s" title="%2$s" rel="bookmark">%3$s</a>',
-		esc_url( get_permalink() ),
-		esc_attr( the_title_attribute('echo=0') ),
-		cubricks_friendly_time()
-	);
-		
+	
 	// Translators: used between list items, there is a space after the comma.
 	$categories_list = get_the_category_list( __( ', ', 'cubricks' ) );
 
@@ -329,25 +324,18 @@ function cubricks_entry_meta() {
 	
 	// Translators: 1 is the post permalink, 2 is post title, 3 is date published, 4 is the category and 5 is tags.
 	if( $tag_list ) {
-		$utility_text = __( '<p class="friendly-date"><a href="%1$s" title="%2$s">%3$s</a></p><p class="post-topics">Topics # %4$s, %5$s', 'cubricks' );
+		$utility_text = __( '<p class="post-topics">Topics # %1$s, %2$s', 'cubricks' );
 	} elseif( $categories_list ) {
-		$utility_text = __( '<p class="friendly-date"><a href="%1$s" title="%2$s">%3$s</a></p><p class="post-topics">Topics # %4$s</p>', 'cubricks' );
-	} else {
-		$utility_text = __( '<p class="friendly-date"><a href="%1$s" title="%2$s">%3$s</a></p>', 'cubricks' );
-	}	
+		$utility_text = __( '<p class="post-topics">Topics # %1$s</p>', 'cubricks' );
+	} 
 
 	printf(
-		$utility_text,									
-		esc_url( get_permalink() ),					// 1
-		esc_attr( the_title_attribute('echo=0') ),  // 2				
-		$time,										// 3
-		$categories_list,							// 4
-		$tag_list									// 5
-	
+		$utility_text,
+		$categories_list,						
+		$tag_list									
 	);
 }
 endif;
-//add_filter( 'the_excerpt', 'cubricks_entry_meta' );
 
 
 if ( ! function_exists( 'cubricks_single_entry_meta' ) ) :
@@ -628,7 +616,7 @@ function cubricks_custom_header() {
 /**
  * Returns the number of words in a post.
  *
- * @since 1.0.7
+ * @since 1.0.8
  */
 function cubricks_word_count() {
 	
@@ -658,7 +646,8 @@ add_filter( 'excerpt_length', 'cubricks_excerpt_length' );
 /**
  * Returns a "Read More" link and number of words left for excerpts.
  *
- * @since 1.0.0
+ * @since 	 1.0.0
+ * @modified 1.0.8
  */
 function cubricks_continue_reading_link() {
 	
@@ -668,7 +657,7 @@ function cubricks_continue_reading_link() {
 	$word_count = cubricks_word_count();
 	$words_left = $word_count - $excerpt_length;
 	
-	$read_more = __( '<p><a class="read-more" href="%1$s" title="%2$s"><span>Read more... </span>  %3$d words left</a></p>', 'cubricks' );
+	$read_more = __( '<p class="read-more"><a href="%1$s" title="%2$s"><span>Read more... </span>  %3$d more words</a></p>', 'cubricks' );
 		
 	$cubricks_more = sprintf(
 		$read_more,									
@@ -727,16 +716,13 @@ function cubricks_theme_link() {
  * 
  * From wpcandy: http://wpcandy.com/teaches/how-to-display-human-readable-post-dates
  *
- * @since 1.07
+ * @since 1.08
  */
-function cubricks_friendly_time( $date, $type = null ) {
-		
-	if( get_option( 'timezone_string' ) != '' )
-		date_default_timezone_set( get_option( 'timezone_string' ) );
-	
-	$post_time = get_the_time('U');
-	$current_time = current_time('timestamp');
-	$time_difference = $current_time - $post_time;
+function cubricks_friendly_time() {
+					
+	$post_time = esc_attr( get_the_time('U') );
+	$current_time = esc_attr( current_time('timestamp') );
+	$time_diff = $current_time - $post_time;
 	
 	$minute = 60;
 	$hour = 3600;
@@ -744,52 +730,114 @@ function cubricks_friendly_time( $date, $type = null ) {
 	$week = $day * 7;
 	$month = $day * 31;
 	$year = $day * 366;
-	
-	// if over 3 years
-	if ( $time_difference > $year * 3 ) {
-		$friendly_date = __( 'a long while ago', 'cubricks' );
-	// if over 2 years
-	} elseif ( $time_difference > $year * 2 ) {
-		$friendly_date =__( 'over 2 years ago', 'cubricks' );
-	// if over 1 year
-	} elseif ( $time_difference > $year ) {
-		$friendly_date = __( 'over a year ago', 'cubricks' );
-	// if over 11 months
-	} elseif ( $time_difference >= $month * 11 ) {
-		$friendly_date = __( 'about a year ago', 'cubricks' );
-	// if over 2 months
-	} elseif ( $time_difference >= $month * 2 ) {
-		$months = (int) $time_difference / $month;
-		$friendly_date = sprintf( __( 'about %d months ago', 'cubricks' ), $months );
-	// if over 4 weeks ago
-	} elseif ( $time_difference > $week * 4 ) {
-		$friendly_date = __( 'about a month ago', 'cubricks' );
-	// if over 3 weeks ago
-	} elseif ( $time_difference > $week * 3 ) {
-		$friendly_date = __( '3 weeks ago', 'cubricks' );
-	// if over 2 weeks ago
-	} elseif ( $time_difference > $week * 2 ) {
-		$friendly_date = __( '2 weeks ago', 'cubricks' );
-	// if equal to or more than a week ago
-	} elseif ( $time_difference >= $day * 7 ) {
-		$friendly_date = __( 'about a week ago', 'cubricks' );
-	// if equal to or more than 2 days ago
-	} else if ( $time_difference >= $day * 2 ) {
-		$days = (int) $time_difference / $day;
-		$friendly_date = sprintf( __( 'about %d days ago', 'cubricks' ), $days );
-	// if equal to or more than 1 day ago
-	} else if ( $time_difference >= $day ) {
-		$friendly_date = __( 'yesterday', 'cubricks' );
-	// 1 or more hours ago
-	} else if ( $time_difference >= $hour ) {
-		$hours = (int) $time_difference / $hour;
-		$friendly_date = sprintf( __( 'about %d hours ago', 'cubricks' ), $hours );
-	// 1 or more minutes ago
-	} else if ( $time_difference >= $minute * 2 ) {
-		$minutes = (int) $time_difference / $minute;
-		$friendly_date = sprintf( __( '%d minutes ago', 'cubricks' ), $minutes );
-	} else {
-		$friendly_date = __( 'just now', 'cubricks' );
+	// if less than an hour
+	if( $time_diff < $hour ) {
+		$minutes = round( $time_diff / $minute );
+		if( $minutes < 1 ) {
+			$friendly_time = _e( 'Less than a minute ago', 'cubricks' );
+		} else {
+			$friendly_time = printf( _n( '%d minute ago', '%d minutes ago', $minutes, 'cubricks' ),																																			
+				$minutes
+			);
+		}
+	// if less than a day	
+	} elseif( $time_diff < $day ) {
+		$dec_time = round($time_diff / $hour, 2);
+		$time = explode( ".", $dec_time );
+		if( $time ) {
+			$hrs   = $time[0];
+			$min = $dec_time - $time[0];
+			$mins = round( ($min * $hour) / $minute );
+		}
+		$hours =  printf( _n( '%d hour', '%d hours', $hrs, 'cubricks' ), $hrs );
+		if( $mins < 1 ) {
+			$minutes = '';
+		} else {
+			$minutes = printf( _n( ', %d minute', ', %d minutes', $mins, 'cubricks' ),	 $mins );
+		}
+		$ago = _e( ' ago', 'cubricks' );
+		$friendly_time = $hours . $minutes . $ago;
+	// if less than a week		
+	} elseif( $time_diff < $week ) {
+		$dec_time = round($time_diff / $day, 2);
+		$time = explode( ".", $dec_time );
+		if( $time ) {
+			$dys   = $time[0];
+			$hr = $dec_time - $time[0];
+			$hrs = round( ($hr * $day) / $hour );
+		}
+		$days =  printf( _n( '%d day', '%d days', $dys, 'cubricks' ), $dys );
+		if( $hrs < 1 ) {
+			$hours = '';
+		} else {
+			$hours = printf( _n( ', %d hour', ', %d hours', $hrs, 'cubricks' ),	 $hrs );
+		}
+		$ago = _e( ' ago', 'cubricks' );
+		$friendly_time = $days . $hours . $ago;
+	// if less than a month
+	} elseif( $time_diff < $month ) {
+		$dec_time = round($time_diff / $week, 2);
+		$time = explode( ".", $dec_time );
+		if( $time ) {
+			$wks   = $time[0];
+			$diaz = $dec_time - $time[0];
+			$dys = round( ($diaz * $week) / $day );
+		}
+		$weeks =  printf( _n( '%d week', '%d weeks', $wks, 'cubricks' ), $wks );
+		if( $dys < 1 ) {
+			$days = '';
+		} else {
+			$days = printf( _n( ', %d day', ', %d days', $dys, 'cubricks' ),	 $dys );
+		}
+		$ago = _e( ' ago', 'cubricks' );
+		$friendly_time = $weeks . $days . $ago;
+	// if less than a year
+	} elseif( $time_diff < $year ) {
+		$dec_time = round($time_diff / $month, 2);
+		$time = explode( ".", $dec_time );
+		if( $time ) {
+			$mths   = $time[0];
+			$wk = $dec_time - $time[0];
+			$wks = round( ($wk * $month) / $week );
+		}
+		$months =  printf( _n( '%d month', '%d months', $mths, 'cubricks' ), $mths );
+		if( $wks < 1 ) {
+			$weeks = '';
+		} else {
+			$weeks = printf( _n( ', %d week', ', %d weeks', $wks, 'cubricks' ),	 $wks );
+		}
+		$ago = _e( ' ago', 'cubricks' );
+		$friendly_time = $months . $weeks . $ago;
+	// if more than a year
+	} elseif( $time_diff > $year ) {
+		$dec_time = round($time_diff / $year, 2);
+		$time = explode( ".", $dec_time );
+		if( $time ) {
+			$yrs   = $time[0];
+			$mth = $dec_time - $time[0];
+			$mths = round( ($mth * $year) / $month );
+		}
+		$years =  printf( _n( '%d year', '%d years', $yrs, 'cubricks' ), $yrs );
+		if( $mths < 1 ) {
+			$months = '';
+		} else {
+			$months = printf( _n( ', %d month', ', %d months', $mths, 'cubricks' ),	 $mths );
+		}
+		$ago = _e( ' ago', 'cubricks' );
+		$friendly_time = $years . $months . $ago;
 	}
-	return '<time datetime="' . $post_time . '" pubdate>' . ucfirst( $friendly_date ) . '</time>';
+	return $friendly_time;
+}
+
+
+/**
+ * HTML container for our friendly date.
+ * 
+ * @since 1.08
+ */
+function cubricks_friendly_date() {
+	
+	echo '<p class="friendly-time"><a href="' .esc_url( get_permalink() ). '" title="' .esc_attr( the_title_attribute('echo=0') ). '" rel="bookmark">';
+	cubricks_friendly_time(); 
+	echo '</a></p>';
 }

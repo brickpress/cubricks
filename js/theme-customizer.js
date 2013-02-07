@@ -66,6 +66,11 @@
 			$( '.main-navigation li a:hover, .main-navigation .current-menu-item a, .main-navigation .current-menu-ancestor a' ).css( 'color', to );
 		} );
 	} );
+	wp.customize( 'menu_children', function( value ) {
+		value.bind( function( to ) {
+			$( '.main-navigation li ul li a' ).css( 'background', to );
+		} );
+	} );
 	wp.customize( 'menu_hover_background', function( value ) {
 		value.bind( function( to ) {
 			$( '.main-navigation li ul li a:hover, #comments #respond' ).css( 'background', to );
@@ -154,7 +159,7 @@
 	// Navigation menu wrapper
 	wp.customize( 'nav_wrapper_color', 'nav_wrapper_opacity', 'nav_wrapper_image', 'nav_wrapper_position_x', 'nav_wrapper_position_y', 'nav_wrapper_repeat', 'nav_wrapper_attachment', function( value ) {
 		value.bind( function( to ) {
-			$( '#sub-head, .entry-content .contact-form, .main-navigation li ul li a' ).css( 'background', to );
+			$( '#sub-head, .entry-content .contact-form' ).css( 'background', to );
 		} );
 	} );
 	

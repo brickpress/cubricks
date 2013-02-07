@@ -363,7 +363,7 @@ function cubricks_nav_wrapper() {
 		}	
 	}
 	?><style type="text/css" id="nav-wrapper-css">
-		#sub-head, .entry-content .contact-form, .main-navigation li ul li a { <?php echo trim( $color_style ); ?> }
+		#sub-head, .entry-content .contact-form { <?php echo trim( $color_style ); ?> }
 		/* Minimum width of 600 pixels. */
 		@media screen and (min-width: 600px) {
 			#sub-head { <?php echo trim( $style ); ?> }
@@ -675,6 +675,9 @@ function cubricks_menu_colors() {
 		.main-navigation li a {
 			text-shadow: 1px 1px 0 <?php echo get_theme_mod('menu_text_shadow'); ?>;
 		}
+		.main-navigation li ul li a {
+			background: <?php echo get_theme_mod('menu_children'); ?>;
+		}
 		.main-navigation li ul li a:hover {
 			background: <?php echo get_theme_mod('menu_hover_background'); ?>;
 		}
@@ -693,7 +696,8 @@ function cubricks_menu_colors() {
  * @since 1.0.6
  */
 function cubricks_front_page_colors() {
-	?>
+	
+    $font_size = get_theme_mod('front_page_text_size'); ?>
 	<style id="front-page-css" type="text/css">
 	.template-front-page .entry-content {
 		color: <?php echo get_theme_mod('front_page_content_text'); ?>;
@@ -704,6 +708,15 @@ function cubricks_front_page_colors() {
 	#sidebar-front-page #supplementary .widget p {
 		color: <?php echo get_theme_mod('front_page_sidebar_text'); ?>;
 		text-shadow: 1px 1px 0 <?php echo get_theme_mod('front_page_sidebar_shadow'); ?>;
+	}
+	.template-front-page #primary #content .entry-content {
+		font-size: <?php echo $font_size == '26' ? '22' : $font_size; ?>px;
+	}
+	/* Minimum width of 600 pixels. */
+	@media screen and (min-width: 600px) {
+		.template-front-page #primary #content .entry-content {
+			font-size: <?php echo $font_size; ?>px;
+		}
 	}
     </style>
     <?php

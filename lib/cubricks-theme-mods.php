@@ -142,10 +142,13 @@ function cubricks_theme_mods() {
 		// Navigation
 		'main_menu_text'          => '#1E598E',
 		'menu_current_page'       => '#333333',
+		'menu_children'           => '#ECEEF5',
 		'menu_hover_background'   => '#F5F5F5',
 		'menu_text_shadow'        => '#FFFFFF',
 		'header_menu_hover'       => '#DD4B39',
 		// Front Page
+		'front_page_slider'         => true,
+		'front_page_text_size'      => '26',
 		'front_page_content_text'   => '#757575',
 		'front_page_content_shadow' => '#FFFFFF',
 		'front_page_sidebar_text'   => '#0B3C63',

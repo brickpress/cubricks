@@ -20,8 +20,14 @@
  * @copyright  Copyright (c) 2012, Raphael Villanea
  * @license    http://www.gnu.org/licenses/gpl-2.0.html
  */
-if ( !defined('CUBRICKS_VERSION') )
+if ( !defined( 'CUBRICKS_VERSION' ) )
 	define( 'CUBRICKS_VERSION', '1.0.7' );
+	
+/**
+ * Sets up the content width value based on the theme's design and stylesheet.
+ */
+if ( ! isset( $content_width ) )
+	$content_width = 680;
 
 /**
  * Sets up theme defaults and registers the various WordPress features that
@@ -38,8 +44,7 @@ if ( !defined('CUBRICKS_VERSION') )
  */
 function cubricks_setup() {
 	
-	if( ! isset( $content_width ) )
-		$content_width = 680;
+	global $content_width; 
 	
 	load_theme_textdomain( 'cubricks', get_template_directory() . '/lib/languages' );
 	
@@ -77,10 +82,10 @@ function cubricks_setup() {
 	/* Sets the width of the medium featured slider to the theme's content width.
 	 * Default value is 680px.
 	 */
-	$medium_slider_width = cubricks_get_content_width();
+	$medium_slider_width = $content_width;
 	
 	// Sets the height of the medium featured slider. Default value is 365px.
-	$medium_slider_height = get_content_slider_height();
+	$medium_slider_height = round($content_width * 0.537109375);
 	
 	/* Sets the width of the large featured slider to the theme's page width.
 	 * Default value is 1024px.
@@ -95,7 +100,7 @@ function cubricks_setup() {
 	
 	// This theme uses a custom image size for featured images, displayed on "standard" posts.
 	add_theme_support( 'post-thumbnails' );	
-	set_post_thumbnail_size( $content_width, 9999 ); // Unlimited height, soft crop
+	set_post_thumbnail_size( 679, 9999 ); // Unlimited height, soft crop
 }
 add_action( 'after_setup_theme', 'cubricks_setup' );
 
@@ -135,37 +140,6 @@ function cubricks_admin() {
     add_theme_page( 'Customize Theme', 'Customize Theme', 'edit_theme_options', 'customize.php' );
 }
 add_action ('admin_menu', 'cubricks_admin');
-
-
-/**
- * Returns the content width according to page width.
- *
- * @uses get_theme_mod
- *
- * @since Cubricks 1.0.6
- */
-function cubricks_get_content_width() {
-	
-	$page_width = get_theme_mod('cubricks_page_width');
-	$content_width = round($page_width * 0.6640625);
-	return $content_width;
-}
-
-
-/**
- * Returns the height for the content slider (medium
- * sized slider).
- *
- * @uses cubricks_get_content_width()
- *
- * @since Cubricks 1.0.6
- */
-function get_content_slider_height() {
-	
-	$slider_width = cubricks_get_content_width();
-	$slider_height = round($slider_width * 0.537109375);
-	return $slider_height;
-}
 
 
 /**
@@ -480,6 +454,7 @@ add_action( 'wp_enqueue_scripts', 'cubricks_scripts_styles' );
  * @since Cubricks 1.0.6
  */
 function cubricks_content_width() {
+	
 	global $content_width;
 	if ( is_page_template( 'page-templates/full-width.php' ) || is_page_template( 'page-templates/front-page.php' ) || is_attachment() || is_404() || ! is_active_sidebar( 'sidebar-1' ) ) {
 		if ( 'page-centered' == get_theme_mod('page_layout') || 'post-boxes' == get_theme_mod('page_layout') ) {	

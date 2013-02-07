@@ -621,7 +621,7 @@ function cubricks_customize_register( $wp_customize ) {
 		'desc'     => __( 'Disables the primary nav menu and makes the header navigation your primary menu. Use this if you only have a few items to put on menu.', 'cubricks' )
 	) ) );
 	
-	$menu_colors = array( 'main_menu_text', 'menu_current_page', 'menu_hover_background', 'menu_text_shadow', 'header_menu_hover' );
+	$menu_colors = array( 'main_menu_text', 'menu_current_page', 'menu_children', 'menu_hover_background', 'menu_text_shadow', 'header_menu_hover' );
 	$color_priority = 22;
 	
 	foreach( $menu_colors as $color ) {
@@ -646,8 +646,40 @@ function cubricks_customize_register( $wp_customize ) {
 	
 	/* Front Page Section
 	=======================================================*/
+	$wp_customize->add_setting( 'front_page_slider', array(
+		'default'        => true,
+		'capability'     => $capability
+	) );
+	
+	$wp_customize->add_control( new Cubricks_Customize_Checkbox_Control( $wp_customize, 'front_page_slider', array(
+		'settings' => 'front_page_slider',
+		'label'    => __( 'Front Page Featured Slider', 'cubricks' ),
+		'section'  => 'static_front_page',
+		'type'     => 'checkbox',
+		'priority' => 20,
+		'desc'     => __( 'Enable featured slider on front page.', 'cubricks' )
+	) ) );
+	
+	$wp_customize->add_setting( 'front_page_text_size', array(
+		'default'        => cubricks_defaults('front_page_text_size'),
+		'capability'     => $capability
+	) );
+	
+	$wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'front_page_text_size', array(
+		'label'      => __( 'Front Page Text Size', 'cubricks' ),
+		'section'    => 'static_front_page',
+		'settings' 	 => 'front_page_text_size',
+		'type'       => 'radio',
+		'priority'   => 21,
+		'choices'    => array(
+			'14' => __('Regular', 'cubricks'),
+			'18' => __('Medium', 'cubricks'),
+			'26' => __('Large', 'cubricks'),
+			),
+	) ) );
+	
 	$front_page_colors = array( 'front_page_content_text', 'front_page_content_shadow', 'front_page_sidebar_text', 'front_page_sidebar_shadow' );
-	$front_page_priority = 20;
+	$front_page_priority = 22;
 	
 	foreach( $front_page_colors as $color ) {
 		$default = cubricks_defaults( $color );

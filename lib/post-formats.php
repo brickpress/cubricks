@@ -24,27 +24,6 @@
  */
 
 /**
- * Displays the current post's format.
- *
- * @since 1.0.0
- */
-if( ! function_exists('cubricks_post_format') ) :
-function cubricks_post_format() {
-
-	$post_format = ucwords( get_post_format() );
-	if ( is_sticky() ) {
-		$post_format = __( 'Featured', 'cubricks' );
-	} elseif ( $post_format == '' ) {
-		$post_format = __( 'Article', 'cubricks' );
-	}
-	$format = apply_filters( 'cubricks_post_format', '<h3 class="entry-format">' . $post_format . '</h3>' );
-
-	echo $format;	
-}
-endif;
-
-
-/**
  * Convert a chat post into a definition list based on "Name: What they said" content
  *
  * @since 1.0.0
@@ -54,9 +33,7 @@ function cubricks_chat_content() {
 	global $post;
 	
 	$output = '<ul class="cubricks-chat">';
-	
 	$lines = preg_split( "/(\r*?\n)+/", $post->post_content );
-	
 	$i = 0;
 	foreach ( $lines as $line ) :	
 		$i++;	
@@ -79,7 +56,7 @@ function cubricks_chat_content() {
 
 
 /**
- * Convert a chat post into a definition list based on "Name: What they said" content
+ * Returns content for posts using link post format.
  *
  * @since 1.0.0
  */
@@ -119,7 +96,7 @@ function cubricks_quote_content() {
 
 
 /**
- * Shows author avatar for status post format.
+ * Content for posts using status post format.
  *
  * @since 1.0.0
  */
@@ -143,48 +120,154 @@ endif;
 
 
 /**
- * Audio post excerpt.
+ * Returns embedded audio.
  *
  * @since 1.0.8
  */
-function cubricks_audio_excerpt() {
+function cubricks_get_audio_embed() {
 	
 	global $post;
 
-	if( preg_match( '|\[audio(.*?)\]|i', $post->post_content ) ) {
-		$pattern = '|\[audio(.*?)\]|i';
-		preg_match_all( $pattern, $post->post_content, $matches, PREG_SET_ORDER );	
-		if( $matches ) {
-			$audio_shortcode = $matches[0][0];
-			if( isset($audio_shortcode) ) {
-				echo do_shortcode( $audio_shortcode );
-				the_excerpt();
-			}
+	preg_match_all( '|\[audio(.*?)\]|i', $post->post_content, $matches, PREG_SET_ORDER );	
+	if( $matches )
+		$audio_shortcode = $matches[0][0];
+	
+	$pattern = '@((https?://)?([-\w]+\.[-\w\.]+)+\w(:\d+)?(/([-\w/_\.]*(\?[\w|]*[\?|\=]?\w*)?\.mp3|mp4|ogg|mpeg|vorbis)?)*)@';
+	preg_match_all( $pattern, $post->post_content, $matches, PREG_SET_ORDER );
+	if( $matches )
+		$audio_url = $matches[0][0];
+	
+	preg_match_all( '|\[soundcloud (.*?)\]|i', $post->post_content, $matches, PREG_SET_ORDER );
+	if( $matches )
+		$soundcloud = $matches[0][0];	
+	
+	if( isset($audio_shortcode) ) {
+		echo do_shortcode( $audio_shortcode );
+	} elseif( isset($soundcloud) ) {
+		echo do_shortcode($soundcloud);
+	} elseif( isset($audio_url) ) {
+		$audio = '[audio ' . $audio_url . '|w=640]';
+		echo do_shortcode( $audio );
+	}
+}
+
+
+/**
+ * Gallery post excerpt.
+ *
+ * @since 1.0.8
+ */
+function cubricks_get_gallery_embed() {
+	
+	global $post;
+	$pattern = '|\[gallery(\s+columns=[\'"](.*?)[\'"])?(\s+type=[\'"](.*?)[\'"])?(\s+ids=[\'"](.*?)[\'"])?(\s+orderby=[\'"](.*?)[\'"])?\]|i';
+	preg_match_all( $pattern, $post->post_content, $matches, PREG_SET_ORDER );
+	if( $matches ) {
+		$num_cols = isset($matches[0][1]) ? $matches[0][2] : '';
+		$type     = isset($matches[0][3]) ? $matches[0][3] : '';
+		$ids      = isset($matches[0][5]) ? $matches[0][6] : '';
+		$order    = isset($matches[0][7]) ? $matches[0][7] : '';
+		$number_columns = (isset($num_cols) && $num_cols <= 3) ? 3 : $num_cols;
+		$columns  = '' != $num_cols ? 'columns="'.$number_columns.'"' : '';
+		if( isset($type) && $type == 'slideshow' ) {
+			$gallery = '[gallery ' .$columns. ' ' .$type. ' ids="' .$ids. '"' .$order. ']';
+		} else {
+			$images = explode( ",", $ids );
+			$img_total = count($images);
+			$img_show  = $number_columns;
+			$short_gallery = implode( ",", array_slice($images, 0, $img_show) );
+			$gallery = '[gallery ' .$columns. ' ' .$type. ' ids="' .$short_gallery. '"' .$order. ']';
+			$count = $img_total - $img_show;
 		}
-	} else {
-		$pattern = '|<a\s[^>]*?href=[\'"](.*?)[\'"]|i';
-		preg_match_all( $pattern, $post->post_content, $matches, PREG_SET_ORDER );
-		if( $matches ) {
-			$audio_url = $matches[0][1];
-			if( isset($audio_url) ) {
-				$audio = '[audio ' . $audio_url . '|w=640]';
-				echo do_shortcode( $audio );
-			}
-			the_excerpt();
+		echo do_shortcode($gallery);
+		if( $count >= 1 ) {
+			$permalink = esc_url( get_permalink() );
+			$title = esc_attr( the_title_attribute('echo=0') );
+			// Translators: 1 is the number of objects, 2 is the permalink, 3 is the post title
+			printf( _n( '<p class="read-more"><a href="%2$s" title="%3$s"><span>View more... </span>  %1$d more image</a></p>', '<p class="read-more"><a href="%2$s" title="%3$s"><span>View more... </span>  %1$d more images</a></p>', $count, 'cubricks' ),																																			
+				$count,			// 1
+				$permalink,		// 2
+				$title			// 3
+			);
 		}
 	}
 }
 				
-
+			
 /**
- * Returns the first image found and the post excerpt if one is set.
+ * Returns embedded video.
  *
  * @since 1.0.8
  */
-function cubricks_image_excerpt() {
+function cubricks_get_video_embed() {
+	
+	global $post;
+	preg_match_all( '|\[youtube=http://youtu\.be/([a-zA-Z0-9]*?)([\?hd\=1]*?)[&w=](.*?)\]|i', $post->post_content, $matches, PREG_SET_ORDER );	
+	if( $matches )
+		$youtube = $matches[0][0];
+
+	preg_match_all( '|\[vimeo (.*?)\]|i', $post->post_content, $matches, PREG_SET_ORDER );
+	if( $matches )
+		$vimeo = $matches[0][0];
+		
+	preg_match_all( '|\[flickr (.*?)\]|i', $post->post_content, $matches, PREG_SET_ORDER );
+	if( $matches )
+		$flickr = $matches[0][0];
+	
+	preg_match_all( '|\[dailymotion id(.*?)\]|i', $post->post_content, $matches, PREG_SET_ORDER );
+	if( $matches )
+		$dailymotion = $matches[0][0];
+		
+	$pattern = '@((https?://)?([-\w]+\.[-\w\.]+)+\w(:\d+)?(/([-\w/_\.]*(\?[\w|]*[\?|\=]?\w*)?)?)*)@';
+	preg_match_all( $pattern, $post->post_content, $matches, PREG_SET_ORDER );
+	if( $matches )
+		$video_url = $matches[0][0];
+
+	if( isset($youtube) ) {
+		echo do_shortcode($youtube);
+	} elseif( isset($vimeo) ) {
+		echo do_shortcode($vimeo);
+	} elseif( isset($flickr) ) {
+		echo do_shortcode($flickr);
+	} elseif( isset($dailymotion) ) {
+		echo do_shortcode($dailymotion);	
+	// If video is embedded using url.
+	} elseif( isset($video_url) ) {
+		if( preg_match( '|youtube.com|i', $video_url ) ) {
+			$shortcode = '[youtube=' .$video_url. '&amp;w=680]';
+			echo do_shortcode($shortcode);
+		} elseif( preg_match( '|flickr.com|i', $video_url ) ) {
+			$shortcode = '[flickr video=' .$video_url. ']';
+			echo do_shortcode($shortcode);
+		} elseif( preg_match( '|dailymotion.com|i', $video_url ) ) {
+			preg_match_all( '|http://www\.dailymotion\.com/video/(.*?)_\S+|i', $video_url, $matches, PREG_SET_ORDER );
+			if( $matches )
+				$video_id = $matches[0][1];
+			$shortcode = '[dailymotion id=' .$video_id. ']';
+			echo do_shortcode($shortcode);
+		} elseif( preg_match( '|vimeo.com|i', $video_url ) ) {
+			preg_match_all( '|http://vimeo\.com/([0-9]+)/?|i', $video_url, $matches, PREG_SET_ORDER );
+			if( $matches )
+				$video_id = $matches[0][1];
+			$shortcode = '[vimeo ' .$video_id. ' w=679&amp;h=382]';
+			echo do_shortcode($shortcode);
+		} elseif( preg_match( '|wordpress.tv|i', $video_url ) ) {
+			echo $video_url . '<br />';
+		}
+	}
+}
+
+
+/**
+ * Returns the first image found.
+ *
+ * @since 1.0.8
+ */
+function cubricks_get_image_embed() {
 	
 	global $post;
 	
+	// Search for images.
 	$pattern = '|<a\s[^>]*?href=[\'"](.*?)[\'"]|i';
 	preg_match_all( $pattern, $post->post_content, $matches, PREG_SET_ORDER );
 	if( $matches )
@@ -199,133 +282,22 @@ function cubricks_image_excerpt() {
 	preg_match_all( $pattern2, $post->post_content, $matches, PREG_SET_ORDER );
 	if( $matches )
 		$caption = $matches[0][0];
+		
+	preg_match_all( '|\[slideshare (.*?)\]|i', $post->post_content, $matches, PREG_SET_ORDER );
+	if( $matches )
+		$slideshare = $matches[0][0];
 	
-	if( isset($caption) )
+	if( isset($caption) ) {
 		echo do_shortcode( $caption );
-	elseif( isset($url) && isset($image) )
+	} elseif( isset($url) && isset($image) ) {
 		echo '<div class="wp-caption aligncenter" style="width: auto"><a href="' . $url . '" rel="attachment"><img ' . $image . ' /></a></div>';
-	elseif( isset($image) )
-		echo '<div class="wp-caption aligncenter" style="width: auto"><img ' . $image . ' /></div>';	
-	the_excerpt();
-}
-
-			
-/**
- * Video post excerpt.
- *
- * @since 1.0.8
- */
-function cubricks_video_excerpt() {
-	
-	global $post;
-
-	preg_match_all( '|\[youtube=http://youtu\.be/([a-zA-Z0-9]*?)([\?hd\=1]*?)[&w=](.*?)\]|i', $post->post_content, $matches, PREG_SET_ORDER );	
-	if( $matches )
-		$youtube = $matches[0][0];
-
-	preg_match_all( '|\[vimeo (.*?)\]|i', $post->post_content, $matches, PREG_SET_ORDER );
-	if( $matches )
-		$vimeo = $matches[0][0];
-
-	if( isset($youtube) ) {
-		echo do_shortcode($youtube);
-		the_excerpt();
-	} elseif( isset($vimeo) ) {
-		echo do_shortcode($vimeo);
-			the_excerpt();
-	} else {
-		the_content();
+	} elseif( isset($image) ) {
+		echo '<div class="wp-caption aligncenter" style="width: auto"><img ' . $image . ' /></div>';
+	} elseif( isset($slideshare) ) {
+		echo do_shortcode( $slideshare );
 	}
 }
-
-
-/**
- * Gallery post excerpt.
- *
- * @since 1.0.8
- */
-function cubricks_gallery_excerpt() {
-	
-	global $post;
-	static $instance = 0;
-	$instance++;
-	
-	$pattern = '|\[gallery.*?(columns=[\'"](.*?)[\'"])*? ids=[\'"](.*?)[\'"].*?(orderby=[\'"](.*?)[\'"])*?\]|i';
-	preg_match_all( $pattern, $post->post_content, $matches, PREG_SET_ORDER );
-	
-	if( $matches ) {
-		foreach ( $matches as $val ) { 
-			$columns = isset($val[2]) ? intval($val[2]) : '3';
-			$orderby = isset($val[4]) ? $val[4] : '';
-			$itemwidth = $columns > 0 ? floor(100/$columns) : 100;
-			$float = is_rtl() ? 'right' : 'left';
-			$selector = "gallery-{$instance}";
 			
-			if( isset( $val[3] ) ) {
-				$image_array = $val[3];
-				$images = explode( ',', $image_array );
-				$img_count = count( $images );
-			
-				if( $columns <= '3' ) {
-					echo "
-					<style type='text/css'>
-						#{$selector} {
-							margin: auto;
-						}
-						#{$selector} .gallery-item {
-							float: {$float};
-							margin-top: 10px;
-							text-align: center;
-							width: 33%;
-						}
-						#{$selector} img {
-							border: 1px solid #cfcfcf;
-						}
-						#{$selector} .gallery-caption {
-							margin-left: 0;
-						}
-					</style>";
-					echo '<div id=' .$selector. ' class="gallery gallery-columns-3 gallery-size-thumbnail">';
-					for( $i=0; $i<3; $i++  ) {
-					    $image_attr = wp_get_attachment_image_src( $images[$i] );
-						echo '<dl class="gallery-item"><dt class="gallery-icon">';
-						echo '<a href="' . get_attachment_link( $images[$i] ) . '" title="' . trim(strip_tags( get_post_meta( $images[$i], '_wp_attachment_image_alt', true) )) . '"><img width="150" height="150" src="' . $image_attr[0] . '" /></a></dt></dl>';
-					}
-					echo '<br style="clear:both;" />';
-					echo '</div>';	     
-				} else {
-					echo "
-					<style type='text/css'>
-						#{$selector} {
-							margin: auto;
-						}
-						#{$selector} .gallery-item {
-							float: {$float};
-							margin-top: 10px;
-							text-align: center;
-							width: {$itemwidth}%;
-						}
-						#{$selector} img {
-							border: 1px solid #cfcfcf;
-						}
-						#{$selector} .gallery-caption {
-							margin-left: 0;
-						}
-					</style>";
-					echo '<div id=' .$selector. ' class="gallery gallery-columns-' . $columns . ' gallery-size-thumbnail">';
-					for( $i=0; $i<$columns; $i++  ) {
-						$image_attr = wp_get_attachment_image_src( $images[$i] );
-						echo '<dl class="gallery-item"><dt class="gallery-icon">';
-						echo '<a href="' . get_attachment_link( $images[$i] ) . '" title="' . trim(strip_tags( get_post_meta( $images[$i], '_wp_attachment_image_alt', true) )) . '"><img width="150" height="150" src="' . $image_attr[0] . '" /></a></dt></dl>';
-					}
-					echo '<br style="clear:both;" />';
-					echo '</div>';
-				}
-			}
-		}
-	}
-}
-
 
 /**
  * Template to show when no posts are found.

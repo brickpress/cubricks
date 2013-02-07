@@ -34,14 +34,23 @@
             <?php endif; ?>
             	
             <div class="entry-content">
-           		<?php cubricks_excerpt(); ?>
+            	<?php // Check if Jetpack is active and shortcodes module is enabled.
+				$jetpack = get_option( 'jetpack_active_modules' );
+				if( in_array( 'shortcodes', $jetpack ) )
+           			cubricks_excerpt();
+				else
+					cubricks_entry_content();
+				?>
                 <?php wp_link_pages( cubricks_link_pages_args() ); ?>
             </div><!-- .entry-content -->
             
+            <?php if( ! is_page() ) : ?>
            	<footer class="entry-meta">
           	  	<?php cubricks_comments_link(); ?>
+                <?php cubricks_friendly_date(); ?>
 				<?php cubricks_entry_meta(); ?>
-			</footer><!-- .entry-meta -->      
+			</footer><!-- .entry-meta -->
+            <?php endif; ?>     
            		<?php cubricks_edit_link(); ?>
 			<div class="clear"></div>
             
