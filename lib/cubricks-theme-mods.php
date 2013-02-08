@@ -8,7 +8,7 @@
  * @copyright   Copyright (c) 2012, Raphael Villanea
  * @license     http://www.gnu.org/licenses/gpl-2.0.html
  *
- * @since Cubricks 1.0.6
+ * @since	1.0.6
  */
 
 /**
@@ -37,7 +37,7 @@ add_action( 'admin_init', 'cubricks_initialize_theme_mods' );
  * @uses   get_theme_mod
  * @return array
  * 
- * @since 1.0.6
+ * @since	1.0.6
  */
 function cubricks_theme_mods() {
 	
@@ -142,17 +142,17 @@ function cubricks_theme_mods() {
 		// Navigation
 		'main_menu_text'          => '#1E598E',
 		'menu_current_page'       => '#333333',
-		'menu_children'           => '#ECEEF5',
+		'main_menu_children'          => '#ECEEF5',
 		'menu_hover_background'   => '#F5F5F5',
 		'menu_text_shadow'        => '#FFFFFF',
 		'header_menu_hover'       => '#DD4B39',
 		// Front Page
-		'front_page_slider'         => true,
-		'front_page_text_size'      => '26',
-		'front_page_content_text'   => '#757575',
-		'front_page_content_shadow' => '#FFFFFF',
-		'front_page_sidebar_text'   => '#0B3C63',
-		'front_page_sidebar_shadow' => '#FFFFFF',
+		'frontpage_slider'                   => true,
+		'frontpage_text_size'             => '26',
+		'frontpage_content_text'        => '#757575',
+		'frontpage_content_shadow' => '#FFFFFF',
+		'frontpage_sidebar_text'        => '#0B3C63',
+		'frontpage_sidebar_shadow' => '#FFFFFF',
 		// Reset Theme Mods
 		'reset_theme'		        => false
 	);
@@ -167,7 +167,7 @@ function cubricks_theme_mods() {
  * @param   string  $mod_name (theme_mod name)
  * @return 	string	$value (Returns default value for theme_mod)
  *
- * @since 1.0.6
+ * @since	1.0.6
  */
 function cubricks_defaults( $mod_name ) {
 	
@@ -209,7 +209,7 @@ add_action( 'after_setup_theme', 'cubricks_reset_theme' );
  * @param	string 	$seperator (to separate RGB values. Applicable only if second parameter is true.)
  * @return 	array or string (depending on second parameter. Returns False if invalid hex color value)
  *
- * @since 1.0.0
+ * @since	1.0.0
  */                                                                                           
 function hex_to_rgb($hexStr, $returnAsString = true, $seperator = ',') {
 	

@@ -21,6 +21,11 @@
                 <div class="featured-post">
                     <?php _e( 'Featured post', 'cubricks' ); ?>
                 </div>
+                <?php if( has_post_thumbnail() ) : ?>
+            		<div class="featured-img">
+					<?php the_post_thumbnail(); ?>
+            		</div>
+            	<?php endif; ?>
             <?php endif; ?>
             
             <?php if( $post_format == 'status' ) : ?>

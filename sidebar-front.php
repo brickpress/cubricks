@@ -23,7 +23,14 @@ if ( ! is_active_sidebar( 'sidebar-h1' ) && ! is_active_sidebar( 'sidebar-h2' ) 
 ?>
 <div id="sidebar-front-page" class="wrapper">
 	<div id="supplementary" <?php cubricks_front_page_sidebar_class(); ?>>
-	
+    
+	<?php $frontpage_sidebar_heading = get_theme_mod( 'frontpage_sidebar_heading' );
+	if( '' != $frontpage_sidebar_heading ) : ?>
+	<div class="frontpage-heading">
+  		<h1><?php echo $frontpage_sidebar_heading; ?></h1>
+    </div>
+    <?php endif; ?>
+    
 	<?php if ( is_active_sidebar( 'sidebar-h1' ) ) : ?>	    
 		<div id="first" class="widget-area" role="complementary">
 			<?php dynamic_sidebar( 'sidebar-h1' ); ?>

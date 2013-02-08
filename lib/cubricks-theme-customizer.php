@@ -26,7 +26,7 @@
  * @copyright   Copyright (c) 2012, Raphael Villanea
  * @license     http://www.gnu.org/licenses/gpl-2.0.html
  *
- * @since Cubricks 1.0.6
+ * @since	1.0.6
  */
 
 /**
@@ -35,7 +35,7 @@
  * @param $wp_customize Theme Customizer object
  * @return void
  *
- * @since Cubricks 1.0.6
+ * @since	1.0.6
  */
 function cubricks_customize_register( $wp_customize ) {
 	
@@ -56,7 +56,7 @@ function cubricks_customize_register( $wp_customize ) {
 	 * @param $wp_customize Theme Customizer object
 	 * @return void
 	 *
-	 * @since Cubricks 1.0.6
+	 * @since	1.0.6
 	 */
 	class Cubricks_Customize_Text_Control extends WP_Customize_Control {
 		
@@ -81,7 +81,7 @@ function cubricks_customize_register( $wp_customize ) {
 	 * @param $wp_customize Theme Customizer object
 	 * @return void
 	 *
-	 * @since Cubricks 1.0.6
+	 * @since	1.0.6
 	 */
 	class Cubricks_Customize_Heading_Control extends WP_Customize_Control {
 		
@@ -102,7 +102,7 @@ function cubricks_customize_register( $wp_customize ) {
 	 * @param $wp_customize Theme Customizer object
 	 * @return void
 	 *
-	 * @since Cubricks 1.0.6
+	 * @since	1.0.6
 	 */
 	class Cubricks_Customize_Textarea_Control extends WP_Customize_Control {
 		
@@ -125,7 +125,7 @@ function cubricks_customize_register( $wp_customize ) {
 	 * @param $wp_customize Theme Customizer object
 	 * @return void
 	 *
-	 * @since Cubricks 1.0.6
+	 * @since	1.0.6
 	 */
 	class Cubricks_Customize_Checkbox_Control extends WP_Customize_Control {
 		
@@ -533,18 +533,6 @@ function cubricks_customize_register( $wp_customize ) {
 		'title'          => __( 'Footer Settings', 'cubricks' ),
 		'priority'       => 91,
 	) );
-
-	$wp_customize->add_setting( 'copyright_notice', array(
-		'default'        => '',
-		'type'			 => 'theme_mod'
-	) );
-
-	$wp_customize->add_control( new Cubricks_Customize_Textarea_Control( $wp_customize, 'copyright_notice', array(
-		'label'    => __( 'Copyright Notice', 'cubricks' ),
-		'section'  => 'footer_section',
-		'settings' => 'copyright_notice',
-		'type'     => 'textarea'
-	) ) );
 	
 	$wp_customize->add_setting( 'footer_sidebar_heading', array(
 		'default'        => '',
@@ -557,6 +545,18 @@ function cubricks_customize_register( $wp_customize ) {
 		'section'  => 'footer_section',
 		'settings' => 'footer_sidebar_heading',
 		'type'     => 'textarea',	
+	) ) );
+	
+	$wp_customize->add_setting( 'copyright_notice', array(
+		'default'        => '',
+		'type'			 => 'theme_mod'
+	) );
+
+	$wp_customize->add_control( new Cubricks_Customize_Textarea_Control( $wp_customize, 'copyright_notice', array(
+		'label'    => __( 'Copyright Notice', 'cubricks' ),
+		'section'  => 'footer_section',
+		'settings' => 'copyright_notice',
+		'type'     => 'textarea'
 	) ) );
 	
 	/* Social Section
@@ -621,7 +621,7 @@ function cubricks_customize_register( $wp_customize ) {
 		'desc'     => __( 'Disables the primary nav menu and makes the header navigation your primary menu. Use this if you only have a few items to put on menu.', 'cubricks' )
 	) ) );
 	
-	$menu_colors = array( 'main_menu_text', 'menu_current_page', 'menu_children', 'menu_hover_background', 'menu_text_shadow', 'header_menu_hover' );
+	$menu_colors = array( 'main_menu_text', 'menu_current_page', 'main_menu_children', 'menu_hover_background', 'menu_text_shadow', 'header_menu_hover' );
 	$color_priority = 22;
 	
 	foreach( $menu_colors as $color ) {
@@ -646,13 +646,13 @@ function cubricks_customize_register( $wp_customize ) {
 	
 	/* Front Page Section
 	=======================================================*/
-	$wp_customize->add_setting( 'front_page_slider', array(
+	$wp_customize->add_setting( 'frontpage_slider', array(
 		'default'        => true,
 		'capability'     => $capability
 	) );
 	
-	$wp_customize->add_control( new Cubricks_Customize_Checkbox_Control( $wp_customize, 'front_page_slider', array(
-		'settings' => 'front_page_slider',
+	$wp_customize->add_control( new Cubricks_Customize_Checkbox_Control( $wp_customize, 'frontpage_slider', array(
+		'settings' => 'frontpage_slider',
 		'label'    => __( 'Front Page Featured Slider', 'cubricks' ),
 		'section'  => 'static_front_page',
 		'type'     => 'checkbox',
@@ -660,15 +660,15 @@ function cubricks_customize_register( $wp_customize ) {
 		'desc'     => __( 'Enable featured slider on front page.', 'cubricks' )
 	) ) );
 	
-	$wp_customize->add_setting( 'front_page_text_size', array(
-		'default'        => cubricks_defaults('front_page_text_size'),
+	$wp_customize->add_setting( 'frontpage_text_size', array(
+		'default'        => cubricks_defaults('frontpage_text_size'),
 		'capability'     => $capability
 	) );
 	
-	$wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'front_page_text_size', array(
+	$wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'frontpage_text_size', array(
 		'label'      => __( 'Front Page Text Size', 'cubricks' ),
 		'section'    => 'static_front_page',
-		'settings' 	 => 'front_page_text_size',
+		'settings' 	 => 'frontpage_text_size',
 		'type'       => 'radio',
 		'priority'   => 21,
 		'choices'    => array(
@@ -678,13 +678,13 @@ function cubricks_customize_register( $wp_customize ) {
 			),
 	) ) );
 	
-	$front_page_colors = array( 'front_page_content_text', 'front_page_content_shadow', 'front_page_sidebar_text', 'front_page_sidebar_shadow' );
-	$front_page_priority = 22;
+	$frontpage_colors = array( 'frontpage_content_text', 'frontpage_content_shadow', 'frontpage_sidebar_text', 'frontpage_sidebar_shadow' );
+	$frontpage_priority = 22;
 	
-	foreach( $front_page_colors as $color ) {
+	foreach( $frontpage_colors as $color ) {
 		$default = cubricks_defaults( $color );
 		$label = ucwords( preg_replace('/_+/', ' ', $color) );
-		$priority = $front_page_priority++;
+		$priority = $frontpage_priority++;
 		
 		$wp_customize->add_setting( $color, array(
 			'default'           => $default,
@@ -712,6 +712,7 @@ function cubricks_customize_register( $wp_customize ) {
 		'section'  => 'static_front_page',
 		'settings' => 'frontpage_sidebar_heading',
 		'type'     => 'textarea',	
+		'priority' => '30'
 	) ) );
 	
 	/* Reset Section

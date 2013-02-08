@@ -66,7 +66,7 @@
 			$( '.main-navigation li a:hover, .main-navigation .current-menu-item a, .main-navigation .current-menu-ancestor a' ).css( 'color', to );
 		} );
 	} );
-	wp.customize( 'menu_children', function( value ) {
+	wp.customize( 'main_menu_children', function( value ) {
 		value.bind( function( to ) {
 			$( '.main-navigation li ul li a' ).css( 'background', to );
 		} );
@@ -101,12 +101,12 @@
 			$( '#supplementary .widget a, #supplementary .widget a:hover, .template-front-page #supplementary .widget li a, .template-front-page #supplementary .widget li a:hover, #supplementary .widget .tagcloud' ).css( 'color', to );
 		} );
 	} );
-	wp.customize( 'front_page_sidebar_text', 'front_page_sidebar_shadow', function( value ) {
+	wp.customize( 'frontpage_sidebar_text', function( value ) {
 		value.bind( function( to ) {
 			$( '#sidebar-front-page #supplementary .widget .textwidget', '#sidebar-front-page #supplementary .widget-title', '#sidebar-front-page #supplementary .widget p' ).css( 'color', to );
 		} );
 	} );
-	wp.customize( 'front_page_content_text', 'front_page_content_shadow', function( value ) {
+	wp.customize( 'frontpage_content_text', function( value ) {
 		value.bind( function( to ) {
 			$( '.template-front-page .entry-content' ).css( 'color', to );
 		} );

@@ -209,7 +209,8 @@ function cubricks_text_colors() {
 	#supplementary .widget-title,
 	#supplementary .widget .widget-title a,
 	#supplementary .widget p,
-	#supplementary .widget #calendar_wrap table {
+	#supplementary .widget #calendar_wrap table,
+	#sidebar-footer #supplementary .sidebar-footer-heading h1 {
 		color: <?php echo $footer_sidebar_text; ?>;
 		text-shadow: 1px 1px 0 <?php echo $footer_sidebar_shadow; ?>;
 	}
@@ -654,32 +655,37 @@ function cubricks_large_slider_size() {
  * @since 1.0.6
  */
 function cubricks_menu_colors() {
-	?>
+	$header_menu_hover = get_theme_mod('header_menu_hover');
+	$main_menu_text = get_theme_mod('main_menu_text');
+	$menu_current_page = get_theme_mod('menu_current_page');
+	$menu_hover_background = get_theme_mod('menu_hover_background');
+	$menu_text_shadow = get_theme_mod('menu_text_shadow');
+	$main_menu_children = get_theme_mod('main_menu_children'); ?>
 	<style id="nav-menu-css" type="text/css">
 	.header-navigation li a:hover {
-		color: <?php echo get_theme_mod('header_menu_hover'); ?>;
+		color: <?php echo $header_menu_hover; ?>;
 	}
 	.main-navigation li a {
-		color: <?php echo get_theme_mod('main_menu_text'); ?>;
+		color: <?php echo $main_menu_text; ?>;
 	}
 	.main-navigation li a:hover,
 	.main-navigation .current-menu-item > a,
 	.main-navigation .current-menu-ancestor > a  {
-		color: <?php echo get_theme_mod('menu_current_page'); ?>;
+		color: <?php echo $menu_current_page; ?>;
 	}
 	#comments #respond {
-		background: <?php echo get_theme_mod('menu_hover_background'); ?>;
+		background: <?php echo $menu_hover_background; ?>;
 	}
 	/* Minimum width of 600 pixels. */
 	@media screen and (min-width: 600px) {
 		.main-navigation li a {
-			text-shadow: 1px 1px 0 <?php echo get_theme_mod('menu_text_shadow'); ?>;
+			text-shadow: 1px 1px 0 <?php echo $menu_text_shadow; ?>;
 		}
 		.main-navigation li ul li a {
-			background: <?php echo get_theme_mod('menu_children'); ?>;
+			background: <?php echo $main_menu_children; ?>;
 		}
 		.main-navigation li ul li a:hover {
-			background: <?php echo get_theme_mod('menu_hover_background'); ?>;
+			background: <?php echo $menu_hover_background; ?>;
 		}
 	}
     </style>
@@ -697,27 +703,40 @@ function cubricks_menu_colors() {
  */
 function cubricks_front_page_colors() {
 	
-    $font_size = get_theme_mod('front_page_text_size'); ?>
+    $frontpage_text_size = get_theme_mod('frontpage_text_size');
+    $frontpage_content_text = get_theme_mod('frontpage_content_text');
+	$frontpage_content_shadow = get_theme_mod('frontpage_content_shadow');
+	$frontpage_sidebar_text = get_theme_mod('frontpage_sidebar_text'); 
+	$frontpage_sidebar_shadow = get_theme_mod('frontpage_sidebar_shadow'); ?>
 	<style id="front-page-css" type="text/css">
+	<?php if( cubricks_defaults('frontpage_content_text') != $frontpage_content_text || cubricks_defaults('frontpage_content_shadow') != $frontpage_content_shadow ) : ?>
 	.template-front-page .entry-content {
-		color: <?php echo get_theme_mod('front_page_content_text'); ?>;
-		text-shadow: 1px 1px 0 <?php echo get_theme_mod('front_page_content_shadow'); ?>;
+		color: <?php echo $frontpage_content_text; ?>;
+		text-shadow: 1px 1px 0 <?php echo $frontpage_content_shadow; ?>;
 	}
+	<?php endif; ?>
+	<?php if( cubricks_defaults('frontpage_sidebar_text') != $frontpage_sidebar_text || cubricks_defaults('frontpage_sidebar_shadow') != $frontpage_sidebar_shadow ) : ?>
 	#sidebar-front-page #supplementary .widget .textwidget,
 	#sidebar-front-page #supplementary .widget-title,
-	#sidebar-front-page #supplementary .widget p {
-		color: <?php echo get_theme_mod('front_page_sidebar_text'); ?>;
-		text-shadow: 1px 1px 0 <?php echo get_theme_mod('front_page_sidebar_shadow'); ?>;
+	#sidebar-front-page #supplementary .widget p,
+	#sidebar-front-page #supplementary .widget .widget-title a,
+	#sidebar-front-page #supplementary .widget #calendar_wrap table,
+	#sidebar-front-page #supplementary .frontpage-heading h1 {
+		color: <?php echo $frontpage_sidebar_text; ?>;
+		text-shadow: 1px 1px 0 <?php echo $frontpage_sidebar_shadow; ?>;
 	}
+	<?php endif; ?>
+	<?php if( cubricks_defaults('frontpage_text_size') != $frontpage_text_size ) : ?>
 	.template-front-page #primary #content .entry-content {
-		font-size: <?php echo $font_size == '26' ? '22' : $font_size; ?>px;
+		font-size: <?php echo ($frontpage_text_size == '26') ? '22' : $frontpage_text_size; ?>px;
 	}
 	/* Minimum width of 600 pixels. */
 	@media screen and (min-width: 600px) {
 		.template-front-page #primary #content .entry-content {
-			font-size: <?php echo $font_size; ?>px;
+			font-size: <?php echo $frontpage_text_size; ?>px;
 		}
 	}
+	<?php endif; ?>
     </style>
     <?php
 }

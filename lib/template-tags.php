@@ -15,17 +15,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
- * @package    Cubricks Theme
- * @author     Raphael Villanea <raphael@cubrick.us>
- * @copyright  Copyright (c) 2012, Raphael Villanea
+ * @package	Cubricks Theme
+ * @author   	Raphael Villanea <raphael@cubrick.us>
+ * @copyright Copyright (c) 2012, Raphael Villanea
  * @license    http://www.gnu.org/licenses/gpl-2.0.html
- * @since      1.0.0
+ * @since       1.0.0
  */
 
 /**
  * Displays the current post's title.
  *
- * @since 1.0.0
+ * @since	1.0.0
  */
 if( ! function_exists('cubricks_post_title') ) :
 function cubricks_post_title() {
@@ -59,7 +59,7 @@ endif;
 /**
  * Displays the current post's excerpt according to post formats.
  *
- * @since 1.0.8
+ * @since	1.0.8
  */
 if( ! function_exists('cubricks_excerpt') ) :
 function cubricks_excerpt() {
@@ -91,7 +91,7 @@ endif;
 /**
  * Displays the current post's content according to post formats.
  *
- * @since 1.0.0
+ * @since	1.0.0
  */
 if( ! function_exists('cubricks_entry_content') ) :
 function cubricks_entry_content() {
@@ -116,11 +116,11 @@ endif;
  * Creates a nicely formatted and more specific title element text
  * for output in head of document, based on current view.
  *
- * @since Cubricks 1.0.0
- *
  * @param string $title Default title text for current view.
  * @param string $sep Optional separator.
  * @return string Filtered title.
+ *
+ * @since	1.0.0
  */
 function cubricks_wp_title( $title, $sep ) {
 	global $paged, $page;
@@ -148,7 +148,7 @@ add_filter( 'wp_title', 'cubricks_wp_title', 10, 2 );
 /**
  * Displays Cubricks primary navigation menu.
  *
- * @since 1.0.0
+ * @since	1.0.0
  */
 if( ! function_exists('cubricks_nav_menu') ) :
 	function cubricks_nav_menu() { 
@@ -181,7 +181,7 @@ add_action( 'cubricks_header_menu', 'cubricks_header_nav' );
 /**
  * Displays Cubricks header navigation menu.
  *
- * @since 1.0.0
+ * @since	1.0.0
  */
 if( ! function_exists('cubricks_header_nav') ) :
 function cubricks_header_nav() {
@@ -214,7 +214,7 @@ if ( ! function_exists( 'cubricks_content_nav' ) ) :
 /**
  * Display navigation to next/previous pages when applicable
  *
- * @since 1.0.0
+ * @since	1.0.0
  */
 function cubricks_content_nav() {
 	
@@ -248,7 +248,7 @@ if ( ! function_exists( 'cubricks_comment' ) ) :
  *
  * Used as a callback by wp_list_comments() for displaying the comments.
  *
- * @since Cubricks 1.0.0
+ * @since	1.0.0
  */
 function cubricks_comment( $comment, $args, $depth ) {
 	$GLOBALS['comment'] = $comment;
@@ -312,7 +312,7 @@ if ( ! function_exists( 'cubricks_entry_meta' ) ) :
  *
  * Create your own cubricks_entry_meta() to override in a child theme.
  *
- * @since Cubricks 1.0.0
+ * @since	1.0.0
  */
 function cubricks_entry_meta() {
 	
@@ -344,7 +344,7 @@ if ( ! function_exists( 'cubricks_single_entry_meta' ) ) :
  *
  * Create your own cubricks_entry_meta() to override in a child theme.
  *
- * @since Cubricks 1.0.0
+ * @since	1.0.0
  */
 function cubricks_single_entry_meta() {
 	
@@ -387,10 +387,10 @@ function cubricks_single_entry_meta() {
 	printf(
 		$utility_text,
 		$post_format,			// 1
-		$author,				// 2
-		$date,					// 3
+		$author,						// 2
+		$date,							// 3
 		$categories_list,		// 4
-		$tag_list				// 5	
+		$tag_list						// 5	
 	);
 }
 endif;
@@ -399,7 +399,7 @@ endif;
 /**
  * Returns header for archive pages.
  * 
- * @since 1.0.0
+ * @since	1.0.0
  */
 if( ! function_exists('cubricks_archive_header') ) :
 function cubricks_archive_header() {
@@ -462,7 +462,7 @@ endif;
  * @param     void
  * @return    string $class
  * 
- * @since     1.0.0
+ * @since	1.0.0
  */
 if( ! function_exists( 'cubricks_footer_sidebar_class' ) ) :
 	function cubricks_footer_sidebar_class() {
@@ -515,10 +515,10 @@ endif;
  * Count the number of front-page sidebars to enable dynamic classes
  * for the front-page sidebar.
  *
- * @param     void
- * @return    string $class
+ * @param	void
+ * @return   string $class
  * 
- * @since     1.0.0
+ * @since	1.0.0
  */
 if( ! function_exists( 'cubricks_front_page_sidebar_class' ) ) :
 	function cubricks_front_page_sidebar_class() {
@@ -571,7 +571,7 @@ function cubricks_link_pages_args() {
 /**
  * Returns the comments link.
  *
- * @since 1.0.0
+ * @since	1.0.0
  */
 if( ! function_exists('cubricks_comment_link') ) :
 function cubricks_comments_link() {
@@ -589,7 +589,7 @@ endif;
 /**
  * Returns the edit link.
  *
- * @since 1.0.0
+ * @since	1.0.0
  */
 function cubricks_edit_link() {
 	edit_post_link( __( 'Edit', 'cubricks' ), '', '' );
@@ -599,7 +599,7 @@ function cubricks_edit_link() {
 /**
  * Returns the custom header if one is chosen.
  *
- * @since 1.0.0
+ * @since	1.0.0
  */
 function cubricks_custom_header() {
 	
@@ -616,7 +616,7 @@ function cubricks_custom_header() {
 /**
  * Returns the number of words in a post.
  *
- * @since 1.0.8
+ * @since	1.0.8
  */
 function cubricks_word_count() {
 	
@@ -635,7 +635,7 @@ function cubricks_word_count() {
  * To override this length in a child theme, remove the filter and add your own
  * function tied to the excerpt_length filter hook.
  *
- * @since 1.0.0
+ * @since	1.0.0
  */
 function cubricks_excerpt_length() {
 	return 40;
@@ -646,24 +646,26 @@ add_filter( 'excerpt_length', 'cubricks_excerpt_length' );
 /**
  * Returns a "Read More" link and number of words left for excerpts.
  *
- * @since 	 1.0.0
+ * @since 	 	1.0.0
  * @modified 1.0.8
  */
 function cubricks_continue_reading_link() {
 	
 	global $post;
 	
-	$excerpt_length = cubricks_excerpt_length() + 1;
+	// Sets Read more... to a minimum of "2 more words".
+	$excerpt_length = cubricks_excerpt_length() + 2;
 	$word_count = cubricks_word_count();
 	$words_left = $word_count - $excerpt_length;
 	
+	// Translators: 1 is the permalink, 2 is the post title and 3 is the number of words left.
 	$read_more = __( '<p class="read-more"><a href="%1$s" title="%2$s"><span>Read more... </span>  %3$d more words</a></p>', 'cubricks' );
 		
 	$cubricks_more = sprintf(
 		$read_more,									
-		esc_url( get_permalink() ),					// 1
-		esc_attr( the_title_attribute('echo=0') ),  // 2
-		$words_left									// 3							
+		esc_url( get_permalink() ),
+		esc_attr( the_title_attribute('echo=0') ), 
+		$words_left						
 	);
 	return $cubricks_more;
 }
@@ -675,7 +677,7 @@ function cubricks_continue_reading_link() {
  * To override this in a child theme, remove the filter and add your own
  * function tied to the excerpt_more filter hook.
  * 
- * @since 1.0.0
+ * @since	1.0.0
  */
 function cubricks_auto_excerpt_more( $more ) {
 	return ' &hellip;' . cubricks_continue_reading_link();
@@ -689,7 +691,7 @@ add_filter( 'excerpt_more', 'cubricks_auto_excerpt_more' );
  * To override this link in a child theme, remove the filter and add your own
  * function tied to the get_the_excerpt filter hook.
  *
- * @since 1.0.0
+ * @since	1.0.0
  */
 function cubricks_custom_excerpt_more( $output ) {
 	if ( has_excerpt() && ! is_attachment() ) {
@@ -703,7 +705,7 @@ add_filter( 'get_the_excerpt', 'cubricks_custom_excerpt_more' );
 /**
  * Returns a link leading to theme documentation front-page.
  *
- * @since 1.0.0
+ * @since	1.0.0
  */
 function cubricks_theme_link() {
 	?>
@@ -716,7 +718,7 @@ function cubricks_theme_link() {
  * 
  * From wpcandy: http://wpcandy.com/teaches/how-to-display-human-readable-post-dates
  *
- * @since 1.08
+ * @since	1.08
  */
 function cubricks_friendly_time() {
 					
@@ -833,7 +835,7 @@ function cubricks_friendly_time() {
 /**
  * HTML container for our friendly date.
  * 
- * @since 1.08
+ * @since	1.08
  */
 function cubricks_friendly_date() {
 	

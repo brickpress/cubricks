@@ -19,14 +19,14 @@
  * @subpackage Cubricks Theme Functions
  * @author     Raphael Villanea <raphael@cubrick.us>
  * @copyright  Copyright (c) 2012, Raphael Villanea
- * @license    http://www.gnu.org/licenses/gpl-3.0.html
+ * @license    http://www.gnu.org/licenses/gpl-2.0.html
  * @since      1.0.0
  */
 
 /**
  * Convert a chat post into a definition list based on "Name: What they said" content
  *
- * @since 1.0.0
+ * @since	1.0.0
  */
 function cubricks_chat_content() {
 	
@@ -58,7 +58,7 @@ function cubricks_chat_content() {
 /**
  * Returns content for posts using link post format.
  *
- * @since 1.0.0
+ * @since	1.0.0
  */
 function cubricks_link_content() {
 	
@@ -80,7 +80,7 @@ function cubricks_link_content() {
 /**
  * Returns content for quote post format.
  *
- * @since 1.0.0
+ * @since	1.0.0
  */
 function cubricks_quote_content() {
 
@@ -98,7 +98,7 @@ function cubricks_quote_content() {
 /**
  * Content for posts using status post format.
  *
- * @since 1.0.0
+ * @since	1.0.0
  */
 if( ! function_exists('cubricks_status_content') ) :
 function cubricks_status_content() {
@@ -122,7 +122,7 @@ endif;
 /**
  * Returns embedded audio.
  *
- * @since 1.0.8
+ * @since	1.0.8
  */
 function cubricks_get_audio_embed() {
 	
@@ -155,7 +155,7 @@ function cubricks_get_audio_embed() {
 /**
  * Gallery post excerpt.
  *
- * @since 1.0.8
+ * @since	1.0.8
  */
 function cubricks_get_gallery_embed() {
 	
@@ -186,8 +186,8 @@ function cubricks_get_gallery_embed() {
 			// Translators: 1 is the number of objects, 2 is the permalink, 3 is the post title
 			printf( _n( '<p class="read-more"><a href="%2$s" title="%3$s"><span>View more... </span>  %1$d more image</a></p>', '<p class="read-more"><a href="%2$s" title="%3$s"><span>View more... </span>  %1$d more images</a></p>', $count, 'cubricks' ),																																			
 				$count,			// 1
-				$permalink,		// 2
-				$title			// 3
+				$permalink,	// 2
+				$title				// 3
 			);
 		}
 	}
@@ -197,7 +197,7 @@ function cubricks_get_gallery_embed() {
 /**
  * Returns embedded video.
  *
- * @since 1.0.8
+ * @since	1.0.8
  */
 function cubricks_get_video_embed() {
 	
@@ -261,7 +261,7 @@ function cubricks_get_video_embed() {
 /**
  * Returns the first image found.
  *
- * @since 1.0.8
+ * @since	1.0.8
  */
 function cubricks_get_image_embed() {
 	
@@ -302,7 +302,7 @@ function cubricks_get_image_embed() {
 /**
  * Template to show when no posts are found.
  *
- * @since 1.0.0
+ * @since	1.0.0
  */
 function cubricks_no_posts() { 
 	?>

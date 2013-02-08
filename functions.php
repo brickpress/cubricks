@@ -21,7 +21,7 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.html
  */
 if ( !defined( 'CUBRICKS_VERSION' ) )
-	define( 'CUBRICKS_VERSION', '1.0.7' );
+	define( 'CUBRICKS_VERSION', '1.0.8' );
 	
 /**
  * Sets up the content width value based on the theme's design and stylesheet.

@@ -16,7 +16,14 @@
 	
     <div id="sidebar-footer" class="wrapper">
         <div id="supplementary" <?php cubricks_footer_sidebar_class(); ?>>
-        
+		
+		<?php $footer_sidebar_heading = get_theme_mod( 'footer_sidebar_heading' );
+        if( '' != $footer_sidebar_heading ) : ?>
+        <div class="sidebar-footer-heading">
+            <h1><?php echo $footer_sidebar_heading; ?></h1>
+        </div>
+        <?php endif; ?>
+       
         <?php if ( is_active_sidebar( 'sidebar-f1' ) ) : ?>	    
             <div id="first" class="widget-area" role="complementary">
                 <?php dynamic_sidebar( 'sidebar-f1' ); ?>
